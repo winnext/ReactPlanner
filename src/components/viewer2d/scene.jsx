@@ -15,7 +15,16 @@ export default class Scene extends Component {
 
     return (
       <g>
-        <Grids scene={scene}/>
+        {/* <Grids scene={scene}/> */}
+        
+        {/* <svg width={scene.width} height={scene.height} fill="blue">
+          <rect width={scene.width}height={scene.height}  />
+        </svg> */}
+
+        <svg width={scene.width} height={scene.height}
+     xmlns="http://www.w3.org/2000/svg">
+          <image width={scene.width} height={scene.height} href="https://mppxs.csb.app/happy.svg"/>
+        </svg>
 
         <g style={{pointerEvents: 'none'}}>
           {
