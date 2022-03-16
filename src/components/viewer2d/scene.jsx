@@ -21,9 +21,12 @@ export default class Scene extends Component {
           <rect width={scene.width}height={scene.height}  />
         </svg> */}
 
-        <svg width={scene.width} height={scene.height}
-     xmlns="http://www.w3.org/2000/svg">
-          <image width={scene.width} height={scene.height} href="https://mppxs.csb.app/happy.svg"/>
+        <svg 
+        width={scene.width} 
+        height={scene.height}
+        xmlns="http://www.w3.org/2000/svg"
+        >
+          <image width={scene.width} height={scene.height} style={{transformOrigin:"center",transform:'scaleY(-1)'}} href="https://mppxs.csb.app/happy.svg"/>
         </svg>
 
         <g style={{pointerEvents: 'none'}}>
