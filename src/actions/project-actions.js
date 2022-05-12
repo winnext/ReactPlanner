@@ -13,6 +13,7 @@ import {
   UNDO,
   ROLLBACK,
   OPEN_PROJECT_CONFIGURATOR,
+  OPEN_PROJECT_BACKGROUND,
   SET_PROJECT_PROPERTIES,
   INIT_CATALOG,
   UPDATE_MOUSE_COORDS,
@@ -151,6 +152,12 @@ export function rollback() {
 export function openProjectConfigurator() {
   return {
     type: OPEN_PROJECT_CONFIGURATOR
+  };
+}
+
+export function openProjectBackground() {
+  return {
+    type: OPEN_PROJECT_BACKGROUND
   };
 }
 

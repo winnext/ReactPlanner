@@ -5,6 +5,7 @@ import Viewer3D from './viewer3d/viewer3d';
 import Viewer3DFirstPerson from './viewer3d/viewer3d-first-person';
 import CatalogList from './catalog-view/catalog-list';
 import ProjectConfigurator from './configurator/project-configurator';
+import BackgroundConfigurator from './configurator/background-configurator';
 
 import * as constants from '../constants';
 
@@ -38,6 +39,9 @@ export default function Content({width, height, state, customContents}) {
 
     case constants.MODE_CONFIGURING_PROJECT:
       return <ProjectConfigurator width={width} height={height} state={state}/>;
+      
+    case constants.MODE_CONFIGURING_BACKGROUND:
+      return <BackgroundConfigurator width={width} height={height} state={state}/>;
 
     default:
       if (customContents.hasOwnProperty(mode)) {

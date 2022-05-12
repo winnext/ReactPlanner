@@ -15,6 +15,7 @@ import {
   ROLLBACK,
   SET_PROJECT_PROPERTIES,
   OPEN_PROJECT_CONFIGURATOR,
+  OPEN_PROJECT_BACKGROUND,
   INIT_CATALOG,
   UPDATE_MOUSE_COORDS,
   UPDATE_ZOOM_SCALE,
@@ -95,6 +96,10 @@ export default function (state, action) {
     case OPEN_PROJECT_CONFIGURATOR:
       state = state.merge({ sceneHistory: history.historyPush(state.sceneHistory, state.scene) });
       return Project.openProjectConfigurator(state).updatedState;
+
+    case OPEN_PROJECT_BACKGROUND:
+      state = state.merge({ sceneHistory: history.historyPush(state.sceneHistory, state.scene) });
+      return Project.openBackgroundConfigurator(state).updatedState;
 
     case INIT_CATALOG:
       return Project.initCatalog(state, action.catalog).updatedState;
