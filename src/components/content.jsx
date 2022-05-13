@@ -21,6 +21,9 @@ export default function Content({width, height, state, customContents}) {
 
     case constants.MODE_VIEWING_CATALOG:
       return <CatalogList state={state} width={width} height={height}/>;
+    
+    case constants.MODE_VIEWING_ASSETS:
+      return <div style={{width: '100%', height: '100%'}}>Assets</div>
 
     case constants.MODE_IDLE:
     case constants.MODE_2D_ZOOM_IN:

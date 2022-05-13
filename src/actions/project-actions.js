@@ -3,6 +3,7 @@ import {
   LOAD_PROJECT,
   SAVE_PROJECT,
   OPEN_CATALOG,
+  OPEN_ASSETS,
   SELECT_TOOL_EDIT,
   UNSELECT_ALL,
   SET_PROPERTIES,
@@ -58,6 +59,12 @@ export function saveProject() {
 export function openCatalog() {
   return {
     type: OPEN_CATALOG
+  };
+}
+
+export function openAssets() {
+  return {
+    type: OPEN_ASSETS,
   };
 }
 

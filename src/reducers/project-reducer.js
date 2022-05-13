@@ -3,6 +3,7 @@ import {
   LOAD_PROJECT,
   NEW_PROJECT,
   OPEN_CATALOG,
+  OPEN_ASSETS,
   SELECT_TOOL_EDIT,
   MODE_IDLE,
   UNSELECT_ALL,
@@ -50,6 +51,9 @@ export default function (state, action) {
 
     case OPEN_CATALOG:
       return Project.openCatalog(state).updatedState;
+
+    case OPEN_ASSETS:
+      return Project.openAssets(state).updatedState;
 
     case CHANGE_CATALOG_PAGE:
       return Project.changeCatalogPage( state, action.oldPage, action.newPage ).updatedState;
