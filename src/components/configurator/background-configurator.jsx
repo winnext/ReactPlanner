@@ -4,11 +4,9 @@ import Dropzone from "react-dropzone";
 import {
   ContentTitle,
   ContentContainer,
-  FormLabel,
-  FormBlock,
-  FormNumberInput,
   FormSubmitButton,
   CancelButton,
+  DeleteButton,
 } from "../style/export";
 
 export default class ProjectConfigurator extends Component {
@@ -21,27 +19,23 @@ export default class ProjectConfigurator extends Component {
       imgPath: "",
     };
 
-    this.handleDrop = this.handleDrop.bind(this)
+    this.handleDrop = this.handleDrop.bind(this);
   }
 
   //Get img in client
-  handleDrop(acceptedFiles){
-
+  handleDrop(acceptedFiles) {
     let imgPath = "";
     //render to img tag
     var reader = new FileReader();
     reader.onload = function (e) {
-      document.getElementById("resim").setAttribute("src", e.target.result); 
-      imgPath = e.target.result
-      
+      document.getElementById("resim").setAttribute("src", e.target.result);
+      imgPath = e.target.result;
     };
     reader.readAsDataURL(acceptedFiles[0]);
-    setTimeout(()=>{
-      this.setState({imgPath: imgPath})
-    },10)
-
-    
-  };
+    setTimeout(() => {
+      this.setState({ imgPath: imgPath });
+    }, 10);
+  }
 
   onSubmit(event) {
     // event.preventDefault();
@@ -55,19 +49,12 @@ export default class ProjectConfigurator extends Component {
     let { width, height } = this.props;
     let { projectActions, translator } = this.context;
 
-    console.log(this.context)
-    console.log(this.props)
+    console.log(this.context);
+    console.log(this.props);
 
     return (
       <ContentContainer width={width} height={height}>
         <ContentTitle>{translator.t("Background Config")}</ContentTitle>
-        <img
-          id="resim"
-          src="#"
-          alt="img"
-          style={{ width: width/2, height: height/2 }}
-        />
-
         <form onSubmit={(e) => this.onSubmit(e)}>
           <Dropzone
             onDrop={this.handleDrop}
@@ -83,6 +70,13 @@ export default class ProjectConfigurator extends Component {
             )}
           </Dropzone>
 
+          <img
+            id="resim"
+            src="#"
+            alt="img"
+            style={{ width: width / 2, height: height / 2 }}
+          />
+
           <table style={{ float: "right" }}>
             <tbody>
               <tr>
@@ -95,7 +89,18 @@ export default class ProjectConfigurator extends Component {
                   </CancelButton>
                 </td>
                 <td>
-                  <FormSubmitButton disabled={false} size="large">
+                  <DeleteButton
+                    size="large"
+                    onClick={(e) => {
+                      localStorage.removeItem("imgPath");
+                      location.reload();
+                    }}
+                  >
+                    {translator.t("Clear")}
+                  </DeleteButton>
+                </td>
+                <td>
+                  <FormSubmitButton size="large">
                     {translator.t("Save")}
                   </FormSubmitButton>
                 </td>
