@@ -1,0 +1,14 @@
+.dropzone {
+  text-align: center;
+  padding: 20px;
+  border: 2px dashed black;
+  background-color: #fafafa;
+  color: #bdbdbd;
+  border-radius: 50px;
+  margin: 20px 0;
+}
+  
+.dropzone:focus{
+  outline: none;
+  border: 2px dashed blue;
+}

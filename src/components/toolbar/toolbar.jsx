@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { MdSettings, MdUndo, MdDirectionsRun } from 'react-icons/md';
+import { MdSettings, MdUndo, MdDirectionsRun,MdFeaturedVideo } from 'react-icons/md';
 import { FaFile, FaMousePointer, FaPlus } from 'react-icons/fa';
 import ToolbarButton from './toolbar-button';
 import ToolbarSaveButton from './toolbar-save-button';
@@ -11,7 +11,8 @@ import {
   MODE_3D_VIEW,
   MODE_3D_FIRST_PERSON,
   MODE_VIEWING_CATALOG,
-  MODE_CONFIGURING_PROJECT
+  MODE_CONFIGURING_PROJECT,
+  MODE_CONFIGURING_BACKGROUND
 } from '../../constants';
 import * as SharedStyle from '../../shared-style';
 
@@ -144,6 +145,14 @@ export default class Toolbar extends Component {
           tooltip={translator.t('Configure project')}
           onClick={event => projectActions.openProjectConfigurator()}>
           <MdSettings />
+        </ToolbarButton>
+      },
+      {
+        index: 8, condition: true, dom: <ToolbarButton
+            active={[MODE_CONFIGURING_BACKGROUND].includes(mode)}
+            tooltip={translator.t('Background Config')}
+            onClick={event => projectActions.openProjectBackground()}>
+          <MdFeaturedVideo />
         </ToolbarButton>
       }
     ];
