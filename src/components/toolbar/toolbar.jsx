@@ -150,7 +150,7 @@ export default class Toolbar extends Component {
       {
         index: 8, condition: true, dom: <ToolbarButton
             active={[MODE_CONFIGURING_BACKGROUND].includes(mode)}
-            tooltip={translator.t('Configure project')}
+            tooltip={translator.t('Background Config')}
             onClick={event => projectActions.openProjectBackground()}>
           <MdFeaturedVideo />
         </ToolbarButton>

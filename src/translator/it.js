@@ -51,6 +51,7 @@ export default {
   "Pan": "Muovi",
   "Paste":"Incolla",
   "Project config": "Configurazione progetto",
+  "Background Config": "Configurazione sfondo",
   "Properties: [{0}] {1}": "Proprietà: [{0}] {1}",
   "Prototype":"Prototipo",
   "Reset": "Annulla",

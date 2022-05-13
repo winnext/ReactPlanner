@@ -44,16 +44,19 @@ export default class ProjectConfigurator extends Component {
   };
 
   onSubmit(event) {
-    event.preventDefault();
-    localStorage.setItem("imgPath", this.imgPath);
+    // event.preventDefault();
+    localStorage.setItem("imgPath", this.state.imgPath);
 
     let { projectActions } = this.context;
-    projectActions.rollback()
+    // projectActions.rollback()
   }
 
   render() {
     let { width, height } = this.props;
     let { projectActions, translator } = this.context;
+
+    console.log(this.context)
+    console.log(this.props)
 
     return (
       <ContentContainer width={width} height={height}>
@@ -62,15 +65,15 @@ export default class ProjectConfigurator extends Component {
           id="resim"
           src="#"
           alt="img"
-          style={{ width: width, height: height }}
+          style={{ width: width/2, height: height/2 }}
         />
 
         <form onSubmit={(e) => this.onSubmit(e)}>
           <Dropzone
             onDrop={this.handleDrop}
-            accept="image/*"
-            minSize={1024}
-            maxSize={3072000}
+            // accept="svg/*"
+            // minSize={1024}
+            // maxSize={3072000}
           >
             {({ getRootProps, getInputProps }) => (
               <div {...getRootProps({ className: "dropzone" })}>
