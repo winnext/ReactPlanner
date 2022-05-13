@@ -1,5 +1,6 @@
-import React, {Component} from 'react';
-import PropTypes from 'prop-types';
+import React, { Component } from "react";
+import PropTypes from "prop-types";
+import Dropzone from "react-dropzone";
 import {
   ContentTitle,
   ContentContainer,
@@ -7,56 +8,100 @@ import {
   FormBlock,
   FormNumberInput,
   FormSubmitButton,
-  CancelButton
-} from '../style/export';
+  CancelButton,
+} from "../style/export";
 
 export default class ProjectConfigurator extends Component {
-
   constructor(props, context) {
     super(props, context);
 
     let scene = props.state.scene;
 
     this.state = {
-      dataWidth: scene.width,
-      dataHeight: scene.height,
+      imgPath: "",
     };
+
+    this.handleDrop = this.handleDrop.bind(this)
   }
+
+  //Get img in client
+  handleDrop(acceptedFiles){
+
+    let imgPath = "";
+    //render to img tag
+    var reader = new FileReader();
+    reader.onload = function (e) {
+      document.getElementById("resim").setAttribute("src", e.target.result); 
+      imgPath = e.target.result
+      
+    };
+    reader.readAsDataURL(acceptedFiles[0]);
+    setTimeout(()=>{
+      this.setState({imgPath: imgPath})
+    },10)
+
+    
+  };
 
   onSubmit(event) {
     event.preventDefault();
+    localStorage.setItem("imgPath", this.imgPath);
 
-    let {projectActions} = this.context;
-    
+    let { projectActions } = this.context;
+    projectActions.rollback()
   }
 
-
   render() {
-    let {width, height} = this.props;
-    let {projectActions, translator} = this.context;
+    let { width, height } = this.props;
+    let { projectActions, translator } = this.context;
 
     return (
       <ContentContainer width={width} height={height}>
-        <ContentTitle>{translator.t('Background Config')}</ContentTitle>
+        <ContentTitle>{translator.t("Background Config")}</ContentTitle>
+        <img
+          id="resim"
+          src="#"
+          alt="img"
+          style={{ width: width, height: height }}
+        />
 
-        <form onSubmit={e => this.onSubmit(e)}>
+        <form onSubmit={(e) => this.onSubmit(e)}>
+          <Dropzone
+            onDrop={this.handleDrop}
+            accept="image/*"
+            minSize={1024}
+            maxSize={3072000}
+          >
+            {({ getRootProps, getInputProps }) => (
+              <div {...getRootProps({ className: "dropzone" })}>
+                <input {...getInputProps()} />
+                <p>Drag'n'drop images, or click to select files</p>
+              </div>
+            )}
+          </Dropzone>
 
-          <table style={{float: 'right'}}>
+          <table style={{ float: "right" }}>
             <tbody>
-            <tr>
-              <td>
-                <CancelButton size='large'
-                  onClick={e => projectActions.rollback()}>{translator.t('Cancel')}</CancelButton>
-              </td>
-              <td>
-                <FormSubmitButton disable={true} size='large'>{translator.t('Save')}</FormSubmitButton>
-              </td>
-            </tr>
+              <tr>
+                <td>
+                  <CancelButton
+                    size="large"
+                    onClick={(e) => projectActions.rollback()}
+                  >
+                    {translator.t("Cancel")}
+                  </CancelButton>
+                </td>
+                <td>
+                  <FormSubmitButton disabled={false} size="large">
+                    {translator.t("Save")}
+                  </FormSubmitButton>
+                </td>
+              </tr>
             </tbody>
           </table>
         </form>
       </ContentContainer>
-    )
+    );
   }
 }
 
