@@ -8,6 +8,7 @@ import ProjectConfigurator from './configurator/project-configurator';
 import BackgroundConfigurator from './configurator/background-configurator';
 
 import * as constants from '../constants';
+import Assets from './assets';
 
 export default function Content({width, height, state, customContents}) {
   let mode = state.get('mode');
@@ -23,7 +24,7 @@ export default function Content({width, height, state, customContents}) {
       return <CatalogList state={state} width={width} height={height}/>;
     
     case constants.MODE_VIEWING_ASSETS:
-      return <div style={{width: '100%', height: '100%'}}>Assets</div>
+      return <Assets state={state} width={width} height={height}/>
 
     case constants.MODE_IDLE:
     case constants.MODE_2D_ZOOM_IN:
