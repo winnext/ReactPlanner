@@ -18,33 +18,33 @@ items.forEach((item) => {
   catalog.registerElement(newItem(item));
 });
 
-const dumpAssets = [
-  {
-      "image": "https://via.placeholder.com/100x100",
-      "height": 100,
-      "width": 100,
-      "name": "test"
-  },
-  {
-      "image": "https://via.placeholder.com/100x100",
-      "height": 100,
-      "width": 100,
-      "name": "test2"
-  },
-  {
-      "image": "https://via.placeholder.com/100x100",
-      "height": 100,
-      "width": 100,
-      "name": "test3"
-  }
-]
+// const dumpAssets = [
+//   {
+//       "image": "https://via.placeholder.com/100x100",
+//       "height": 100,
+//       "width": 100,
+//       "name": "test"
+//   },
+//   {
+//       "image": "https://via.placeholder.com/100x100",
+//       "height": 100,
+//       "width": 100,
+//       "name": "test2"
+//   },
+//   {
+//       "image": "https://via.placeholder.com/100x100",
+//       "height": 100,
+//       "width": 100,
+//       "name": "test3"
+//   }
+// ]
 
 catalog.registerCategory("assets", "Assets", []);
-dumpAssets.forEach((item) => {
-  const temp = newItem(item)
-  catalog.registerElement(temp);
-  catalog.addToCategory("assets", temp);
-});
+// dumpAssets.forEach((item) => {
+//   const temp = newItem(item)
+//   catalog.registerElement(temp);
+//   catalog.addToCategory("assets", temp);
+// });
 
 catalog.registerCategory("Add Item", "Add Item", []);
 catalog.registerCategory("windows", "Windows", [
