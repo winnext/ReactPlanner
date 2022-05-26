@@ -37,17 +37,28 @@ const Assets = (props, context) => {
   const [assetsList, setAssetsList] = React.useState([]);
 
   useEffect(() => {
-    console.log(context);
-
-    setTimeout(() => {
-      test(0);
-    }, 2000);
-    setTimeout(() => {
-      test(1);
-    }, 4000);
-    setTimeout(() => {
-      test(2);
-    }, 6000);
+    if (context.assets.elements.length === 0) {
+      setTimeout(() => {
+        test(0);
+        console.log(context);
+      }, 2000);
+      setTimeout(() => {
+        test(1);
+        console.log(context);
+      }, 4000);
+      setTimeout(() => {
+        test(2);
+        console.log(context);
+      }, 6000);
+    } else {
+      let assets = context.assets;
+      let elementsToDisplay = assets
+        ? assets.elements.filter((element) =>
+            element.info.visibility ? element.info.visibility.catalog : true
+          )
+        : [];
+      setAssetsList(elementsToDisplay);
+    }
   }, []);
 
   const testList = () => {

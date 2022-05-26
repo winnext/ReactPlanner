@@ -113,6 +113,7 @@ export default class CatalogItem extends Component {
 
   select() {
     let element = this.props.element;
+    console.log(element.prototype)
 
     switch (element.prototype) {
       case 'lines':
