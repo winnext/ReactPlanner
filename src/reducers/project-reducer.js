@@ -3,6 +3,7 @@ import {
   LOAD_PROJECT,
   NEW_PROJECT,
   OPEN_CATALOG,
+  OPEN_ASSETS,
   SELECT_TOOL_EDIT,
   MODE_IDLE,
   UNSELECT_ALL,
@@ -15,6 +16,7 @@ import {
   ROLLBACK,
   SET_PROJECT_PROPERTIES,
   OPEN_PROJECT_CONFIGURATOR,
+  OPEN_PROJECT_BACKGROUND,
   INIT_CATALOG,
   UPDATE_MOUSE_COORDS,
   UPDATE_ZOOM_SCALE,
@@ -49,6 +51,9 @@ export default function (state, action) {
 
     case OPEN_CATALOG:
       return Project.openCatalog(state).updatedState;
+
+    case OPEN_ASSETS:
+      return Project.openAssets(state).updatedState;
 
     case CHANGE_CATALOG_PAGE:
       return Project.changeCatalogPage( state, action.oldPage, action.newPage ).updatedState;
@@ -95,6 +100,10 @@ export default function (state, action) {
     case OPEN_PROJECT_CONFIGURATOR:
       state = state.merge({ sceneHistory: history.historyPush(state.sceneHistory, state.scene) });
       return Project.openProjectConfigurator(state).updatedState;
+
+    case OPEN_PROJECT_BACKGROUND:
+      state = state.merge({ sceneHistory: history.historyPush(state.sceneHistory, state.scene) });
+      return Project.openBackgroundConfigurator(state).updatedState;
 
     case INIT_CATALOG:
       return Project.initCatalog(state, action.catalog).updatedState;

@@ -12,10 +12,19 @@ export default class Scene extends Component {
     let {scene, catalog} = this.props;
     let {height, layers} = scene;
     let selectedLayer = layers.get(scene.selectedLayer);
+    let img = localStorage.getItem("imgPath") ? localStorage.getItem("imgPath") : ""
 
     return (
       <g>
-        <Grids scene={scene}/>
+        {img === "" ? <Grids scene={scene}/>:<svg 
+        width={scene.width} 
+        height={scene.height}
+        xmlns="http://www.w3.org/2000/svg"
+        >
+          <image width={scene.width} height={scene.height} style={{transformOrigin:"center",transform:'scaleY(-1)'}} href={img}/>
+        </svg>}
+
+        
 
         <g style={{pointerEvents: 'none'}}>
           {

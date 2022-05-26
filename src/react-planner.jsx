@@ -38,6 +38,7 @@ class ReactPlanner extends Component {
       ...objectsMap(actions, actionNamespace => this.props[actionNamespace]),
       translator: this.props.translator,
       catalog: this.props.catalog,
+      assets:this.props.catalog.categories.assets,
     }
   }
 
@@ -106,6 +107,7 @@ ReactPlanner.childContextTypes = {
   ...objectsMap(actions, () => PropTypes.object),
   translator: PropTypes.object,
   catalog: PropTypes.object,
+  assets:PropTypes.object,
 };
 
 ReactPlanner.defaultProps = {

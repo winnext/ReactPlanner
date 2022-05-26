@@ -2,6 +2,8 @@ import { Map, List } from 'immutable';
 import {
   MODE_VIEWING_CATALOG,
   MODE_CONFIGURING_PROJECT,
+  MODE_VIEWING_ASSETS,
+  MODE_CONFIGURING_BACKGROUND,
   MODE_IDLE
 } from '../constants';
 import { State, Catalog } from '../models';
@@ -27,6 +29,13 @@ class Project{
 
     return { updatedState: state };
   }
+
+  static openAssets( state ) {
+    state = this.setMode( state, MODE_VIEWING_ASSETS ).updatedState;
+
+    return { updatedState: state };
+  }
+
 
   static newProject(state) {
     state = new State({'viewer2D': state.get('viewer2D')});
@@ -150,6 +159,15 @@ class Project{
   static openProjectConfigurator(state) {
     state = state.merge({
       mode: MODE_CONFIGURING_PROJECT,
+    });
+
+    return { updatedState: state };
+  }
+
+
+  static openBackgroundConfigurator(state) {
+    state = state.merge({
+      mode: MODE_CONFIGURING_BACKGROUND,
     });
 
     return { updatedState: state };

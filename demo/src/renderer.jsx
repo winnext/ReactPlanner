@@ -5,8 +5,8 @@ import Immutable, {Map} from 'immutable';
 import immutableDevtools from 'immutable-devtools';
 import {createStore} from 'redux';
 import {Provider} from 'react-redux';
-
 import MyCatalog from './catalog/mycatalog';
+import "./index.css"
 
 import ToolbarScreenshotButton from './ui/toolbar-screenshot-button';
 

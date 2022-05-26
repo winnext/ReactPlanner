@@ -3,6 +3,7 @@ import {
   LOAD_PROJECT,
   SAVE_PROJECT,
   OPEN_CATALOG,
+  OPEN_ASSETS,
   SELECT_TOOL_EDIT,
   UNSELECT_ALL,
   SET_PROPERTIES,
@@ -13,6 +14,7 @@ import {
   UNDO,
   ROLLBACK,
   OPEN_PROJECT_CONFIGURATOR,
+  OPEN_PROJECT_BACKGROUND,
   SET_PROJECT_PROPERTIES,
   INIT_CATALOG,
   UPDATE_MOUSE_COORDS,
@@ -57,6 +59,12 @@ export function saveProject() {
 export function openCatalog() {
   return {
     type: OPEN_CATALOG
+  };
+}
+
+export function openAssets() {
+  return {
+    type: OPEN_ASSETS,
   };
 }
 
@@ -151,6 +159,12 @@ export function rollback() {
 export function openProjectConfigurator() {
   return {
     type: OPEN_PROJECT_CONFIGURATOR
+  };
+}
+
+export function openProjectBackground() {
+  return {
+    type: OPEN_PROJECT_BACKGROUND
   };
 }
 

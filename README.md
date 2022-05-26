@@ -8,10 +8,9 @@
 
 
 ## Live
+- [![Netlify Status](https://api.netlify.com/api/v1/badges/bfcd5235-4074-4106-a245-d3d91b1c31d0/deploy-status)](https://app.netlify.com/sites/react-planner-signum/deploys)
 
-- [![Netlify Status](https://api.netlify.com/api/v1/badges/cdc00b27-1f27-46ed-896f-45e8d83919f7/deploy-status)](https://wizardly-bell-c47f72.netlify.app/)
-
-- Review at live [here](https://wizardly-bell-c47f72.netlify.app/)
+- Review at live [here](https://react-planner-signum.netlify.app/)
 
 
 ## Original Demo
