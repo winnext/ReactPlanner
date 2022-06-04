@@ -42,7 +42,7 @@ const dumpAssets = [
 catalog.registerCategory("assets", "Assets", []);
 dumpAssets.forEach((item) => {
   const temp = newItem(item)
-  catalog.registerElement(temp);
+  // catalog.registerElement(temp);
   // catalog.addToCategory("assets", temp);
 });
 

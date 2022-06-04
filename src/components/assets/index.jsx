@@ -86,6 +86,7 @@ const Assets = (props, context) => {
           element.info.visibility ? element.info.visibility.catalog : true
         )
       : [];
+    context.projectActions.initCatalog(context.catalog);
     setAssetsList(elementsToDisplay);
   };
 
@@ -112,6 +113,7 @@ Assets.propTypes = {
   width: PropTypes.number.isRequired,
   height: PropTypes.number.isRequired,
   style: PropTypes.object,
+  catalog: PropTypes.object.isRequired,
 };
 
 Assets.contextTypes = {
