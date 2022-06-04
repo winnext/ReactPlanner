@@ -14,6 +14,12 @@ const itemsStyle = {
 
 const dumpAssets = [
   {
+    image: "https://www.burotime.com/Uploads/teknikcizim/assist/AST-CHR-2-MF-3D-SL-PP_dim.png",
+    height: 80,
+    width: 60,
+    name: "Sandalye",
+  },
+  {
     image: "https://via.placeholder.com/100x100",
     height: 100,
     width: 100,

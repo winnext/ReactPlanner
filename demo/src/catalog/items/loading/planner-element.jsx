@@ -1,16 +1,17 @@
 import React from 'react';
 import { BoxGeometry, MeshBasicMaterial, Mesh, BoxHelper } from 'three';
 import { ReactPlannerSharedStyle } from 'react-planner';
+import loadingImage from "./loading.jpeg";
 
 export default {
-  name: 'ombayus',
+  name: 'loading',
   prototype: 'items',
 
   info: {
-    title: 'ombayus',
-    tag: ['ombayus'],
-    description: 'OmBayus',
-    image: require('./ombayus.png')
+    title: '',
+    tag: ['loading'],
+    description: 'loading',
+    image: require('./loading.jpeg')
   },
 
   properties: {
@@ -66,10 +67,11 @@ export default {
     return (
       <g transform={`translate(-${w2}, -${d2})`}>
         <rect x="0" y="0" width={w} height={d} style={style} />
+        <image key='1' x='0' y='0' width={w} height={d} preserveAspectRatio="none"  transform={`translate(0, ${d}) scale(1,-1) rotate(${textRotation})`} href={loadingImage}/>
         <text key='2' x='0' y='0'
               transform={`translate(${w / 2}, ${d / 2}) scale(1,-1) rotate(${textRotation})`}
               style={{textAnchor: 'middle', fontSize: '11px'}}>
-          {element.type}
+          {/* {element.type} */}
         </text>
       </g>
     );
