@@ -16,6 +16,10 @@ import {
   setAlterateState
 } from '../actions/project-actions';
 
+import {
+  selectToolDrawingLine
+} from "../actions/lines-actions"
+
 export default function keyboard() {
 
   return (store, stateExtractor) => {
@@ -57,6 +61,9 @@ export default function keyboard() {
             })));
           break;
         }
+        case KEYBOARD_BUTTON_CODE.W:
+          store.dispatch(selectToolDrawingLine("wall"));
+          break;
         case KEYBOARD_BUTTON_CODE.C:
         {
           let selectedLayer = state.getIn(['scene', 'selectedLayer']);
