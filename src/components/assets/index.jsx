@@ -4,6 +4,7 @@ import ContentContainer from "../style/content-container";
 import ContentTitle from "../style/content-title";
 import CatalogItem from "./catalog-item";
 import newItem from "./newItem";
+import sandalye from "./sandalye";
 
 const itemsStyle = {
   display: "grid",
@@ -67,23 +68,11 @@ const Assets = (props, context) => {
     }
   }, []);
 
-  const testList = () => {
-    dumpAssets.forEach((item) => {
-      const temp = newItem(item);
-      context.catalog.registerElement(temp);
-      context.catalog.addToCategory("assets", temp);
-    });
-    let assets = context.assets;
-    let elementsToDisplay = assets
-      ? assets.elements.filter((element) =>
-          element.info.visibility ? element.info.visibility.catalog : true
-        )
-      : [];
-    setAssetsList(elementsToDisplay);
-  };
-
   const test = (index) => {
-    const temp = newItem(dumpAssets[index]);
+    let temp = newItem(dumpAssets[index]);
+    if(index===0){
+      temp = sandalye(dumpAssets[index]);
+    }
     context.catalog.registerElement(temp);
     context.catalog.addToCategory("assets", temp);
     let assets = context.assets;
