@@ -53,8 +53,8 @@ export default {
       fill: element.properties.get('color')
     };
 
-    let w = element.properties.getIn(['width', 'length']);
-    let d = element.properties.getIn(['depth', 'length']);
+    let w = element.properties.getIn(['width', 'length']) || 100;
+    let d = element.properties.getIn(['depth', 'length']) || 100;
     let w2 = w / 2;
     let d2 = d / 2;
 

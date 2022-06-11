@@ -52,7 +52,7 @@ export default function AreaFactory(name, info, textures) {
       });
 
       let fill = element.selected ? SharedStyle.AREA_MESH_COLOR.selected : element.properties.get('patternColor');
-
+      
       return (<path d={path} fill={fill} />);
     },
 

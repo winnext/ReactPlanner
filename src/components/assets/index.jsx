@@ -5,6 +5,7 @@ import ContentTitle from "../style/content-title";
 import CatalogItem from "./catalog-item";
 import newItem from "./newItem";
 import sandalye from "./sandalye";
+import masa from "./masa";
 
 const itemsStyle = {
   display: "grid",
@@ -21,10 +22,10 @@ const dumpAssets = [
     name: "Sandalye",
   },
   {
-    image: "https://via.placeholder.com/100x100",
-    height: 100,
-    width: 100,
-    name: "test",
+    image: "https://www.freepnglogos.com/uploads/table-png/table-icon-download-icons-20.png",
+    height: 50,
+    width: 150,
+    name: "Masa",
   },
   {
     image: "https://via.placeholder.com/100x100",
@@ -72,6 +73,9 @@ const Assets = (props, context) => {
     let temp = newItem(dumpAssets[index]);
     if(index===0){
       temp = sandalye(dumpAssets[index]);
+    }
+    if(index===1){
+      temp = masa(dumpAssets[index]);
     }
     context.catalog.registerElement(temp);
     context.catalog.addToCategory("assets", temp);

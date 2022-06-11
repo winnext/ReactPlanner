@@ -570,13 +570,13 @@ export default (props)=>({
     return (
       <g transform={ `translate(${-WIDTH / 2},${-DEPTH / 2})`}>
         <rect key="1" x="0" y="0" width={WIDTH} height={DEPTH}
-              style={{stroke: element.selected ? '#0096fd' : '#000', strokeWidth: "2px", fill: "#84e1ce"}}/>
+              style={{stroke: element.selected ? '#0096fd' : 'transparent', strokeWidth: "2px", fill: "transparent"}}/>
         {props.image ? <image key='1' x='0' y='0' width={WIDTH} height={DEPTH} preserveAspectRatio="none"  transform={`translate(0, ${DEPTH}) scale(1,-1) rotate(${textRotation})`} href={props.image}/>:null}
-        <text key="2" x="0" y="0"
+        {/* <text key="2" x="0" y="0"
               transform={ `translate(${WIDTH / 2}, ${DEPTH / 2}) scale(1,-1) rotate(${textRotation})`}
-              style={ {textAnchor: "middle", fontSize: "11px"}}>
+              style={ {textAnchor: "middle", fontSize: "11px",opacity:"0.3"}}>
           {element.type}
-        </text>
+        </text> */}
       </g>
 
     );
