@@ -48,15 +48,12 @@ const Assets = (props, context) => {
     if (context.assets.elements.length === 0) {
       setTimeout(() => {
         test(0);
-        console.log(context);
       }, 2000);
       setTimeout(() => {
         test(1);
-        console.log(context);
       }, 4000);
       setTimeout(() => {
         test(2);
-        console.log(context);
       }, 6000);
     } else {
       let assets = context.assets;

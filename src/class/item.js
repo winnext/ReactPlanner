@@ -25,8 +25,10 @@ class Item{
       width,
       x,
       y,
-      rotation
+      rotation,
     });
+
+    console.log(item)
 
     state = state.setIn(['scene', 'layers', layerID, 'items', itemID], item);
 
@@ -88,7 +90,6 @@ class Item{
         type: state.drawingSupport.get('type')
       })
     });
-
     return { updatedState: state };
   }
 
@@ -136,8 +137,77 @@ class Item{
 
     return { updatedState: state };
   }
-
+  
   static endDraggingItem(state, x, y) {
+    function pointIsInPoly(p, polygon) {
+      var isInside = false;
+      var minX = polygon[0].x, maxX = polygon[0].x;
+      var minY = polygon[0].y, maxY = polygon[0].y;
+      for (var n = 1; n < polygon.length; n++) {
+          var q = polygon[n];
+          minX = Math.min(q.x, minX);
+          maxX = Math.max(q.x, maxX);
+          minY = Math.min(q.y, minY);
+          maxY = Math.max(q.y, maxY);
+      }
+  
+      if (p.x < minX || p.x > maxX || p.y < minY || p.y > maxY) {
+          return false;
+      }
+  
+      var i = 0, j = polygon.length - 1;
+      for (i, j; i < polygon.length; j = i++) {
+          if ( (polygon[i].y > p.y) != (polygon[j].y > p.y) &&
+                  p.x < (polygon[j].x - polygon[i].x) * (p.y - polygon[i].y) / (polygon[j].y - polygon[i].y) + polygon[i].x ) {
+              isInside = !isInside;
+          }
+      }
+  
+      return isInside;
+    }
+  
+    function point(x,y){
+      return {x,y}
+    }
+
+    let itemID = state.draggingSupport.get('itemID');
+    let layerID = state.draggingSupport.get('layerID');
+    let originalX = state.draggingSupport.get('originalX');
+    let originalY = state.draggingSupport.get('originalY');
+    const {layers} = state.scene.toJS()
+    let {x:lastX,y:lastY} = layers[layerID].items[itemID];
+    let areas = layers[layerID].areas
+    let layer = layers[layerID]
+    console.log(originalX,originalY)
+    console.log(lastX,lastY)
+    // console.log(layers)
+    // console.log(areas)
+    let startArea
+    let endArea
+    for(let item in areas){
+      
+      console.log(item)
+      let polygon = []
+      for(let vertex of areas[item].vertices){
+        polygon.push(point(layer.vertices[vertex].x,layer.vertices[vertex].y))
+      }
+      if(pointIsInPoly({x:originalX,y:originalY},polygon)){
+        startArea = item
+      }
+      if(pointIsInPoly({x:lastX,y:lastY},polygon)){
+        endArea = item
+      }
+      console.log(pointIsInPoly({x:lastX,y:lastY},polygon))
+    }
+    if(startArea !== endArea){
+      let inp = confirm("Are you sure?")
+      if(!inp){
+        state = this.updateDraggingItem(state, originalX, originalY).updatedState;
+        state = state.merge({ mode: MODE_IDLE });
+        return {updatedState:state}
+      }
+    }
+
     state = this.updateDraggingItem(state, x, y).updatedState;
     state = state.merge({ mode: MODE_IDLE });
 

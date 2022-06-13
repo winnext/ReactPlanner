@@ -12,7 +12,6 @@ class Area {
       let areaID = IDBroker.acquireID();
 
       let vertices = verticesCoords.map((v) => {
-        console.log(v.id);
         return Vertex.add(state, layerID, v.x, v.y, "areas", areaID).vertex.id;
       });
 
