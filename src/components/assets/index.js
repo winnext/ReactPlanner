@@ -109,7 +109,6 @@ Assets.propTypes = {
   width: PropTypes.number.isRequired,
   height: PropTypes.number.isRequired,
   style: PropTypes.object,
-  catalog: PropTypes.object.isRequired,
 };
 
 Assets.contextTypes = {
