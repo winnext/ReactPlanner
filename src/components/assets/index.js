@@ -88,7 +88,7 @@ const Assets = (props, context) => {
 
   return (
     <ContentContainer width={props.width} height={props.height}>
-      <ContentTitle>{context.translator.t("Assets")}</ContentTitle>
+      <ContentTitle>Assets</ContentTitle>
       <div style={itemsStyle}>
         {assetsList.length !== 0 ? (
           assetsList.map((elem) => (
@@ -114,6 +114,5 @@ Assets.propTypes = {
 Assets.contextTypes = {
   assets: PropTypes.object.isRequired,
   catalog: PropTypes.object.isRequired,
-  translator: PropTypes.object.isRequired,
   projectActions: PropTypes.object.isRequired,
 };
