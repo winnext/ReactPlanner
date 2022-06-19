@@ -80,36 +80,52 @@ export default function ItemAttributesEditor(
             />
           </td>
         </tr>
-        <tr>
-          <td style={firstTdStyle}>Test</td>
-          <td>
-            <FormTextInput
-              value={itemData ? (itemData.test ? itemData.test : "") : ""}
-              onChange={(event) => {
-                return onUpdate("itemData", {
-                  ...itemData,
-                  test: event.target.value,
-                });
-              }}
-              style={inputStyle}
-            />
-          </td>
-        </tr>
-        <tr>
-          <td style={firstTdStyle}>Test2</td>
-          <td>
-            <FormTextInput
-              value={itemData ? (itemData.test2 ? itemData.test2 : "") : ""}
-              onChange={(event) => {
-                return onUpdate("itemData", {
-                  ...itemData,
-                  test2: event.target.value,
-                });
-              }}
-              style={inputStyle}
-            />
-          </td>
-        </tr>
+        {itemData
+          ? itemData.map((item,index) => (
+              <React.Fragment key={index}>
+                <hr></hr>
+                <tr>
+                  <td style={firstTdStyle}>Name</td>
+                  <td>
+                    <FormTextInput
+                      value={item.name}
+                      onChange={(event) => {
+                        return onUpdate("itemData", itemData.map((a,b)=>{
+                          if(b === index) a.name = event.target.value;
+                          return a
+                        }));
+                      }}
+                      style={inputStyle}
+                    />
+                  </td>
+                </tr>
+                <tr>
+                  <td style={firstTdStyle}>Value</td>
+                  <td>
+                    <FormTextInput
+                      value={item.value}
+                      onChange={(event) => {
+                        return onUpdate("itemData", itemData.map((a,b)=>{
+                          if(b === index) a.value = event.target.value;
+                          return a
+                        }));
+                      }}
+                      style={inputStyle}
+                    />
+                  </td>
+                </tr>
+                <button type="button" onClick={()=>onUpdate("itemData", itemData.filter((_,i)=>i!== index))}>delete</button>
+                <hr></hr>
+              </React.Fragment>
+            ))
+          : null}
+        <button
+          onClick={() =>
+            onUpdate("itemData", [...itemData, { name: "", value: "" }])
+          }
+        >
+          +
+        </button>
       </tbody>
     </table>
   );
