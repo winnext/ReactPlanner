@@ -112,7 +112,7 @@ export default class Toolbar extends Component {
         index: 4, condition: true,
         dom: <ToolbarButton
           active={[MODE_VIEWING_ASSETS].includes(mode)}
-          tooltip={translator.t('Open Assets')}
+          tooltip={"Open Assets"}
           onClick={event => projectActions.openAssets()}>
           <MdViewComfy />
         </ToolbarButton>

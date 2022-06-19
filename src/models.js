@@ -139,7 +139,8 @@ export class Item extends Record({
   prototype: 'items',
   x: 0,
   y: 0,
-  rotation: 0
+  rotation: 0,
+  itemData:[],
 }, 'Item') {
   constructor(json = {}) {
     super({
@@ -155,7 +156,7 @@ export class Layer extends Record({
   order: 0,
   opacity: 1,
   name: '',
-  test:'',
+  // test:'',
   visible: true,
   vertices: new Map(),
   lines: new Map(),
@@ -180,7 +181,7 @@ export class Layer extends Record({
 export class Group extends Record({
   ...sharedAttributes,
   prototype: 'groups',
-  test:"",
+  // test:"",
   x: 0,
   y: 0,
   rotation: 0,
