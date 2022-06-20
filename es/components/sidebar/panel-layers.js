@@ -15,7 +15,9 @@ import PropTypes from 'prop-types';
 import { Map } from 'immutable';
 import Panel from './panel';
 import { TiPlus, TiDelete } from 'react-icons/ti';
-import { FaPencilAlt, FaTrash, FaEye } from 'react-icons/fa';
+import { FaPencilAlt, FaTrash, FaEye } from
+// FaAbacus
+'react-icons/fa';
 import { FormTextInput, FormNumberInput, FormSubmitButton, FormSlider, CancelButton } from '../style/export';
 
 import { MODE_IDLE, MODE_2D_ZOOM_IN, MODE_2D_ZOOM_OUT, MODE_2D_PAN, MODE_3D_VIEW, MODE_3D_FIRST_PERSON, MODE_WAITING_DRAWING_LINE, MODE_DRAWING_LINE, MODE_DRAWING_HOLE, MODE_DRAWING_ITEM, MODE_DRAGGING_LINE, MODE_DRAGGING_VERTEX, MODE_DRAGGING_ITEM, MODE_DRAGGING_HOLE, MODE_FITTING_IMAGE, MODE_UPLOADING_IMAGE, MODE_ROTATING_ITEM } from '../../constants';
@@ -103,6 +105,7 @@ var PanelLayers = function (_Component) {
     key: 'updateLayer',
     value: function updateLayer(e, layerData) {
       e.stopPropagation();
+      // let {id, name,test, opacity, altitude, order} = layerData.toJS();
 
       var _layerData$toJS = layerData.toJS(),
           id = _layerData$toJS.id,
@@ -113,6 +116,7 @@ var PanelLayers = function (_Component) {
 
       altitude = parseInt(altitude);
 
+      // this.context.sceneActions.setLayerProperties(id, {name,test, opacity, altitude, order});
       this.context.sceneActions.setLayerProperties(id, { name: name, opacity: opacity, altitude: altitude, order: order });
       this.setState({ layerAddUIVisible: false, editingLayer: new Map() });
     }

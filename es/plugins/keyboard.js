@@ -2,6 +2,8 @@ import { MODE_IDLE, MODE_3D_FIRST_PERSON, MODE_3D_VIEW, MODE_SNAPPING, KEYBOARD_
 
 import { rollback, undo, remove, toggleSnap, copyProperties, pasteProperties, setAlterateState } from '../actions/project-actions';
 
+import { selectToolDrawingLine } from "../actions/lines-actions";
+
 export default function keyboard() {
 
   return function (store, stateExtractor) {
@@ -40,6 +42,9 @@ export default function keyboard() {
             })));
             break;
           }
+        case KEYBOARD_BUTTON_CODE.W:
+          store.dispatch(selectToolDrawingLine("wall"));
+          break;
         case KEYBOARD_BUTTON_CODE.C:
           {
             var selectedLayer = state.getIn(['scene', 'selectedLayer']);
@@ -67,7 +72,7 @@ export default function keyboard() {
             store.dispatch(pasteProperties());
             break;
           }
-        case KEYBOARD_BUTTON_CODE.CTRL:
+        case KEYBOARD_BUTTON_CODE.SHIFT:
           {
             store.dispatch(setAlterateState());
             break;
@@ -86,7 +91,7 @@ export default function keyboard() {
             if (MODE_SNAPPING.includes(mode)) store.dispatch(toggleSnap(state.snapMask.merge(state.snapMask.get('tempSnapConfiguartion'))));
             break;
           }
-        case KEYBOARD_BUTTON_CODE.CTRL:
+        case KEYBOARD_BUTTON_CODE.SHIFT:
           {
             store.dispatch(setAlterateState());
             break;

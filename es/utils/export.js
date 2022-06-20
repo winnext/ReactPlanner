@@ -7,8 +7,10 @@ import * as history from './history';
 import * as ObjectUtils from './objects-utils';
 import IDBroker from './id-broker';
 import NameGenerator from './name-generator';
+import pointIsInPoly from './point-is-in-poly';
+import point from './point';
 
-export { GeometryUtils, GraphInnerCycles, MathUtils, SnapUtils, SnapSceneUtils, history, IDBroker, NameGenerator, ObjectUtils };
+export { GeometryUtils, GraphInnerCycles, MathUtils, SnapUtils, SnapSceneUtils, history, IDBroker, NameGenerator, ObjectUtils, pointIsInPoly, point };
 
 export default {
   GeometryUtils: GeometryUtils,
@@ -19,5 +21,7 @@ export default {
   history: history,
   IDBroker: IDBroker,
   NameGenerator: NameGenerator,
-  ObjectUtils: ObjectUtils
+  ObjectUtils: ObjectUtils,
+  pointIsInPoly: pointIsInPoly,
+  point: point
 };

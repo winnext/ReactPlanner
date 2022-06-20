@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { Context } from "../../Context/Context";
 import If from '../../utils/react-if';
 
 var STYLE_LINE = {
@@ -24,6 +25,10 @@ export default function Item(_ref) {
       item = _ref.item,
       scene = _ref.scene,
       catalog = _ref.catalog;
+
+
+  var context = React.useContext(Context);
+
   var x = item.x,
       y = item.y,
       rotation = item.rotation;
@@ -31,9 +36,18 @@ export default function Item(_ref) {
 
   var renderedItem = catalog.getElement(item.type).render2D(item, layer, scene);
 
+  var lineRef = React.useRef();
+
+  var onContextMenu = function onContextMenu(e) {
+    context.select.setSelect({ id: item.id });
+    context.popup.setOpen(true);
+  };
+
   return React.createElement(
     'g',
     {
+      onContextMenu: onContextMenu,
+      ref: lineRef,
       'data-element-root': true,
       'data-prototype': item.prototype,
       'data-id': item.id,

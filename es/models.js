@@ -198,7 +198,8 @@ export var Item = function (_Record7) {
   prototype: 'items',
   x: 0,
   y: 0,
-  rotation: 0
+  rotation: 0,
+  itemData: []
 }), 'Item'));
 
 export var Layer = function (_Record8) {
@@ -226,6 +227,7 @@ export var Layer = function (_Record8) {
   order: 0,
   opacity: 1,
   name: '',
+  // test:'',
   visible: true,
   vertices: new Map(),
   lines: new Map(),
@@ -252,6 +254,7 @@ export var Group = function (_Record9) {
   return Group;
 }(Record(_extends({}, sharedAttributes, {
   prototype: 'groups',
+  // test:"",
   x: 0,
   y: 0,
   rotation: 0,

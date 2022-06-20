@@ -14,6 +14,8 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
+import ContextProvider from "./Context/Context";
+import Popup from "./components/popup/Popup";
 
 import Translator from './translator/translator';
 import Catalog from './catalog/catalog';
@@ -55,7 +57,8 @@ var ReactPlanner = function (_Component) {
         return _this2.props[actionNamespace];
       }), {
         translator: this.props.translator,
-        catalog: this.props.catalog
+        catalog: this.props.catalog,
+        assets: this.props.catalog.categories.assets
       });
     }
   }, {
@@ -67,6 +70,7 @@ var ReactPlanner = function (_Component) {
           catalog = _props.catalog,
           stateExtractor = _props.stateExtractor,
           plugins = _props.plugins;
+      // get data from localstorage
 
       plugins.forEach(function (plugin) {
         return plugin(store, stateExtractor);
@@ -105,14 +109,19 @@ var ReactPlanner = function (_Component) {
       var extractedState = stateExtractor(state);
 
       return React.createElement(
-        'div',
-        { style: _extends({}, wrapperStyle, { height: height }) },
-        React.createElement(Toolbar, _extends({ width: toolbarW, height: toolbarH, state: extractedState }, props)),
-        React.createElement(Content, _extends({ width: contentW, height: contentH, state: extractedState }, props, { onWheel: function onWheel(event) {
-            return event.preventDefault();
-          } })),
-        React.createElement(Sidebar, _extends({ width: sidebarW, height: sidebarH, state: extractedState }, props)),
-        React.createElement(FooterBar, _extends({ width: width, height: footerBarH, state: extractedState }, props))
+        ContextProvider,
+        null,
+        React.createElement(Popup, null),
+        React.createElement(
+          'div',
+          { style: _extends({}, wrapperStyle, { height: height }) },
+          React.createElement(Toolbar, _extends({ width: toolbarW, height: toolbarH, state: extractedState }, props)),
+          React.createElement(Content, _extends({ width: contentW, height: contentH, state: extractedState }, props, { onWheel: function onWheel(event) {
+              return event.preventDefault();
+            } })),
+          React.createElement(Sidebar, _extends({ width: sidebarW, height: sidebarH, state: extractedState }, props)),
+          React.createElement(FooterBar, _extends({ width: width, height: footerBarH, state: extractedState }, props))
+        )
       );
     }
   }]);
@@ -145,7 +154,8 @@ ReactPlanner.childContextTypes = _extends({}, objectsMap(actions, function () {
   return PropTypes.object;
 }), {
   translator: PropTypes.object,
-  catalog: PropTypes.object
+  catalog: PropTypes.object,
+  assets: PropTypes.object
 });
 
 ReactPlanner.defaultProps = {
