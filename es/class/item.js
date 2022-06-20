@@ -3,7 +3,7 @@ var _createClass = function () { function defineProperties(target, props) { for 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 import { Layer, Group } from './export';
-import { IDBroker, NameGenerator } from '../utils/export';
+import { IDBroker, NameGenerator, point, pointIsInPoly } from '../utils/export';
 import { Map, fromJS } from 'immutable';
 
 import { MODE_IDLE, MODE_DRAWING_ITEM, MODE_DRAGGING_ITEM, MODE_ROTATING_ITEM } from '../constants';
@@ -28,6 +28,8 @@ var Item = function () {
         y: y,
         rotation: rotation
       });
+
+      console.log(item);
 
       state = state.setIn(['scene', 'layers', layerID, 'items', itemID], item);
 
@@ -101,7 +103,6 @@ var Item = function () {
           type: state.drawingSupport.get('type')
         })
       });
-
       return { updatedState: state };
     }
   }, {
@@ -157,6 +158,74 @@ var Item = function () {
   }, {
     key: 'endDraggingItem',
     value: function endDraggingItem(state, x, y) {
+
+      var itemID = state.draggingSupport.get('itemID');
+      var layerID = state.draggingSupport.get('layerID');
+      var originalX = state.draggingSupport.get('originalX');
+      var originalY = state.draggingSupport.get('originalY');
+
+      var _state$scene$toJS = state.scene.toJS(),
+          layers = _state$scene$toJS.layers;
+
+      var _layers$layerID$items = layers[layerID].items[itemID],
+          lastX = _layers$layerID$items.x,
+          lastY = _layers$layerID$items.y;
+
+      var areas = layers[layerID].areas;
+      var layer = layers[layerID];
+      console.log(originalX, originalY);
+      console.log(lastX, lastY);
+      // console.log(layers)
+      // console.log(areas)
+      var startArea = void 0;
+      var endArea = void 0;
+      for (var item in areas) {
+
+        console.log(item);
+        var polygon = [];
+        var _iteratorNormalCompletion = true;
+        var _didIteratorError = false;
+        var _iteratorError = undefined;
+
+        try {
+          for (var _iterator = areas[item].vertices[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
+            var vertex = _step.value;
+
+            // console.log(layer.vertices[vertex].x,layer.vertices[vertex].y)
+            polygon.push(point(layer.vertices[vertex].x, layer.vertices[vertex].y));
+          }
+        } catch (err) {
+          _didIteratorError = true;
+          _iteratorError = err;
+        } finally {
+          try {
+            if (!_iteratorNormalCompletion && _iterator.return) {
+              _iterator.return();
+            }
+          } finally {
+            if (_didIteratorError) {
+              throw _iteratorError;
+            }
+          }
+        }
+
+        if (pointIsInPoly(point(originalX, originalY), polygon)) {
+          startArea = item;
+        }
+        if (pointIsInPoly(point(lastX, lastY), polygon)) {
+          endArea = item;
+        }
+        console.log(pointIsInPoly(point(lastX, lastY), polygon));
+      }
+      if (startArea !== endArea) {
+        var inp = confirm("Are you sure?");
+        if (!inp) {
+          state = this.updateDraggingItem(state, originalX, originalY).updatedState;
+          state = state.merge({ mode: MODE_IDLE });
+          return { updatedState: state };
+        }
+      }
+
       state = this.updateDraggingItem(state, x, y).updatedState;
       state = state.merge({ mode: MODE_IDLE });
 

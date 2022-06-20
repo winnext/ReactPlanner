@@ -51,6 +51,7 @@ export default {
   "Pan": "Pan",
   "Paste": "Paste",
   "Project config": "Project config",
+  "Background Config": "Background Config",
   "Properties: [{0}] {1}": "Properties: [{0}] {1}",
   "Prototype": "Prototype",
   "Reset": "Reset",

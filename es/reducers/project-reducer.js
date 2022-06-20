@@ -1,5 +1,5 @@
 import { history } from '../utils/export';
-import { LOAD_PROJECT, NEW_PROJECT, OPEN_CATALOG, SELECT_TOOL_EDIT, MODE_IDLE, UNSELECT_ALL, SET_PROPERTIES, SET_ITEMS_ATTRIBUTES, SET_LINES_ATTRIBUTES, SET_HOLES_ATTRIBUTES, REMOVE, UNDO, ROLLBACK, SET_PROJECT_PROPERTIES, OPEN_PROJECT_CONFIGURATOR, INIT_CATALOG, UPDATE_MOUSE_COORDS, UPDATE_ZOOM_SCALE, TOGGLE_SNAP, CHANGE_CATALOG_PAGE, GO_BACK_TO_CATALOG_PAGE, THROW_ERROR, THROW_WARNING, COPY_PROPERTIES, PASTE_PROPERTIES, PUSH_LAST_SELECTED_CATALOG_ELEMENT_TO_HISTORY, ALTERATE_STATE, SET_MODE, ADD_HORIZONTAL_GUIDE, ADD_VERTICAL_GUIDE, ADD_CIRCULAR_GUIDE, REMOVE_HORIZONTAL_GUIDE, REMOVE_VERTICAL_GUIDE, REMOVE_CIRCULAR_GUIDE } from '../constants';
+import { LOAD_PROJECT, NEW_PROJECT, OPEN_CATALOG, OPEN_ASSETS, SELECT_TOOL_EDIT, MODE_IDLE, UNSELECT_ALL, SET_PROPERTIES, SET_ITEMS_ATTRIBUTES, SET_LINES_ATTRIBUTES, SET_HOLES_ATTRIBUTES, REMOVE, UNDO, ROLLBACK, SET_PROJECT_PROPERTIES, OPEN_PROJECT_CONFIGURATOR, OPEN_PROJECT_BACKGROUND, INIT_CATALOG, UPDATE_MOUSE_COORDS, UPDATE_ZOOM_SCALE, TOGGLE_SNAP, CHANGE_CATALOG_PAGE, GO_BACK_TO_CATALOG_PAGE, THROW_ERROR, THROW_WARNING, COPY_PROPERTIES, PASTE_PROPERTIES, PUSH_LAST_SELECTED_CATALOG_ELEMENT_TO_HISTORY, ALTERATE_STATE, SET_MODE, ADD_HORIZONTAL_GUIDE, ADD_VERTICAL_GUIDE, ADD_CIRCULAR_GUIDE, REMOVE_HORIZONTAL_GUIDE, REMOVE_VERTICAL_GUIDE, REMOVE_CIRCULAR_GUIDE } from '../constants';
 
 import { Project } from '../class/export';
 
@@ -14,6 +14,9 @@ export default function (state, action) {
 
     case OPEN_CATALOG:
       return Project.openCatalog(state).updatedState;
+
+    case OPEN_ASSETS:
+      return Project.openAssets(state).updatedState;
 
     case CHANGE_CATALOG_PAGE:
       return Project.changeCatalogPage(state, action.oldPage, action.newPage).updatedState;
@@ -60,6 +63,10 @@ export default function (state, action) {
     case OPEN_PROJECT_CONFIGURATOR:
       state = state.merge({ sceneHistory: history.historyPush(state.sceneHistory, state.scene) });
       return Project.openProjectConfigurator(state).updatedState;
+
+    case OPEN_PROJECT_BACKGROUND:
+      state = state.merge({ sceneHistory: history.historyPush(state.sceneHistory, state.scene) });
+      return Project.openBackgroundConfigurator(state).updatedState;
 
     case INIT_CATALOG:
       return Project.initCatalog(state, action.catalog).updatedState;
