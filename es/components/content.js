@@ -5,8 +5,10 @@ import Viewer3D from './viewer3d/viewer3d';
 import Viewer3DFirstPerson from './viewer3d/viewer3d-first-person';
 import CatalogList from './catalog-view/catalog-list';
 import ProjectConfigurator from './configurator/project-configurator';
+import BackgroundConfigurator from './configurator/background-configurator';
 
 import * as constants from '../constants';
+import Assets from './assets';
 
 export default function Content(_ref) {
   var width = _ref.width,
@@ -26,6 +28,9 @@ export default function Content(_ref) {
     case constants.MODE_VIEWING_CATALOG:
       return React.createElement(CatalogList, { state: state, width: width, height: height });
 
+    case constants.MODE_VIEWING_ASSETS:
+      return React.createElement(Assets, { state: state, width: width, height: height });
+
     case constants.MODE_IDLE:
     case constants.MODE_2D_ZOOM_IN:
     case constants.MODE_2D_ZOOM_OUT:
@@ -43,6 +48,9 @@ export default function Content(_ref) {
 
     case constants.MODE_CONFIGURING_PROJECT:
       return React.createElement(ProjectConfigurator, { width: width, height: height, state: state });
+
+    case constants.MODE_CONFIGURING_BACKGROUND:
+      return React.createElement(BackgroundConfigurator, { width: width, height: height, state: state });
 
     default:
       if (customContents.hasOwnProperty(mode)) {

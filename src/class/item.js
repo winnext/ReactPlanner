@@ -1,7 +1,9 @@
 import { Layer, Group } from './export';
 import {
   IDBroker,
-  NameGenerator
+  NameGenerator,
+  point,
+  pointIsInPoly
 } from '../utils/export';
 import { Map, fromJS } from 'immutable';
 
@@ -25,8 +27,10 @@ class Item{
       width,
       x,
       y,
-      rotation
+      rotation,
     });
+
+    console.log(item)
 
     state = state.setIn(['scene', 'layers', layerID, 'items', itemID], item);
 
@@ -88,7 +92,6 @@ class Item{
         type: state.drawingSupport.get('type')
       })
     });
-
     return { updatedState: state };
   }
 
@@ -136,8 +139,48 @@ class Item{
 
     return { updatedState: state };
   }
-
+  
   static endDraggingItem(state, x, y) {
+
+    let itemID = state.draggingSupport.get('itemID');
+    let layerID = state.draggingSupport.get('layerID');
+    let originalX = state.draggingSupport.get('originalX');
+    let originalY = state.draggingSupport.get('originalY');
+    const {layers} = state.scene.toJS()
+    let {x:lastX,y:lastY} = layers[layerID].items[itemID];
+    let areas = layers[layerID].areas
+    let layer = layers[layerID]
+    console.log(originalX,originalY)
+    console.log(lastX,lastY)
+    // console.log(layers)
+    // console.log(areas)
+    let startArea
+    let endArea
+    for(let item in areas){
+      
+      console.log(item)
+      let polygon = []
+      for(let vertex of areas[item].vertices){
+        // console.log(layer.vertices[vertex].x,layer.vertices[vertex].y)
+        polygon.push(point(layer.vertices[vertex].x,layer.vertices[vertex].y))
+      }
+      if(pointIsInPoly(point(originalX,originalY),polygon)){
+        startArea = item
+      }
+      if(pointIsInPoly(point(lastX,lastY),polygon)){
+        endArea = item
+      }
+      console.log(pointIsInPoly(point(lastX,lastY),polygon))
+    }
+    if(startArea !== endArea){
+      let inp = confirm("Are you sure?")
+      if(!inp){
+        state = this.updateDraggingItem(state, originalX, originalY).updatedState;
+        state = state.merge({ mode: MODE_IDLE });
+        return {updatedState:state}
+      }
+    }
+
     state = this.updateDraggingItem(state, x, y).updatedState;
     state = state.merge({ mode: MODE_IDLE });
 

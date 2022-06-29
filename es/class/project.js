@@ -3,7 +3,7 @@ var _createClass = function () { function defineProperties(target, props) { for 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 import { Map, List } from 'immutable';
-import { MODE_VIEWING_CATALOG, MODE_CONFIGURING_PROJECT, MODE_IDLE } from '../constants';
+import { MODE_VIEWING_CATALOG, MODE_CONFIGURING_PROJECT, MODE_VIEWING_ASSETS, MODE_CONFIGURING_BACKGROUND, MODE_IDLE } from '../constants';
 import { State, Catalog } from '../models';
 import { history } from '../utils/export';
 import { Layer, Group, Line, Hole, Item, HorizontalGuide, VerticalGuide } from '../class/export';
@@ -22,6 +22,13 @@ var Project = function () {
     key: 'openCatalog',
     value: function openCatalog(state) {
       state = this.setMode(state, MODE_VIEWING_CATALOG).updatedState;
+
+      return { updatedState: state };
+    }
+  }, {
+    key: 'openAssets',
+    value: function openAssets(state) {
+      state = this.setMode(state, MODE_VIEWING_ASSETS).updatedState;
 
       return { updatedState: state };
     }
@@ -178,6 +185,15 @@ var Project = function () {
     value: function openProjectConfigurator(state) {
       state = state.merge({
         mode: MODE_CONFIGURING_PROJECT
+      });
+
+      return { updatedState: state };
+    }
+  }, {
+    key: 'openBackgroundConfigurator',
+    value: function openBackgroundConfigurator(state) {
+      state = state.merge({
+        mode: MODE_CONFIGURING_BACKGROUND
       });
 
       return { updatedState: state };

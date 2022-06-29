@@ -51,6 +51,7 @@ export default {
   "Pan": "Двигать",
   "Paste": "Вставить",
   "Project config": "Настройка проекта",
+  "Background Config": "Фоновая конфигурация",
   "Properties: [{0}] {1}": "Свойства: [{0}] {1}",
   "Prototype": "Опытный образец",
   "Reset": "Сброс",

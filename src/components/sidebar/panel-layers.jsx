@@ -3,7 +3,12 @@ import PropTypes from 'prop-types';
 import { Map } from 'immutable';
 import Panel from './panel';
 import {TiPlus, TiDelete} from 'react-icons/ti';
-import {FaPencilAlt, FaTrash, FaEye, FaAbacus} from 'react-icons/fa';
+import {
+  FaPencilAlt, 
+  FaTrash, 
+  FaEye, 
+  // FaAbacus
+} from 'react-icons/fa';
 import {
   FormTextInput,
   FormNumberInput,
@@ -98,11 +103,13 @@ export default class PanelLayers extends Component {
 
   updateLayer(e, layerData) {
     e.stopPropagation();
-    let {id, name,test, opacity, altitude, order} = layerData.toJS();
+    // let {id, name,test, opacity, altitude, order} = layerData.toJS();
+    let {id, name, opacity, altitude, order} = layerData.toJS();
 
     altitude = parseInt(altitude);
 
-    this.context.sceneActions.setLayerProperties(id, {name,test, opacity, altitude, order});
+    // this.context.sceneActions.setLayerProperties(id, {name,test, opacity, altitude, order});
+    this.context.sceneActions.setLayerProperties(id, {name, opacity, altitude, order});
     this.setState({layerAddUIVisible: false, editingLayer: new Map()});
   }
 
@@ -166,11 +173,11 @@ export default class PanelLayers extends Component {
                         title={this.context.translator.t('Configure layer')}
                       />
                     </td>
-                    <td style={iconColStyle}>
+                    {/* <td style={iconColStyle}>
                       <FaAbacus
                         onClick={()=>console.log(layer.test)}
                       />
-                    </td>
+                    </td> */}
                     <td style={iconColStyle}>
                       {
                         !isLastLayer ?
@@ -218,7 +225,7 @@ export default class PanelLayers extends Component {
                     />
                   </td>
                 </tr>
-                <tr style={{marginTop: '1em'}}>
+                {/* <tr style={{marginTop: '1em'}}>
                   <td style={firstTdStyle}>{this.context.translator.t('Test')}:</td>
                   <td>
                     <FormTextInput
@@ -226,7 +233,7 @@ export default class PanelLayers extends Component {
                       onChange={e => this.setState({editingLayer: this.state.editingLayer.merge({test: e.target.value})})}
                     />
                   </td>
-                </tr>
+                </tr> */}
                 <tr>
                   <td style={firstTdStyle}>{this.context.translator.t('opacity')}:</td>
                   <td>

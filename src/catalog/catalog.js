@@ -41,6 +41,9 @@ export default class Catalog {
     if (this.hasElement(type)) {
       return this.elements[type];
     }
+    else{
+      return this.elements["loading"]
+    }
     throw new Error(`Element ${type} does not exist in catalog`);
   }
 

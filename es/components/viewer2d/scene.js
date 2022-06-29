@@ -36,11 +36,20 @@ var Scene = function (_Component) {
           layers = scene.layers;
 
       var selectedLayer = layers.get(scene.selectedLayer);
+      var img = localStorage.getItem("imgPath") ? localStorage.getItem("imgPath") : "";
 
       return React.createElement(
         'g',
         null,
-        React.createElement(Grids, { scene: scene }),
+        img === "" ? React.createElement(Grids, { scene: scene }) : React.createElement(
+          'svg',
+          {
+            width: scene.width,
+            height: scene.height,
+            xmlns: 'http://www.w3.org/2000/svg'
+          },
+          React.createElement('image', { width: scene.width, height: scene.height, style: { transformOrigin: "center", transform: 'scaleY(-1)' }, href: img })
+        ),
         React.createElement(
           'g',
           { style: { pointerEvents: 'none' } },

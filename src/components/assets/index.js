@@ -4,6 +4,8 @@ import ContentContainer from "../style/content-container";
 import ContentTitle from "../style/content-title";
 import CatalogItem from "./catalog-item";
 import newItem from "./newItem";
+import sandalye from "./sandalye";
+import masa from "./masa";
 
 const itemsStyle = {
   display: "grid",
@@ -14,10 +16,16 @@ const itemsStyle = {
 
 const dumpAssets = [
   {
-    image: "https://via.placeholder.com/100x100",
-    height: 100,
-    width: 100,
-    name: "test",
+    image: "https://www.burotime.com/Uploads/teknikcizim/assist/AST-CHR-2-MF-3D-SL-PP_dim.png",
+    height: 80,
+    width: 60,
+    name: "Sandalye",
+  },
+  {
+    image: "https://www.freepnglogos.com/uploads/table-png/table-icon-download-icons-20.png",
+    height: 50,
+    width: 150,
+    name: "Masa",
   },
   {
     image: "https://via.placeholder.com/100x100",
@@ -40,15 +48,12 @@ const Assets = (props, context) => {
     if (context.assets.elements.length === 0) {
       setTimeout(() => {
         test(0);
-        console.log(context);
       }, 2000);
       setTimeout(() => {
         test(1);
-        console.log(context);
       }, 4000);
       setTimeout(() => {
         test(2);
-        console.log(context);
       }, 6000);
     } else {
       let assets = context.assets;
@@ -61,23 +66,14 @@ const Assets = (props, context) => {
     }
   }, []);
 
-  const testList = () => {
-    dumpAssets.forEach((item) => {
-      const temp = newItem(item);
-      context.catalog.registerElement(temp);
-      context.catalog.addToCategory("assets", temp);
-    });
-    let assets = context.assets;
-    let elementsToDisplay = assets
-      ? assets.elements.filter((element) =>
-          element.info.visibility ? element.info.visibility.catalog : true
-        )
-      : [];
-    setAssetsList(elementsToDisplay);
-  };
-
   const test = (index) => {
-    const temp = newItem(dumpAssets[index]);
+    let temp = newItem(dumpAssets[index]);
+    if(index===0){
+      temp = sandalye(dumpAssets[index]);
+    }
+    if(index===1){
+      temp = masa(dumpAssets[index]);
+    }
     context.catalog.registerElement(temp);
     context.catalog.addToCategory("assets", temp);
     let assets = context.assets;
@@ -86,12 +82,13 @@ const Assets = (props, context) => {
           element.info.visibility ? element.info.visibility.catalog : true
         )
       : [];
+    context.projectActions.initCatalog(context.catalog);
     setAssetsList(elementsToDisplay);
   };
 
   return (
     <ContentContainer width={props.width} height={props.height}>
-      <ContentTitle>{context.translator.t("Assets")}</ContentTitle>
+      <ContentTitle>Assets</ContentTitle>
       <div style={itemsStyle}>
         {assetsList.length !== 0 ? (
           assetsList.map((elem) => (
@@ -117,6 +114,5 @@ Assets.propTypes = {
 Assets.contextTypes = {
   assets: PropTypes.object.isRequired,
   catalog: PropTypes.object.isRequired,
-  translator: PropTypes.object.isRequired,
   projectActions: PropTypes.object.isRequired,
 };

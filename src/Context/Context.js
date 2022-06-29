@@ -15,7 +15,7 @@ export default function ContextProvider(props) {
 
       document.addEventListener("keydown",e=>{
         if(e.keyCode === 27)
-          setOpen(false)
+          setPopup(false)
       })
 
       const temp = localStorage.getItem("data")

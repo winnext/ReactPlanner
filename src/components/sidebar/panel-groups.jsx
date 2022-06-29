@@ -3,7 +3,9 @@ import PropTypes from 'prop-types';
 import Panel from './panel';
 import * as SharedStyle from '../../shared-style';
 import {TiPlus, TiDelete} from 'react-icons/ti';
-import {FaTrash, FaEye, FaLink, FaUnlink,FaAbacus} from 'react-icons/fa';
+import {FaTrash, FaEye, FaLink, FaUnlink,
+  // FaAbacus
+} from 'react-icons/fa';
 import { Map } from 'immutable';
 
 import {
@@ -133,11 +135,11 @@ export default class PanelGroups extends Component {
                         style={!group.get('visible') ? styleEyeHidden : styleEyeVisible}
                       />
                     </td>
-                    <td style={iconColStyle} title={this.context.translator.t('Toggle Group Visibility')}>
+                    {/* <td style={iconColStyle} title={this.context.translator.t('Toggle Group Visibility')}>
                       <FaAbacus
                         onClick={()=>console.log(group.get('test'))}
                       />
-                    </td>
+                    </td> */}
                     <td style={iconColStyle} title={this.context.translator.t('Chain selected Elements to Group')}>
                       <FaLink
                         onClick={chainToGroup}
