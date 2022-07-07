@@ -1,6 +1,7 @@
 import PropertyColor from './property-color';
 import PropertyEnum from './property-enum';
 import PropertyString from './property-string';
+import PropertyChips from './property-chips';
 import PropertyNumber from './property-number';
 import PropertyLengthMeasure from './property-lenght-measure';
 import PropertyToggle from './property-toggle';
@@ -12,6 +13,7 @@ export {
   PropertyColor,
   PropertyEnum,
   PropertyString,
+  PropertyChips,
   PropertyNumber,
   PropertyLengthMeasure,
   PropertyToggle,
@@ -24,6 +26,7 @@ export default {
   PropertyColor,
   PropertyEnum,
   PropertyString,
+  PropertyChips,
   PropertyNumber,
   PropertyLengthMeasure,
   PropertyToggle,

@@ -32,8 +32,8 @@ export default function AreaFactory(name, info, textures) {
       },
       tag: {
         label: "tag",
-        type: 'string',
-        defaultValue: ""
+        type: 'chips',
+        defaultValue: []
       }
     },
     render2D: function (element, layer, scene) {
