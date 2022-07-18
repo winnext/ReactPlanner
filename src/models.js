@@ -156,7 +156,7 @@ export class Layer extends Record({
   order: 0,
   opacity: 1,
   name: '',
-  // test:'',
+  color:'',
   visible: true,
   vertices: new Map(),
   lines: new Map(),

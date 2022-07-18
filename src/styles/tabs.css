@@ -45,3 +45,10 @@
 .chips-item:hover{
   opacity: 0.8;
 }
+
+.colorize *{
+  fill:var(--color)!important;
+  stroke: var(--color)!important;
+  background-color: var(--color)!important;
+  background-image: none;
+}

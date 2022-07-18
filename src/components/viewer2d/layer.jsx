@@ -10,11 +10,13 @@ import {
 
 export default function Layer({ layer, scene, catalog }) {
 
-  let { unit, groups } = scene;
-  let { lines, areas, vertices, holes, id: layerID, items, opacity } = layer;
+  let { unit, groups,width,height, } = scene;
+  let { lines, areas, vertices, holes, id: layerID, items, opacity,color } = layer;
+
 
   return (
-    <g opacity={opacity}>
+    <g opacity={opacity} className={color && "colorize"} style={{'--color':color }} >
+      {/* <path fill={color} opacity={opacity/2} d={`M 0 0 L 0 ${height} L ${width} ${height} L ${width} 0`} /> */}
       {
         areas.valueSeq().map(area =>
           <Area key={area.id} layer={layer} area={area} unit={unit} catalog={catalog} />)

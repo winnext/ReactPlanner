@@ -56,7 +56,7 @@ export default function PropertyChips({
                 className="chips-item"
                 onClick={() => update(value.filter((_, ind) => ind !== index))}
               >
-                <span>{item}</span>
+                <span>#{item}</span>
                 <span className="chips-delete-btn">
                   <MdClose />
                 </span>

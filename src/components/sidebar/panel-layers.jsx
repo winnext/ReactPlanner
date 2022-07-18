@@ -12,6 +12,7 @@ import {
 import {
   FormTextInput,
   FormNumberInput,
+  FormColorInput,
   FormSubmitButton,
   FormSlider,
   CancelButton
@@ -103,13 +104,13 @@ export default class PanelLayers extends Component {
 
   updateLayer(e, layerData) {
     e.stopPropagation();
-    // let {id, name,test, opacity, altitude, order} = layerData.toJS();
-    let {id, name, opacity, altitude, order} = layerData.toJS();
+    let {id, name,color, opacity, altitude, order} = layerData.toJS();
+    // let {id, name, opacity, altitude, order} = layerData.toJS();
 
     altitude = parseInt(altitude);
 
-    // this.context.sceneActions.setLayerProperties(id, {name,test, opacity, altitude, order});
-    this.context.sceneActions.setLayerProperties(id, {name, opacity, altitude, order});
+    this.context.sceneActions.setLayerProperties(id, {name,color, opacity, altitude, order});
+    // this.context.sceneActions.setLayerProperties(id, {name, opacity, altitude, order});
     this.setState({layerAddUIVisible: false, editingLayer: new Map()});
   }
 
@@ -225,15 +226,16 @@ export default class PanelLayers extends Component {
                     />
                   </td>
                 </tr>
-                {/* <tr style={{marginTop: '1em'}}>
-                  <td style={firstTdStyle}>{this.context.translator.t('Test')}:</td>
+                <tr style={{marginTop: '1em'}}>
+                  <td style={firstTdStyle}>Color:</td>
                   <td>
-                    <FormTextInput
-                      value={this.state.editingLayer.get('test')}
-                      onChange={e => this.setState({editingLayer: this.state.editingLayer.merge({test: e.target.value})})}
+                    <FormColorInput
+                      value={this.state.editingLayer.get('color')}
+                      onChange={e => this.setState({editingLayer: this.state.editingLayer.merge({color: e.target.value})})}
                     />
+                    <button onClick={e=>this.setState({editingLayer: this.state.editingLayer.merge({color: ""})})}>reset</button>
                   </td>
-                </tr> */}
+                </tr>
                 <tr>
                   <td style={firstTdStyle}>{this.context.translator.t('opacity')}:</td>
                   <td>
