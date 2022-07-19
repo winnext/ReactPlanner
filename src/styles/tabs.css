@@ -46,9 +46,28 @@
   opacity: 0.8;
 }
 
-.colorize *{
+.colorize g{
+  opacity: 0.90;
+  background-image: none;
   fill:var(--color)!important;
   stroke: var(--color)!important;
   background-color: var(--color)!important;
-  background-image: none;
 }
+
+.colorize rect{
+  opacity: 0.90;
+  background-image: none;
+  fill:var(--color)!important;
+  stroke: var(--color)!important;
+  background-color: var(--color)!important;
+}
+
+
+.colorize path{
+  opacity: 0.90;
+  background-image: none;
+  fill:var(--color)!important;
+  stroke: var(--color)!important;
+  background-color: var(--color)!important;
+}
+
