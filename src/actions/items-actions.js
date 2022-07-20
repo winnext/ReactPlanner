@@ -3,6 +3,7 @@ import {
   SELECT_TOOL_DRAWING_ITEM,
   UPDATE_DRAWING_ITEM,
   END_DRAWING_ITEM,
+  SET_ITEMS_ITEM_ATTRIBUTES,
   BEGIN_DRAGGING_ITEM,
   UPDATE_DRAGGING_ITEM,
   END_DRAGGING_ITEM,
@@ -17,6 +18,15 @@ export function selectItem(layerID, itemID) {
     layerID,
     itemID
   }
+}
+
+export function setItemAttributes( itemID,layerID, attributes ) {
+  return {
+    type: SET_ITEMS_ITEM_ATTRIBUTES,
+    itemID,
+    layerID,
+    attributes
+  };
 }
 
 export function selectToolDrawingItem(sceneComponentType) {

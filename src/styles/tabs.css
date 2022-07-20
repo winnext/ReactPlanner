@@ -28,3 +28,46 @@
 .react-tabs__tab-panel--selected {
   display: block;
 }
+
+.chips-item{
+  display: flex;
+  align-items: flex-start;
+  cursor: pointer;
+  font-size: 1.5em;
+  transition: all 0.3s ease;
+}
+
+.chips-delete-btn{
+  margin-left: 2px;
+  font-size: 1.2em
+}
+
+.chips-item:hover{
+  opacity: 0.8;
+}
+
+.colorize g{
+  opacity: 0.90;
+  background-image: none;
+  fill:var(--color)!important;
+  stroke: var(--color)!important;
+  background-color: var(--color)!important;
+}
+
+.colorize rect{
+  opacity: 0.90;
+  background-image: none;
+  fill:var(--color)!important;
+  stroke: var(--color)!important;
+  background-color: var(--color)!important;
+}
+
+
+.colorize path{
+  opacity: 0.90;
+  background-image: none;
+  fill:var(--color)!important;
+  stroke: var(--color)!important;
+  background-color: var(--color)!important;
+}
+

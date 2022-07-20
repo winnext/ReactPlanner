@@ -79,7 +79,7 @@ export default class PanelGroupEditor extends Component {
                   />
                 </td>
               </tr>
-              <tr>
+              {/* <tr>
                 <td style={firstTdStyle}>{this.context.translator.t('test')}</td>
                 <td>
                   <FormTextInput
@@ -88,7 +88,7 @@ export default class PanelGroupEditor extends Component {
                     style={inputStyle}
                   />
                 </td>
-              </tr>
+              </tr> */}
               <tr>
                 <td style={firstTdStyle}>X</td>
                 <td>

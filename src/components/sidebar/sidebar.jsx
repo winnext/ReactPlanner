@@ -7,6 +7,7 @@ import PanelLayers from './panel-layers';
 import PanelGuides from './panel-guides';
 import PanelGroups from './panel-groups';
 import PanelLayerElements from './panel-layer-elements';
+import {Context} from "../../Context/Context"
 import * as SharedStyle from '../../shared-style';
 import If from '../../utils/react-if';
 
@@ -35,6 +36,7 @@ const mapButtonsCb = (el, ind) => <If key={ind} condition={el.condition} style={
 export default function Sidebar({ state, width, height, sidebarComponents }) {
 
   let selectedLayer = state.getIn(['scene', 'selectedLayer']);
+  let contextData = React.useContext(Context)
 
   //TODO change in multi-layer check
   let selected = state.getIn(['scene', 'layers', selectedLayer, 'selected']);
@@ -50,7 +52,7 @@ export default function Sidebar({ state, width, height, sidebarComponents }) {
 
   let sorter = [
     { index: 0, condition: true, dom: <PanelGuides state={state}/> },
-    { index: 1, condition: true, dom: <PanelLayers state={state} /> },
+    { index: 1, condition: true, dom: <PanelLayers state={state} showLayersColors={contextData.showLayersColors} /> },
     { index: 2, condition: true, dom: <PanelLayerElements mode={state.mode} layers={state.scene.layers} selectedLayer={state.scene.selectedLayer} /> },
     { index: 3, condition: true, dom: <PanelGroups mode={state.mode} groups={state.scene.groups} layers={state.scene.layers} /> },
     { index: 4, condition: !multiselected, dom: <PanelElementEditor state={state} /> },

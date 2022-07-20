@@ -90,7 +90,22 @@ export default class PanelGroups extends Component {
 
                 let swapVisibility = e => {
                   e.stopPropagation();
-                  this.context.groupsActions.setGroupProperties(groupID, new Map({visible: !group.get('visible')}));
+                  const visibleValue = group.get('visible');
+                  this.context.groupsActions.setGroupAttributes(groupID, new Map({visible: !visibleValue}));
+
+
+                  group.get('elements').map(layer=>{
+                    layer.get('items').map(item=>{
+                      layers.map(layerTemp=>{
+                        layerTemp.get('items').map(itemTemp=>{
+                          if(itemTemp.get('id')===item){
+                            this.context.itemsActions.setItemAttributes(item,layerTemp.get('id'),new Map({visible: !visibleValue}));
+                          }
+                        }
+                        );
+                      })
+                    })
+                  })
                 };
 
                 let chainToGroup = e => {

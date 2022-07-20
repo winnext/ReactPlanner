@@ -140,6 +140,7 @@ export class Item extends Record({
   x: 0,
   y: 0,
   rotation: 0,
+  visible: true,
   itemData:[],
 }, 'Item') {
   constructor(json = {}) {
@@ -156,7 +157,7 @@ export class Layer extends Record({
   order: 0,
   opacity: 1,
   name: '',
-  // test:'',
+  color:'',
   visible: true,
   vertices: new Map(),
   lines: new Map(),
