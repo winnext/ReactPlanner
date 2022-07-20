@@ -24,7 +24,7 @@ export default function Item({layer, item, scene, catalog}) {
 
   const context = React.useContext(Context)
 
-  let {x, y, rotation} = item;
+  let {x, y, rotation,visible} = item;
 
   let renderedItem = catalog.getElement(item.type).render2D(item, layer, scene);
 
@@ -35,7 +35,6 @@ export default function Item({layer, item, scene, catalog}) {
     context.select.setSelect({id:item.id})
     context.popup.setOpen(true)
   }
-
   return (
     <g
       onContextMenu={onContextMenu}
@@ -46,8 +45,8 @@ export default function Item({layer, item, scene, catalog}) {
       data-selected={item.selected}
       data-layer={layer.id}
       style={item.selected ? {cursor: "move"} : {}}
+      visibility={visible ? "visible" : "hidden"}
       transform={`translate(${x},${y}) rotate(${rotation})`}>
-
       {renderedItem}
       <If condition={item.selected}>
         <g data-element-root
