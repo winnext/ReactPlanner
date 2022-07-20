@@ -23,6 +23,7 @@ export default function Group({ layer, group, scene, catalog }, {translator}) {
       data-layer={layer.id}
       style={group.selected ? { cursor: 'move' } : {}}
       transform={`translate(${group.x},${group.y}) rotate(${group.rotation})`}
+      visibility={group.visible ? 'visible' : 'hidden'}
     >
       <If condition={group.selected}>
         <g
