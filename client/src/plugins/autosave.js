@@ -42,7 +42,8 @@ export default function autosave(autosaveKey, delay) {
           console.log(err);
         });
     } else {
-      window.location.href = "http://localhost:3000/facilitystructure?search="+key;
+      window.location.href = "http://localhost:3000/facilitystructure";
+      // window.location.href = "http://localhost:3000/facilitystructure?search="+key;
     }
 
     // auto save in database
