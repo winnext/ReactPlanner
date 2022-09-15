@@ -15,19 +15,23 @@ export default function autosave(autosaveKey, delay) {
     var key = url.searchParams.get("key");
     if (key) {
       axios
-        .get("http://localhost:9001/plan/" + key)
-        .then((res) => {
-          if (res.data) {
-            store.dispatch(loadProject(res.data.plan));
-          } else {
-            let state = stateExtractor(store.getState());
-            axios
-              .post("http://localhost:9001/plan", {
-                key,
-                plan: state.scene.toJS(),
+      .get("http://localhost:9001/plan/" + key)
+      .then((res) => {
+        if (res.data) {
+          console.log(res.data);
+          store.dispatch(loadProject(res.data.plan));
+        } else {
+          let state = stateExtractor(store.getState());
+          let plan = state.scene.toJS()
+          plan.layers["layer-1"].key = key
+          axios
+          .post("http://localhost:9001/plan", {
+            key,
+            plan: plan,
               })
               .then((res) => {
                 console.log(res);
+                store.dispatch(loadProject(plan));
               })
               .catch((err) => {
                 console.log(err);
@@ -38,7 +42,7 @@ export default function autosave(autosaveKey, delay) {
           console.log(err);
         });
     } else {
-      window.location.href = "http://localhost:3000/facilitystructure";
+      window.location.href = "http://localhost:3000/facilitystructure?search="+key;
     }
 
     // auto save in database
