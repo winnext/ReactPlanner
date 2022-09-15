@@ -42,20 +42,20 @@ export default function autosave(autosaveKey, delay) {
     }
 
     // auto save in database
-    store.subscribe(() => {
-      if (timeout) clearTimeout(timeout);
-      const state = stateExtractor(store.getState());
-      const plan = state.get("scene").toJS();
-      timeout = setTimeout(() => {
-        axios.patch("http://localhost:9001/plan/" + key, { key, plan });
+    // store.subscribe(() => {
+    //   if (timeout) clearTimeout(timeout);
+    //   const state = stateExtractor(store.getState());
+    //   const plan = state.get("scene").toJS();
+    //   timeout = setTimeout(() => {
+    //     axios.patch("http://localhost:9001/plan/" + key, { key, plan });
 
-        /*let scene = state.sceneHistory.last;
-        if (scene) {
-          let json = JSON.stringify(scene.toJS());
-          localStorage.setItem(autosaveKey, json);
-        }*/
-      }, delay);
-    });
+    //     /*let scene = state.sceneHistory.last;
+    //     if (scene) {
+    //       let json = JSON.stringify(scene.toJS());
+    //       localStorage.setItem(autosaveKey, json);
+    //     }*/
+    //   }, delay);
+    // });
 
     return;
 
