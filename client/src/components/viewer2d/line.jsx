@@ -3,11 +3,11 @@ import PropTypes from 'prop-types';
 import {GeometryUtils} from '../../utils/export';
 import Ruler from './ruler';
 
-import {Context} from "../../Context/Context"
+// import {Context} from "../../Context/Context"
 
 export default function Line({line, layer, scene, catalog}) {
   
-  const context = useContext(Context)
+  // const context = useContext(Context)
 
   let vertex0 = layer.vertices.get(line.vertices.get(0));
   let vertex1 = layer.vertices.get(line.vertices.get(1));
@@ -54,14 +54,14 @@ export default function Line({line, layer, scene, catalog}) {
 
   const lineRef = React.useRef()
 
-  const onContextMenu = (e)=>{
-    context.select.setSelect({id:line.id})
-    context.popup.setOpen(true)
-  } 
+  // const onContextMenu = (e)=>{
+  //   context.select.setSelect({id:line.id})
+  //   context.popup.setOpen(true)
+  // } 
 
   return (
     <g
-      onContextMenu={onContextMenu}
+      // onContextMenu={onContextMenu}
       ref={lineRef}
       transform={`translate(${x1}, ${y1}) rotate(${angle}, 0, 0)`}
       data-element-root

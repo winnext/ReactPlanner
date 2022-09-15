@@ -38,8 +38,9 @@ export default class ProjectConfigurator extends Component {
   }
 
   onSubmit(event) {
-    // event.preventDefault();
+    event.preventDefault();
     localStorage.setItem("imgPath", this.state.imgPath);
+    window.location.href =  new URL(window.location.href)
 
     let { projectActions } = this.context;
     // projectActions.rollback()

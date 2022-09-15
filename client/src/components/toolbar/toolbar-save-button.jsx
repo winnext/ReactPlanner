@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import axios from "axios"
 import {FaSave as IconSave} from 'react-icons/fa';
 import ToolbarButton from './toolbar-button';
 import {browserDownload}  from '../../utils/browser';
@@ -10,7 +11,13 @@ export default function ToolbarSaveButton({state}, {translator}) {
   let saveProjectToFile = e => {
     e.preventDefault();
     state = Project.unselectAll( state ).updatedState;
-    browserDownload(state.get('scene').toJS());
+    const url = new URL(window.location.href);
+    const key = url.searchParams.get("key");
+    const plan = state.get('scene').toJS();
+    axios.patch("http://localhost:9001/plan/"+key,{key,plan}).then(res=>{
+      window.location.href = "http://localhost:3000/facilitystructure"
+    })
+    // browserDownload(state.get('scene').toJS());
   };
 
   return (

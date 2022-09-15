@@ -83,22 +83,22 @@ export default class Toolbar extends Component {
     let alterateColor = alterate ? SharedStyle.MATERIAL_COLORS[500].orange : '';
 
     let sorter = [
-      {
-        index: 0, condition: allowProjectFileSupport, dom: <ToolbarButton
-          active={false}
-          tooltip={translator.t('New project')}
-          onClick={event => confirm(translator.t('Would you want to start a new Project?')) ? projectActions.newProject() : null}>
-          <FaFile />
-        </ToolbarButton>
-      },
+      // {
+      //   index: 0, condition: allowProjectFileSupport, dom: <ToolbarButton
+      //     active={false}
+      //     tooltip={translator.t('New project')}
+      //     onClick={event => confirm(translator.t('Would you want to start a new Project?')) ? projectActions.newProject() : null}>
+      //     <FaFile />
+      //   </ToolbarButton>
+      // },
       {
         index: 1, condition: allowProjectFileSupport,
         dom: <ToolbarSaveButton state={state} />
       },
-      {
-        index: 2, condition: allowProjectFileSupport,
-        dom: <ToolbarLoadButton state={state} />
-      },
+      // {
+      //   index: 2, condition: allowProjectFileSupport,
+      //   dom: <ToolbarLoadButton state={state} />
+      // },
       {
         index: 3, condition: true,
         dom: <ToolbarButton
