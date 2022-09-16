@@ -16,7 +16,6 @@ export default function ToolbarSaveButton(
     const url = new URL(window.location.href);
     const key = url.searchParams.get("key");
     const plan = state.scene.toJS();
-    console.log(plan);
     if (plan.layers["layer-1"].key === key) {
       axios
         .patch("http://localhost:9001/plan/" + key, { key, plan })
