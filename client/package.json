@@ -72,6 +72,7 @@
     "@mapbox/react-range": "0.0.7",
     "@mui/material": "^5.4.1",
     "area-polygon": "1.0.1",
+    "axios": "^0.27.2",
     "convert-units": "2.3.4",
     "html-webpack-plugin": "3.2.0",
     "immutable": "3.8.2",
