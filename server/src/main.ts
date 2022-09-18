@@ -1,6 +1,7 @@
 import { ConfigService } from '@nestjs/config';
 import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
+import { SwaggerModule, DocumentBuilder } from '@nestjs/swagger';
 // import { kafkaOptions } from './common/config/kafka.options';
 
 async function bootstrap() {
@@ -8,6 +9,25 @@ async function bootstrap() {
     const app = await NestFactory.create(AppModule, { abortOnError: false });
 
     const configService = app.get(ConfigService);
+
+    const config = new DocumentBuilder()
+      .setTitle('WinPlanner Microservice')
+      .setVersion('1.0')
+      .addTag('winplanner')
+      .addBearerAuth(
+        {
+          type: 'http',
+          scheme: 'bearer',
+          bearerFormat: 'JWT',
+          name: 'JWT',
+          description: 'Enter JWT token',
+          in: 'header',
+        },
+        'JWT-auth', // This name here is important for matching up with @ApiBearerAuth() in your controller!
+      )
+      .build();
+    const document = SwaggerModule.createDocument(app, config);
+    SwaggerModule.setup('api', app, document);
 
     // app.connectMicroservice(kafkaOptions);
     app.enableCors();
