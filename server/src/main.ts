@@ -1,6 +1,7 @@
 import { ConfigService } from '@nestjs/config';
 import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
+import { ValidationPipe } from '@nestjs/common';
 import { SwaggerModule, DocumentBuilder } from '@nestjs/swagger';
 // import { kafkaOptions } from './common/config/kafka.options';
 
@@ -28,6 +29,8 @@ async function bootstrap() {
       .build();
     const document = SwaggerModule.createDocument(app, config);
     SwaggerModule.setup('api', app, document);
+
+    app.useGlobalPipes(new ValidationPipe());
 
     // app.connectMicroservice(kafkaOptions);
     app.enableCors();
