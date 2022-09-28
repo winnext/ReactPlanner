@@ -29,6 +29,7 @@
     "@nestjs/platform-express": "^8.0.0",
     "@nestjs/swagger": "^6.1.2",
     "cache-manager": "^4.1.0",
+    "cache-manager-redis-store": "^2.0.0",
     "class-transformer": "^0.5.1",
     "class-validator": "^0.13.2",
     "ifmcommon": "^0.0.47",

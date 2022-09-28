@@ -1,4 +1,5 @@
 import { CacheModule, Module } from '@nestjs/common';
+import * as redisStore from 'cache-manager-redis-store';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { PlanModule } from './plan/plan.module';
@@ -9,7 +10,18 @@ import { HttpCacheInterceptor } from 'ifmcommon';
 
 @Module({
   imports: [
-    CacheModule.register({ isGlobal: true }),
+    CacheModule.registerAsync({
+      imports: [ConfigModule],
+      useFactory: async (configService: ConfigService) => ({
+        ttl: configService.get('CACHE_TTL'), //time to keep in cache in seconds
+        store: redisStore,
+        host: configService.get('CACHE_HOST'),
+        port: +configService.get('CACHE_PORT'),
+        isGlobal: true,
+        max: +configService.get('CACHE_MAX'), // maximum number of items in cache
+      }),
+      inject: [ConfigService],
+    }),
     ConfigModule.forRoot({ isGlobal: true }),
     MongooseModule.forRootAsync({
       useFactory: (config: ConfigService) => ({
