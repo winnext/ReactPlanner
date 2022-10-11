@@ -21,12 +21,12 @@ export default function ToolbarSaveButton(
         .patch("http://localhost:9001/plan/" + key, { key, plan })
         .then((res) => {
           // console.log(res.data);
-          window.location.href = "http://localhost:3000/facilitystructure";
+          // window.location.href = "http://localhost:3000/facilitystructure";
           // window.location.href = "http://localhost:3000/facilitystructure?search="+key;
         });
     }
     else{
-      window.location.href = "http://localhost:3000/facilitystructure";
+      // window.location.href = "http://localhost:3000/facilitystructure";
       // window.location.href = "http://localhost:3000/facilitystructure?search="+key;
     }
     // browserDownload(state.get('scene').toJS());
