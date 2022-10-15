@@ -2,8 +2,7 @@ import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import {bindActionCreators} from 'redux';
 import {connect} from 'react-redux';
-import ContextProvider from "./Context/Context"
-import Popup from "./components/popup/Popup"
+import ContextProvider from "./Context"
 
 import Translator from './translator/translator';
 import Catalog from './catalog/catalog';
@@ -72,7 +71,6 @@ class ReactPlanner extends Component {
 
     return (
       <ContextProvider>
-        <Popup/>
         <div style={{...wrapperStyle, height}}>
           <Toolbar width={toolbarW} height={toolbarH} state={extractedState} {...props} />
           <Content width={contentW} height={contentH} state={extractedState} {...props} onWheel={event => event.preventDefault()} />

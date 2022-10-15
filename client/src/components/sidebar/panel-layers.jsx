@@ -2,7 +2,6 @@ import React, { Component } from "react";
 import PropTypes from "prop-types";
 import { Map } from "immutable";
 import Panel from "./panel";
-import { Context } from "../../Context/Context";
 import { TiPlus, TiDelete } from "react-icons/ti";
 import {
   FaPencilAlt,

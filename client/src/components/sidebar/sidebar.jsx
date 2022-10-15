@@ -7,7 +7,7 @@ import PanelLayers from './panel-layers';
 import PanelGuides from './panel-guides';
 import PanelGroups from './panel-groups';
 import PanelLayerElements from './panel-layer-elements';
-import {Context} from "../../Context/Context"
+import {AreaContext} from "../../Context"
 import * as SharedStyle from '../../shared-style';
 import If from '../../utils/react-if';
 
@@ -36,7 +36,7 @@ const mapButtonsCb = (el, ind) => <If key={ind} condition={el.condition} style={
 export default function Sidebar({ state, width, height, sidebarComponents }) {
 
   let selectedLayer = state.getIn(['scene', 'selectedLayer']);
-  let contextData = React.useContext(Context)
+  let contextData = React.useContext(AreaContext)
 
   //TODO change in multi-layer check
   let selected = state.getIn(['scene', 'layers', selectedLayer, 'selected']);

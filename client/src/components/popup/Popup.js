@@ -1,81 +1,102 @@
-import * as React from 'react';
-import {Context} from "../../Context/Context"
-import {Button,Dialog,DialogContent,DialogActions,DialogTitle,Slide,TextField} from "@mui/material"
-
+import * as React from "react";
+import axios from "axios";
+import { AreaContext } from "../../Context";
+import {
+  Button,
+  Dialog,
+  DialogContent,
+  DialogActions,
+  DialogTitle,
+  Slide,
+  InputLabel,
+  MenuItem,
+  FormControl,
+  Select,
+  Box,
+} from "@mui/material";
 
 const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="up" ref={ref} {...props} />;
 });
 
 export default function Popup() {
+  const context = React.useContext(AreaContext);
+  const [space, setSpace] = React.useState("");
+  const [spaces, setSpaces] = React.useState([]);
 
-  const context = React.useContext(Context)
+  const handleChange = (event) => {
+    setSpace(event.target.value);
+  };
 
-  const [data,setData] = React.useState([])
+  React.useEffect(() => {
+    setSpace("")
+    setSpaces([])
 
-  React.useEffect(()=>{
-    if(context.select.select){
-      if(context.data.data[context.select.select.id]){
-        setData(context.data.data[context.select.select.id])
+    context.spaces.spaces.forEach((item) => {
+      const temp = context.links.links.find((link) => link.spaceKey === item.key);
+      if(!temp){
+        setSpaces((prev) => [...prev, item]);
       }
-      else{
-        setData([])
-      }
+    });
+
+    let areaLink = context.links.links.find(i=>i.areaKey === context.select.select.id)
+    let areaSpace = areaLink && context.spaces.spaces.find(i=>i.key === areaLink.spaceKey)
+    if(areaLink && areaSpace){
+      setSpaces(prev=>[...prev,areaSpace])
+      setSpace(areaLink.spaceKey)
     }
-    
-  },[context.popup.open])
+  }, [context.popup.open]);
 
-  const handleChange = (e,name,index)=>{
-    const {value} = e.target
-    if(e.target.value !== null){
-      setData(prevValue=>{
-        var temp = JSON.parse(JSON.stringify(prevValue))
-        if(name === "name"){
-          temp[index].name = value
-        }
-        else if(name === "value"){
-          temp[index].value = value
-        }
-        return temp
+  const Save = () => {
+    var url = new URL(window.location.href);
+    var key = url.searchParams.get("key");
+    if (context.select.select) {
+      axios.post("http://localhost:9001/link", {
+        planKey:key,
+        spaceKey: space,
+        areaKey: context.select.select.id,
+      }).then(res=>{
+        console.log(res.data);
+        setSpace("")
+        context.getLinksAndSpaces()
+        context.popup.setOpen(false);
       })
     }
-    
-  }
-
-  const addProperties = ()=>{
-    setData(prevValue=>[...prevValue,{name:"",value:""}])
-  }
-
-  const Save =()=>{
-    if(context.select.select){
-      context.data.setData(prevValue=>{
-        const temp = prevValue
-        temp[context.select.select.id] = data
-        localStorage.setItem("data",JSON.stringify(temp))
-        return temp
-      })
-    }
-    context.popup.setOpen(false)
-  }
+  };
 
   return (
     <Dialog
-        open={context.popup.open}
-        TransitionComponent={Transition}
-        keepMounted
-        onClose={()=>context.popup.setOpen(false)}
-      >
-        <DialogTitle>{context.select.select && ("id: " + context.select.select.id)}</DialogTitle>
-        <DialogContent>
-          {context.select.select && <div>
-              {data.map((item,index)=>(<div key={index} style={{marginTop:"15px",display:"flex",alignItems:"center"}}><span style={{fontSize:"1.8em",marginRight:"10px"}}>{index+1}.</span><TextField style={{marginRight:"10px"}} value={item.name} onChange={(e)=>handleChange(e,"name",index)} label="Name" variant="outlined" /><TextField value={item.value} onChange={(e)=>handleChange(e,"value",index)} label="Value" variant="outlined" /></div>))}
-              <Button style={{marginTop:"10px"}} onClick={addProperties}>Add Properties</Button>
-            </div>}
-        </DialogContent>
-        <DialogActions>
-          <Button onClick={()=>context.popup.setOpen(false)}>Cancel</Button>
-          <Button onClick={Save}>Save</Button>
-        </DialogActions>
+      open={context.popup.open}
+      TransitionComponent={Transition}
+      keepMounted
+      onClose={() => context.popup.setOpen(false)}
+    >
+      <DialogTitle>
+        {context.select.select && "Area Id: " + context.select.select.id}
+      </DialogTitle>
+      <DialogContent>
+        <Box sx={{ p:2 }}>
+          <FormControl fullWidth>
+            <InputLabel id="demo-simple-select-label">Space</InputLabel>
+            <Select
+              labelId="demo-simple-select-label"
+              id="demo-simple-select"
+              value={space}
+              label="Select Space"
+              onChange={handleChange}
+            >
+              <MenuItem value="">Empty</MenuItem>
+              {spaces.map((item) => (
+                <MenuItem key={item.key} value={item.key}>{item.name}</MenuItem>
+              ))}
+            </Select>
+          </FormControl>
+        </Box>
+      </DialogContent>
+      <DialogActions>
+        <Button onClick={() => context.popup.setOpen(false)}>Cancel</Button>
+        <Button onClick={Save}>Save</Button>
+      </DialogActions>
     </Dialog>
   );
 }

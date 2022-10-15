@@ -7,13 +7,13 @@ import {
   Item,
   Group
 } from './export';
-import {Context} from "../../Context/Context"
+import {AreaContext} from "../../Context"
 export default function Layer({ layer, scene, catalog }) {
 
   let { unit, groups,width,height, } = scene;
   let { lines, areas, vertices, holes, id: layerID, items, opacity,color } = layer;
 
-  const context = React.useContext(Context)
+  const context = React.useContext(AreaContext)
 
 
   return (
