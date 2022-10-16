@@ -4,7 +4,7 @@ const localStorage = window.hasOwnProperty("localStorage")
 import { loadProject } from "../actions/project-actions";
 import axios from "axios";
 
-const TIMEOUT_DELAY = 500;
+const TIMEOUT_DELAY = 1000;
 
 let timeout = null;
 
@@ -39,7 +39,7 @@ export default function autosave(autosaveKey, delay) {
     //   const state = stateExtractor(store.getState());
     //   const plan = state.get("scene").toJS();
     //   timeout = setTimeout(() => {
-    //     axios.patch("http://localhost:9001/plan/" + key, { key, plan });
+    //     // axios.patch("http://localhost:9001/plan/" + key, { key, plan });
 
     //     /*let scene = state.sceneHistory.last;
     //     if (scene) {

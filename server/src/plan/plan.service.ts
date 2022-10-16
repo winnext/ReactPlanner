@@ -15,9 +15,22 @@ export class PlanService {
     if (isExist) {
       throw new BadRequestException('Plan already exist');
     }
+    if(createPlanDto.cloneKey) {
+      const clonePlan = await this.planModel.findOne({ key: createPlanDto.cloneKey });
+      if (clonePlan) {
+        createPlanDto.plan = clonePlan.plan;
+        createPlanDto.plan.layers['layer-1'].key = createPlanDto.key;
+      } else {
+        throw new BadRequestException('Clone plan not found');
+      }
+    }else{
+      createPlanDto.plan = EmptyPlan(createPlanDto.key)
+      
+    }
+
     const plan = new this.planModel({
       key: createPlanDto.key,
-      plan: EmptyPlan(createPlanDto.key),
+      plan: createPlanDto.plan,
     });
     return plan.save();
   }

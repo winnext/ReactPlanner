@@ -25,7 +25,7 @@ export default function AreaContextProvider(props) {
     })
     axios.get(`http://localhost:3010/structures/lazyloading/${key}/Space`).then(res=>{
       console.log(res.data);
-      setSpaces(res.data.children)
+      setSpaces(res.data.children ? res.data.children : [])
     })
   }
   useEffect(() => {

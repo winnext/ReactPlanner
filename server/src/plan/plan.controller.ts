@@ -11,6 +11,7 @@ import { PlanService } from './plan.service';
 import { CreatePlanDto } from './dto/create-plan.dto';
 import { UpdatePlanDto } from './dto/update-plan.dto';
 import { ApiTags } from '@nestjs/swagger';
+import { NoCache } from 'ifmcommon/dist';
 
 @Controller('plan')
 @ApiTags('plan')
@@ -28,6 +29,7 @@ export class PlanController {
   }
 
   @Get(':key')
+  @NoCache()
   findOne(@Param('key') key: string) {
     return this.planService.findOne(key);
   }

@@ -9,5 +9,9 @@ export class CreatePlanDto {
   @ApiProperty()
   @IsObject()
   @IsOptional()
-  plan?: object;
+  plan?: any;
+
+  @ApiProperty()
+  @IsOptional()
+  cloneKey: string;
 }

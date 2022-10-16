@@ -31,7 +31,7 @@ export default function Popup() {
   React.useEffect(() => {
     setSpace("")
     setSpaces([])
-
+    console.log(context.spaces);
     context.spaces.spaces.forEach((item) => {
       const temp = context.links.links.find((link) => link.spaceKey === item.key);
       if(!temp){
