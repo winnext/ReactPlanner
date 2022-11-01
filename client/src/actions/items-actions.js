@@ -9,8 +9,22 @@ import {
   END_DRAGGING_ITEM,
   BEGIN_ROTATING_ITEM,
   UPDATE_ROTATING_ITEM,
-  END_ROTATING_ITEM
+  END_ROTATING_ITEM,
+  CREATE_ITEM
 } from '../constants';
+
+export function createItem(layerID, componentType, x, y, width, height, rotation) {
+  return {
+    type: CREATE_ITEM,
+    layerID,
+    componentType,
+    x,
+    y,
+    width,
+    height,
+    rotation
+  }
+}
 
 export function selectItem(layerID, itemID) {
   return {

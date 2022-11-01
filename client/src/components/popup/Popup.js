@@ -1,5 +1,6 @@
 import * as React from "react";
 import axios from "axios";
+import PropTypes from "prop-types";
 import { AreaContext } from "../../Context";
 import {
   Button,
@@ -19,10 +20,11 @@ const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="up" ref={ref} {...props} />;
 });
 
-export default function Popup() {
+export default function Popup(props,context2) {
   const context = React.useContext(AreaContext);
   const [space, setSpace] = React.useState("");
   const [spaces, setSpaces] = React.useState([]);
+  const [disableGetComponents, setDisableGetComponents] = React.useState(false);
 
   const handleChange = (event) => {
     setSpace(event.target.value);
@@ -64,6 +66,40 @@ export default function Popup() {
     }
   };
 
+  const GetComponents = ()=>{
+    setDisableGetComponents(true)
+    let areaLink = context.links.links.find(i=>i.areaKey === context.select.select.id)
+    let areaSpace = areaLink && context.spaces.spaces.find(i=>i.key === areaLink.spaceKey)
+    if(areaLink && areaSpace){
+      axios.get("http://localhost:3010/structureAssetRelation/"+areaLink.spaceKey)
+      .then(res=>{
+        let layerID = "layer-1"
+        let areaID = areaLink.areaKey
+        let area = props.state.getIn(["scene", "layers", layerID, "areas", areaID]);
+        let x = Infinity
+        let y = -Infinity
+        area.vertices.forEach((vertexID) => {
+          let vertice = props.state.getIn(["scene", "layers", layerID, "vertices", vertexID])
+          if(vertice.x < x){
+            x = vertice.x
+          }
+          if(vertice.y > y){
+            y = vertice.y
+          }
+        });
+        x++
+        y--
+        for(let item of res.data){
+          console.log(item);
+          context2.itemsActions.createItem("layer-1", "Electrical", x, y, 200, 100, 0)
+        }
+      })
+      .catch(err=>{
+        console.log(err)
+      })
+    }
+  }
+
   return (
     <Dialog
       open={context.popup.open}
@@ -75,6 +111,7 @@ export default function Popup() {
         {context.select.select && "Area Id: " + context.select.select.id}
       </DialogTitle>
       <DialogContent>
+          <Button onClick={GetComponents} disabled={disableGetComponents}>Get Components</Button>
         <Box sx={{ p:2 }}>
           <FormControl fullWidth>
             <InputLabel id="demo-simple-select-label">Space</InputLabel>
@@ -100,3 +137,11 @@ export default function Popup() {
     </Dialog>
   );
 }
+
+
+Popup.contextTypes = {
+  assets: PropTypes.object.isRequired,
+  catalog: PropTypes.object.isRequired,
+  projectActions: PropTypes.object.isRequired,
+  itemsActions: PropTypes.object.isRequired,
+};

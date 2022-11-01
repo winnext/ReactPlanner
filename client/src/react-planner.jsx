@@ -70,7 +70,7 @@ class ReactPlanner extends Component {
     let extractedState = stateExtractor(state);
 
     return (
-      <ContextProvider>
+      <ContextProvider state={extractedState}>
         <div style={{...wrapperStyle, height}}>
           <Toolbar width={toolbarW} height={toolbarH} state={extractedState} {...props} />
           <Content width={contentW} height={contentH} state={extractedState} {...props} onWheel={event => event.preventDefault()} />

@@ -12,10 +12,14 @@ import {
   UPDATE_ROTATING_ITEM,
   END_ROTATING_ITEM,
   SELECT_ITEM,
+  CREATE_ITEM,
 } from "../constants";
 
 export default function (state, action) {
   switch (action.type) {
+    case CREATE_ITEM:
+      return Item.create(state, action.layerID,action.componentType,action.x,action.y,action.width,action.height,action.rotation).updatedState;
+
     case SELECT_ITEM:
       return Item.select(state, action.layerID, action.itemID).updatedState;
 

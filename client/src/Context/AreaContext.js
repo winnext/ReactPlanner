@@ -23,7 +23,16 @@ export default function AreaContextProvider(props) {
       console.log(res.data);
       setLinks(res.data)
     })
-    axios.get(`http://localhost:3010/structures/lazyloading/${key}/Space`).then(res=>{
+    axios.post("http://localhost:3010/structures/lazyLoadingByKey",{
+      "key": key,
+      "leafType": "Floor",
+      "rootLabels": [
+        "Floor"
+      ],
+      "childrenLabels": [
+        "Space"
+      ]
+    }).then(res=>{
       console.log(res.data);
       setSpaces(res.data.children ? res.data.children : [])
     })
@@ -60,7 +69,7 @@ export default function AreaContextProvider(props) {
         showLayersColors: { showLayersColors, setShowLayersColors },
       }}
     >
-      <Popup />
+      <Popup state={props.state} />
       {props.children}
     </AreaContext.Provider>
   );

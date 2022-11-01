@@ -30,8 +30,6 @@ class Item{
       rotation,
     });
 
-    console.log(item)
-
     state = state.setIn(['scene', 'layers', layerID, 'items', itemID], item);
 
     return { updatedState: state, item };
