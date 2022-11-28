@@ -10,7 +10,8 @@ export default (props)=>({
     title: props.name,
     tag: [props.name],
     description: props.name,
-    image: props.image
+    image: props.image,
+    key: props.key,
   },
 
   properties: {

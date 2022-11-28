@@ -73,6 +73,8 @@ export default function Popup(props,context2) {
     if(areaLink && areaSpace){
       axios.get("http://localhost:3010/structureAssetRelation/"+areaLink.spaceKey)
       .then(res=>{
+        console.log(res.data);
+        console.log(context2)
         let layerID = "layer-1"
         let areaID = areaLink.areaKey
         let area = props.state.getIn(["scene", "layers", layerID, "areas", areaID]);
@@ -90,8 +92,8 @@ export default function Popup(props,context2) {
         x++
         y--
         for(let item of res.data){
-          console.log(item);
-          context2.itemsActions.createItem("layer-1", "Electrical", x, y, 200, 100, 0)
+          const asset = context2.assets.elements.find(i=>i.info.key === item.type)
+          context2.itemsActions.createItem("layer-1", asset.name, x, y, 200, 100, 0)
         }
       })
       .catch(err=>{
