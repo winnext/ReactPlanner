@@ -142,6 +142,7 @@ export class Item extends Record({
   rotation: 0,
   visible: true,
   itemData:[],
+  info:{},
 }, 'Item') {
   constructor(json = {}) {
     super({

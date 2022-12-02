@@ -13,7 +13,7 @@ import {
   CREATE_ITEM
 } from '../constants';
 
-export function createItem(layerID, componentType, x, y, width, height, rotation) {
+export function createItem(layerID, componentType, x, y, width, height, rotation,info={}) {
   return {
     type: CREATE_ITEM,
     layerID,
@@ -22,7 +22,8 @@ export function createItem(layerID, componentType, x, y, width, height, rotation
     y,
     width,
     height,
-    rotation
+    rotation,
+    info
   }
 }
 

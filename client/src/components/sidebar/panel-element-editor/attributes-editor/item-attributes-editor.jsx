@@ -27,6 +27,7 @@ export default function ItemAttributesEditor(
     ? attributeFormData.get("itemData")
     : element.itemData;
 
+    console.log(element.info)
   return (
     <React.Fragment>
       <table style={tableStyle}>
@@ -80,6 +81,17 @@ export default function ItemAttributesEditor(
               />
             </td>
           </tr>
+          {element.info && Object.keys(element.info).map((key,index) => {
+            return (
+              <tr key={index}>
+                <td style={firstTdStyle}>{key}</td>
+                <td>
+                  {element.info[key]}
+                </td>
+              </tr>
+            );
+          })
+          }
         </tbody>
       </table>
       {itemData

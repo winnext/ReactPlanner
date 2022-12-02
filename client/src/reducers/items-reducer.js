@@ -18,7 +18,7 @@ import {
 export default function (state, action) {
   switch (action.type) {
     case CREATE_ITEM:
-      return Item.create(state, action.layerID,action.componentType,action.x,action.y,action.width,action.height,action.rotation).updatedState;
+      return Item.create(state, action.layerID,action.componentType,action.x,action.y,action.width,action.height,action.rotation,action.info).updatedState;
 
     case SELECT_ITEM:
       return Item.select(state, action.layerID, action.itemID).updatedState;

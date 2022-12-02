@@ -24,7 +24,6 @@ export default function Popup(props,context2) {
   const context = React.useContext(AreaContext);
   const [space, setSpace] = React.useState("");
   const [spaces, setSpaces] = React.useState([]);
-  const [disableGetComponents, setDisableGetComponents] = React.useState(false);
 
   const handleChange = (event) => {
     setSpace(event.target.value);
@@ -67,7 +66,6 @@ export default function Popup(props,context2) {
   };
 
   const GetComponents = ()=>{
-    setDisableGetComponents(true)
     let areaLink = context.links.links.find(i=>i.areaKey === context.select.select.id)
     let areaSpace = areaLink && context.spaces.spaces.find(i=>i.key === areaLink.spaceKey)
     if(areaLink && areaSpace){
@@ -89,11 +87,16 @@ export default function Popup(props,context2) {
             y = vertice.y
           }
         });
-        x++
-        y--
+        x+= 10
+        y-= 10
+        let addedItemIds = []
         for(let item of res.data){
+          if(addedItemIds.find(i=>i === item.key)){
+            continue
+          }
+          addedItemIds.push(item.key)
           const asset = context2.assets.elements.find(i=>i.info.key === item.type)
-          context2.itemsActions.createItem("layer-1", asset.name, x, y, 200, 100, 0)
+          context2.itemsActions.createItem("layer-1", asset.name, x, y, 200, 100, 0,item)
         }
       })
       .catch(err=>{
@@ -113,7 +116,7 @@ export default function Popup(props,context2) {
         {context.select.select && "Area Id: " + context.select.select.id}
       </DialogTitle>
       <DialogContent>
-          <Button onClick={GetComponents} disabled={disableGetComponents}>Get Components</Button>
+          <Button onClick={GetComponents}>Get Components</Button>
         <Box sx={{ p:2 }}>
           <FormControl fullWidth>
             <InputLabel id="demo-simple-select-label">Space</InputLabel>

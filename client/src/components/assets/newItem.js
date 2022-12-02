@@ -63,11 +63,17 @@ export default (props)=>({
     if (Math.sin(angle * Math.PI / 180) < 0) {
       textRotation = 180;
     }
+    let image = null
+    if(element.info){
+      let images = element.info.images === "" ? [] : JSON.parse(element.info.images)
+      image = images.find(i=>i.main === true) || images[0]
+    }
+    image = image || props.image;
 
     return (
       <g transform={`translate(-${w2}, -${d2})`}>
         <rect x="0" y="0" width={w} height={d} style={style} />
-        {props.image ? <image key='2' x='0' y='0' width={w} height={d} preserveAspectRatio="none"  transform={`translate(0, ${d}) scale(1,-1) rotate(${textRotation})`} href={props.image}/>:null}
+        {image ? <image key='2' x='0' y='0' width={w} height={d} preserveAspectRatio="none"  transform={`translate(0, ${d}) scale(1,-1) rotate(${textRotation})`} href={props.image}/>:null}
         <text key='3' x='0' y='0'
               transform={`translate(${w / 2}, ${d / 2}) scale(1,-1) rotate(${textRotation})`}
               style={{textAnchor: 'middle', fontSize: '11px',opacity:0.3}}>
