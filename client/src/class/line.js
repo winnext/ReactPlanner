@@ -416,6 +416,13 @@ class Line{
   }
 
   static endDraggingLine(state, x, y) {
+    state = state.merge({
+      mode: MODE_IDLE,
+      draggingSupport: null,
+      activeSnapElement: null,
+      snapElements: new List()
+    });
+    return { updatedState: state };
     let {draggingSupport} = state;
     let layerID = draggingSupport.get('layerID');
     let layer = state.scene.layers.get(layerID);
