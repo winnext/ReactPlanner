@@ -6,6 +6,7 @@ import {
   Patch,
   Param,
   Delete,
+  Headers,
 } from '@nestjs/common';
 import { PlanService } from './plan.service';
 import { CreatePlanDto } from './dto/create-plan.dto';
@@ -19,8 +20,18 @@ export class PlanController {
   constructor(private readonly planService: PlanService) {}
 
   @Post()
-  create(@Body() createPlanDto: CreatePlanDto) {
-    return this.planService.create(createPlanDto);
+  create(@Body() createPlanDto: CreatePlanDto,@Headers() header) {
+    return this.planService.create(createPlanDto,header);
+  }
+
+  // @Post("/createArea/:key")
+  // createArea(@Body() area: any,@Param('key') key: string,@Headers() header) {
+  //   return this.planService.createArea(key,area,header);
+  // }
+
+  @Post("/moveComponent")
+  moveComponent(@Body() body: any,@Headers() header) {
+    return this.planService.moveComponent(body,header);
   }
 
   @Get()

@@ -154,7 +154,6 @@ export class Item extends Record({
 
 export class Layer extends Record({
   id: '',
-  key: '',
   altitude: 0,
   order: 0,
   opacity: 1,
@@ -207,6 +206,7 @@ export const DefaultLayers = new Map({
 
 export class Scene extends Record({
   unit: 'cm',
+  key:'',
   layers: new Map(),
   grids: new Map(),
   selectedLayer: null,

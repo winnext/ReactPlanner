@@ -27,7 +27,6 @@ export default function ItemAttributesEditor(
     ? attributeFormData.get("itemData")
     : element.itemData;
 
-    console.log(element.info)
   return (
     <React.Fragment>
       <table style={tableStyle}>

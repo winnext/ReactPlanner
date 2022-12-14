@@ -1,7 +1,7 @@
 import { Layer, Group } from "./export";
 import { IDBroker, NameGenerator, point, pointIsInPoly } from "../utils/export";
 import { Map, fromJS } from "immutable";
-
+import axios from "axios";
 import {
   MODE_IDLE,
   MODE_DRAWING_ITEM,
@@ -10,7 +10,17 @@ import {
 } from "../constants";
 
 class Item {
-  static create(state, layerID, type, x, y, width, height, rotation, info={}) {
+  static create(
+    state,
+    layerID,
+    type,
+    x,
+    y,
+    width,
+    height,
+    rotation,
+    info = {}
+  ) {
     let itemID = IDBroker.acquireID();
 
     let item = state.catalog.factoryElement(type, {
@@ -25,7 +35,7 @@ class Item {
       x,
       y,
       rotation,
-      info
+      info,
     });
 
     state = state.setIn(["scene", "layers", layerID, "items", itemID], item);
@@ -119,7 +129,6 @@ class Item {
         }),
       });
     }
-    
 
     return { updatedState: state };
   }
@@ -177,14 +186,14 @@ class Item {
     let { x: lastX, y: lastY } = layers[layerID].items[itemID];
     let areas = layers[layerID].areas;
     let layer = layers[layerID];
-    console.log(originalX, originalY);
-    console.log(lastX, lastY);
+    // console.log(originalX, originalY);
+    // console.log(lastX, lastY);
     // console.log(layers)
     // console.log(areas)
     let startArea;
     let endArea;
     for (let item in areas) {
-      console.log(item);
+      // console.log(item);
       let polygon = [];
       for (let vertex of areas[item].vertices) {
         // console.log(layer.vertices[vertex].x,layer.vertices[vertex].y)
@@ -196,7 +205,7 @@ class Item {
       if (pointIsInPoly(point(lastX, lastY), polygon)) {
         endArea = item;
       }
-      console.log(pointIsInPoly(point(lastX, lastY), polygon));
+      // console.log(pointIsInPoly(point(lastX, lastY), polygon));
     }
     if (startArea !== endArea) {
       let inp = confirm("Are you sure?");
@@ -209,6 +218,20 @@ class Item {
         state = state.merge({ mode: MODE_IDLE });
         return { updatedState: state };
       }
+      const selectedItem = state.scene
+        .getIn(["layers", layerID, "items", itemID])
+        .toJS();
+      axios
+        .post("http://localhost:9001/plan/moveComponent", {
+          component: selectedItem,
+          areaKey: endArea,
+        })
+        .then((res) => {
+          console.log(res);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
     }
 
     state = this.updateDraggingItem(state, x, y).updatedState;

@@ -1,10 +1,10 @@
 export function EmptyPlan(key: string) {
   return {
     unit: 'cm',
+    key: key,
     layers: {
       'layer-1': {
         id: 'layer-1',
-        key: key,
         altitude: 0,
         order: 0,
         opacity: 1,

@@ -25,6 +25,14 @@ export class LinkService {
     }
   }
 
+  findOneByAreaKey(areaKey: string) {
+    try {
+      return this.linkModel.findOne({ areaKey: areaKey }).exec();
+    } catch (error) {
+      throw new BadRequestException(error);
+    }
+  }
+
   findLinksByPlanKey(key: string) {
     try {
       return this.linkModel.find({ planKey: key }).exec();
