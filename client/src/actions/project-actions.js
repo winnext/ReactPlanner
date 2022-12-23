@@ -15,6 +15,7 @@ import {
   ROLLBACK,
   OPEN_PROJECT_CONFIGURATOR,
   OPEN_PROJECT_BACKGROUND,
+  OPEN_TODO,
   SET_PROJECT_PROPERTIES,
   INIT_CATALOG,
   UPDATE_MOUSE_COORDS,
@@ -65,6 +66,12 @@ export function openCatalog() {
 export function openAssets() {
   return {
     type: OPEN_ASSETS,
+  };
+}
+
+export function openToDo() {
+  return {
+    type: OPEN_TODO,
   };
 }
 

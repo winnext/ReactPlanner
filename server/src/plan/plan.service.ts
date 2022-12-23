@@ -99,14 +99,17 @@ export class PlanService {
       const { authorization } = header;
       const { areaKey, component } = body;
 
-
       const spaceLink = await this.linkService.findOneByAreaKey(areaKey);
-      
+
+      console.log(spaceLink);
+
       const space = await this.httpService.post(
         'http://localhost:3010/structure/labels/' + spaceLink.spaceKey,
         ['Space'],
         { authorization },
       );
+
+      console.log(space);
 
       let componentItem = await this.httpService.get(
         'http://localhost:3014/component/identifier/' + component.info.id,
@@ -121,8 +124,8 @@ export class PlanService {
       updateNode = {
         name: componentItem?.name,
         type: componentItem?.type,
-        spaceType: "Space",
-        space: { id: space.id, label: ["Space"] },
+        spaceType: 'Space',
+        space: { id: space.id, label: ['Space'] },
         tag: componentItem?.tag,
         description: componentItem?.description,
         createdBy: componentItem?.createdBy,
@@ -137,11 +140,12 @@ export class PlanService {
         warrantyGuarantorLabor: componentItem?.warrantyGuarantorLabor,
         warrantyDurationLabor: componentItem?.warrantyDurationLabor,
         warrantyDurationUnit: componentItem?.warrantyDurationUnit,
-        images: componentItem?.images || "",
-        documents: componentItem?.documents || "",
-        parentId: componentItem?.type || "",
+        images: componentItem?.images || '',
+        documents: componentItem?.documents || '',
+        parentId: componentItem?.type || '',
       };
-      
+
+      console.log(updateNode)
 
       const componentData = await this.httpService.patch(
         'http://localhost:3014/component/' + componentItem.id,

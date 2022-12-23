@@ -4,6 +4,7 @@ import {
   MODE_CONFIGURING_PROJECT,
   MODE_VIEWING_ASSETS,
   MODE_CONFIGURING_BACKGROUND,
+  MODE_TODO,
   MODE_IDLE
 } from '../constants';
 import { State, Catalog } from '../models';
@@ -32,6 +33,12 @@ class Project{
 
   static openAssets( state ) {
     state = this.setMode( state, MODE_VIEWING_ASSETS ).updatedState;
+
+    return { updatedState: state };
+  }
+
+  static openToDo( state ) {
+    state = this.setMode( state, MODE_TODO ).updatedState;
 
     return { updatedState: state };
   }

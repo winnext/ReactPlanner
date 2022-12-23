@@ -50,9 +50,6 @@ export default class ProjectConfigurator extends Component {
     let { width, height } = this.props;
     let { projectActions, translator } = this.context;
 
-    console.log(this.context);
-    console.log(this.props);
-
     return (
       <ContentContainer width={width} height={height}>
         <ContentTitle>{translator.t("Background Config")}</ContentTitle>
