@@ -115,11 +115,22 @@ export default function Popup(props, context2) {
               "vertices",
               vertexID,
             ]);
-            if (vertice.x < x) {
+            if (vertice.x <= x) {
               x = vertice.x;
             }
-            if (vertice.y > y) {
-              y = vertice.y;
+          });
+          area.vertices.forEach((vertexID) => {
+            let vertice = props.state.getIn([
+              "scene",
+              "layers",
+              layerID,
+              "vertices",
+              vertexID,
+            ]);
+            if (vertice.x === x) {
+              if (vertice.y >= y) {
+                y = vertice.y;
+              }
             }
           });
           x += 10;
