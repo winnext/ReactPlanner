@@ -58,7 +58,7 @@ export default function Popup(props, context2) {
     var key = url.searchParams.get("key");
     if (context.select.select) {
       axios
-        .post("http://localhost:9001/link", {
+        .post("http://localhost:9001/space", {
           planKey: key,
           spaceKey: space,
           areaKey: context.select.select.id,

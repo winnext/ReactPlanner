@@ -3,7 +3,9 @@ import * as redisStore from 'cache-manager-redis-store';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { PlanModule } from './plan/plan.module';
-import { LinkModule } from './link/link.module';
+import { SpaceModule } from './space/space.module';
+import { TodoModule } from './todo/todo.module';
+import { ComponentModule } from './component/component.module';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { MongooseModule } from '@nestjs/mongoose';
 import { APP_INTERCEPTOR } from '@nestjs/core';
@@ -34,7 +36,9 @@ import { HttpCacheInterceptor } from 'ifmcommon';
       inject: [ConfigService],
     }),
     PlanModule,
-    LinkModule,
+    SpaceModule,
+    ComponentModule,
+    TodoModule,
   ],
   controllers: [AppController],
   providers: [

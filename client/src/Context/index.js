@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import PropTypes from "prop-types";
 import AreaContextProvider, { AreaContext } from "./AreaContext";
+import TodoContextProvider, { TodoContext } from "./TodoContext";
 import axios from "axios";
 import newItem from "../components/assets/newItem";
 import keycloak from "./keycloak";
@@ -122,13 +123,15 @@ export default function ContextProvider(props, context) {
   if(!user.auth) return null;
 
   return (
-    <AreaContextProvider state={props.state} user={user}>
-      {props.children}
-    </AreaContextProvider>
+    <TodoContextProvider state={props.state} user={user}>
+      <AreaContextProvider state={props.state} user={user}>
+        {props.children}
+      </AreaContextProvider>
+    </TodoContextProvider>
   );
 }
 
-export { AreaContext };
+export { AreaContext,TodoContext };
 
 ContextProvider.contextTypes = {
   assets: PropTypes.object.isRequired,

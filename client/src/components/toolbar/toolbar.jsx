@@ -24,6 +24,7 @@ import {
   MODE_TODO,
 } from "../../constants";
 import * as SharedStyle from "../../shared-style";
+import TodoButton from "./toolbar-components/TodoButton";
 
 const iconTextStyle = {
   fontSize: "19px",
@@ -221,9 +222,7 @@ export default class Toolbar extends Component {
             tooltip={translator.t("To Do List")}
             onClick={(event) => projectActions.openToDo()}
           >
-            <Badge badgeContent={0} color="primary">
-              <FaList />
-            </Badge>
+            <TodoButton/>
           </ToolbarButton>
         ),
       },
@@ -271,5 +270,5 @@ Toolbar.contextTypes = {
   linesActions: PropTypes.object.isRequired,
   holesActions: PropTypes.object.isRequired,
   itemsActions: PropTypes.object.isRequired,
-  translator: PropTypes.object.isRequired,
+  translator: PropTypes.object.isRequired
 };

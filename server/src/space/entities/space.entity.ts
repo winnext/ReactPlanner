@@ -1,10 +1,10 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { Document } from 'mongoose';
 
-export type LinkDocument = Link & Document;
+export type SpaceDocument = Space & Document;
 
 @Schema()
-export class Link {
+export class Space {
   @Prop()
   planKey: string;
   
@@ -15,4 +15,4 @@ export class Link {
   areaKey: string;
 }
 
-export const LinkSchema = SchemaFactory.createForClass(Link);
+export const SpaceSchema = SchemaFactory.createForClass(Space);

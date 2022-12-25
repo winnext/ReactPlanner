@@ -6,7 +6,7 @@ import { EmptyPlan } from './dto/empty-plan.dto';
 import { Model } from 'mongoose';
 import { Plan, PlanDocument } from './entities/plan.entity';
 import { HttpService } from '@nestjs/axios';
-import { LinkService } from '../link/link.service';
+import { SpaceService } from '../space/space.service';
 import { firstValueFrom } from 'rxjs';
 import { HttpRequestHandler } from 'src/common/class/http.request.helper.class';
 
@@ -14,7 +14,7 @@ import { HttpRequestHandler } from 'src/common/class/http.request.helper.class';
 export class PlanService {
   constructor(
     private readonly httpService: HttpRequestHandler,
-    private readonly linkService: LinkService,
+    private readonly spaceService: SpaceService,
     @InjectModel(Plan.name) private planModel: Model<PlanDocument>,
   ) {}
 
@@ -99,7 +99,7 @@ export class PlanService {
       const { authorization } = header;
       const { areaKey, component } = body;
 
-      const spaceLink = await this.linkService.findOneByAreaKey(areaKey);
+      const spaceLink = await this.spaceService.findOneByAreaKey(areaKey);
 
       console.log(spaceLink);
 

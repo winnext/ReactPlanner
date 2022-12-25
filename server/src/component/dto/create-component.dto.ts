@@ -1,7 +1,7 @@
 import { ApiProperty } from '@nestjs/swagger';
 import { IsString, IsObject, IsOptional } from 'class-validator';
 
-export class CreateLinkDto {
+export class CreateComponentDto {
   @ApiProperty()
   @IsString()
   planKey: string;
@@ -12,5 +12,10 @@ export class CreateLinkDto {
 
   @ApiProperty()
   @IsString()
-  areaKey: string;
+  itemKey: string;
+
+
+  @ApiProperty()
+  @IsString()
+  componentKey: string;
 }

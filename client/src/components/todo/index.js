@@ -1,6 +1,5 @@
-import React, { Component } from "react";
+import React, { Component, useEffect } from "react";
 import PropTypes from "prop-types";
-import Dropzone from "react-dropzone";
 import {
   ContentTitle,
   ContentContainer,
@@ -8,64 +7,72 @@ import {
   CancelButton,
   DeleteButton,
 } from "../style/export";
+import { Alert, Button, CircularProgress } from "@mui/material";
 
-export default class ProjectConfigurator extends Component {
-  constructor(props, context) {
-    super(props, context);
+import { TodoContext } from "../../Context";
+import axios from "axios";
 
-    let scene = props.state.scene;
+export default function Todo(props, context) {
+  let { width, height } = props;
+  let { projectActions, translator } = context;
+  const [loadingCheck, setLoadingCheck] = React.useState(false);
 
-    this.state = {
-      imgPath: "",
-    };
+  const todoContext = React.useContext(TodoContext);
 
-    this.handleDrop = this.handleDrop.bind(this);
-  }
+  const Check = () => {
+    setLoadingCheck(true);
+    axios
+      .post("http://localhost:9001/todo/check", {
+        planKey: todoContext.todo.planKey,
+      })
+      .then((res) => {
+        todoContext.setTodo(res.data);
+        setLoadingCheck(false);
+      })
+      .catch((err) => {
+        console.log(err);
+        setLoadingCheck(false);
+      });
+  };
 
-  //Get img in client
-  handleDrop(acceptedFiles) {
-    let imgPath = "";
-    //render to img tag
-    var reader = new FileReader();
-    reader.onload = function (e) {
-      document.getElementById("resim").setAttribute("src", e.target.result);
-      imgPath = e.target.result;
-    };
-    reader.readAsDataURL(acceptedFiles[0]);
-    setTimeout(() => {
-      this.setState({ imgPath: imgPath });
-    }, 10);
-  }
+  return (
+    <ContentContainer width={width} height={height}>
+      <ContentTitle>{translator.t("Todo")}</ContentTitle>
+      <Button onClick={Check} variant="contained">
+        {loadingCheck ? (
+          <CircularProgress size={24} color="inherit" />
+        ) : (
+          "Check"
+        )}
+      </Button>
 
-  onSubmit(event) {
-    event.preventDefault();
-    localStorage.setItem("imgPath", this.state.imgPath);
-    window.location.href =  new URL(window.location.href)
-
-    let { projectActions } = this.context;
-    // projectActions.rollback()
-  }
-
-  render() {
-    let { width, height } = this.props;
-    let { projectActions, translator } = this.context;
-
-    return (
-      <ContentContainer width={width} height={height}>
-        <ContentTitle>{translator.t("Todo")}</ContentTitle>
-        
-      </ContentContainer>
-    );
-  }
+      <div>
+        {todoContext.todo.tasks.map((task, index) => (
+          <React.Fragment key={index}>
+            {task.type === "space" && (
+              <Alert sx={{ margin: "10px 0" }} severity="warning" key={index}>
+                <b>Space: </b>{task.spaceName} needs to be added to the plan
+              </Alert>
+            )}
+            {task.type === "component" && (
+              <Alert sx={{ margin: "10px 0" }} severity="info" key={index}>
+                <b>Component: </b>{task.componentName} needs to be added to the space of {task.spaceName}
+              </Alert>
+            )}
+          </React.Fragment>
+        ))}
+      </div>
+    </ContentContainer>
+  );
 }
 
-ProjectConfigurator.propTypes = {
+Todo.propTypes = {
   width: PropTypes.number.isRequired,
   height: PropTypes.number.isRequired,
   state: PropTypes.object.isRequired,
 };
 
-ProjectConfigurator.contextTypes = {
+Todo.contextTypes = {
   projectActions: PropTypes.object.isRequired,
   translator: PropTypes.object.isRequired,
 };

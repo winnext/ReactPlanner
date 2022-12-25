@@ -81,7 +81,7 @@
     "keycloak-js": "16.1.1",
     "polylabel": "1.0.2",
     "prop-types": "15.7.2",
-    "react": "16.x",
+    "react": "^17.0.2",
     "react-dropzone": "^14.2.1",
     "react-hook-form": "^7.26.1",
     "react-icons": "3.5.0",
@@ -115,7 +115,6 @@
     "webpack-dev-server": "3.7.1"
   },
   "peerDependencies": {
-    "react": "16.x",
     "react-dom": "16.x",
     "three": "0.94.x"
   }

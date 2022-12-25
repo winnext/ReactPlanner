@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import Popup from "../components/popup/Popup";
 import axios from "axios";
-import keycloak from "./keycloak";
 
 export const AreaContext = React.createContext();
 
@@ -22,7 +21,7 @@ export default function AreaContextProvider(props) {
   const getLinksAndSpaces = () => {
     var url = new URL(window.location.href);
     var key = url.searchParams.get("key");
-    axios.get("http://localhost:9001/link/" + key).then((res) => {
+    axios.get("http://localhost:9001/space/" + key).then((res) => {
       console.log(res.data);
       setLinks(res.data);
     });
