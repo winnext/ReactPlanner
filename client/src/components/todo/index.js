@@ -25,9 +25,19 @@ export default function Todo(props, context) {
       .post("http://localhost:9001/todo/check", {
         planKey: todoContext.todo.planKey,
       })
-      .then((res) => {
-        todoContext.setTodo(res.data);
-        setLoadingCheck(false);
+      .then(() => {
+        axios
+          .post("http://localhost:9001/todo/check", {
+            planKey: todoContext.todo.planKey,
+          })
+          .then((res) => {
+            todoContext.setTodo(res.data);
+            setLoadingCheck(false);
+          })
+          .catch((err) => {
+            console.log(err);
+            setLoadingCheck(false);
+          });
       })
       .catch((err) => {
         console.log(err);
@@ -51,12 +61,15 @@ export default function Todo(props, context) {
           <React.Fragment key={index}>
             {task.type === "space" && (
               <Alert sx={{ margin: "10px 0" }} severity="warning" key={index}>
-                <b>Space: </b>{task.spaceName} needs to be added to the plan
+                <b>Space: </b>
+                {task.spaceName} needs to be added to the plan
               </Alert>
             )}
             {task.type === "component" && (
               <Alert sx={{ margin: "10px 0" }} severity="info" key={index}>
-                <b>Component: </b>{task.componentName} needs to be added to the space of {task.spaceName}
+                <b>Component: </b>
+                {task.componentName} needs to be added to the space of{" "}
+                {task.spaceName}
               </Alert>
             )}
           </React.Fragment>
