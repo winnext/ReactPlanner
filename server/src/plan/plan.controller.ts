@@ -20,8 +20,8 @@ export class PlanController {
   constructor(private readonly planService: PlanService) {}
 
   @Post()
-  create(@Body() createPlanDto: CreatePlanDto,@Headers() header) {
-    return this.planService.create(createPlanDto,header);
+  create(@Body() createPlanDto: CreatePlanDto, @Headers() header) {
+    return this.planService.create(createPlanDto, header);
   }
 
   // @Post("/createArea/:key")
@@ -29,9 +29,9 @@ export class PlanController {
   //   return this.planService.createArea(key,area,header);
   // }
 
-  @Post("/moveComponent")
-  moveComponent(@Body() body: any,@Headers() header) {
-    return this.planService.moveComponent(body,header);
+  @Post('/moveComponent')
+  moveComponent(@Body() body: any, @Headers() header) {
+    return this.planService.moveComponent(body, header);
   }
 
   @Get()
@@ -45,13 +45,13 @@ export class PlanController {
     return this.planService.findOne(key);
   }
 
-  @Patch(':key')
-  update(@Param('key') key: string, @Body() updatePlanDto: UpdatePlanDto) {
-    return this.planService.update(key, updatePlanDto);
-  }
+  // @Patch(':key')
+  // update(@Param('key') key: string, @Body() updatePlanDto: UpdatePlanDto) {
+  //   return this.planService.update(key, updatePlanDto);
+  // }
 
-  @Delete(':key')
-  remove(@Param('key') key: string) {
-    return this.planService.remove(key);
-  }
+  // @Delete(':key')
+  // remove(@Param('key') key: string) {
+  //   return this.planService.remove(key);
+  // }
 }
