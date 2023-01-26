@@ -17,7 +17,7 @@ export class GridFsMulterConfigService implements MulterOptionsFactory {
     @InjectConnection() private connection: Connection,
   ) {
     this.gridFsStorage = new GridFsStorage({
-      db: connection as any,
+      db: this.connection as any,
       file: (req, file) => {
         return new Promise((resolve, reject) => {
           let extname = file.originalname
@@ -30,7 +30,7 @@ export class GridFsMulterConfigService implements MulterOptionsFactory {
           const filename = uuidv4() + extname;
           const fileInfo = {
             filename: filename,
-            bucketName: 'uploads',
+            bucketName: this.configService.get('MONGO_GRIDFS_BUCKET_NAME'),
           };
           resolve(fileInfo);
         });

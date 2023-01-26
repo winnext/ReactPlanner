@@ -2,6 +2,7 @@ import { Module } from '@nestjs/common';
 import { MulterModule } from '@nestjs/platform-express';
 import { ModelController } from './model.controller';
 import { GridFsMulterConfigService } from '../common/multer-config.service';
+import { ModelService } from './model.service';
 
 @Module({
   imports: [
@@ -10,6 +11,6 @@ import { GridFsMulterConfigService } from '../common/multer-config.service';
     }),
   ],
   controllers: [ModelController],
-  providers: [GridFsMulterConfigService],
+  providers: [GridFsMulterConfigService, ModelService],
 })
 export class ModelModule {}
