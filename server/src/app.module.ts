@@ -5,6 +5,7 @@ import { AppService } from './app.service';
 import { PlanModule } from './plan/plan.module';
 import { SpaceModule } from './space/space.module';
 import { TodoModule } from './todo/todo.module';
+import { ModelModule } from './model/model.module';
 import { ComponentModule } from './component/component.module';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { MongooseModule } from '@nestjs/mongoose';
@@ -39,6 +40,7 @@ import { HttpCacheInterceptor } from 'ifmcommon';
     SpaceModule,
     ComponentModule,
     TodoModule,
+    ModelModule,
   ],
   controllers: [AppController],
   providers: [
