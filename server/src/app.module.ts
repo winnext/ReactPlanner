@@ -4,6 +4,7 @@ import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { PlanModule } from './plan/plan.module';
 import { SpaceModule } from './space/space.module';
+import { AssetModule } from './asset/asset.module';
 import { TodoModule } from './todo/todo.module';
 import { ModelModule } from './model/model.module';
 import { ComponentModule } from './component/component.module';
@@ -38,6 +39,7 @@ import { HttpCacheInterceptor } from 'ifmcommon';
     }),
     PlanModule,
     SpaceModule,
+    AssetModule,
     ComponentModule,
     TodoModule,
     ModelModule,

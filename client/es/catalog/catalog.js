@@ -4,7 +4,7 @@ function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
-import { PropertyColor, PropertyEnum, PropertyString,PropertyChips, PropertyNumber, PropertyLengthMeasure, PropertyToggle, PropertyCheckbox, PropertyHidden, PropertyReadOnly } from './properties/export';
+import { PropertyColor, PropertyEnum, PropertyString, PropertyChips, PropertyNumber, PropertyLengthMeasure, PropertyToggle, PropertyCheckbox, PropertyHidden, PropertyReadOnly } from './properties/export';
 
 import { UNIT_CENTIMETER } from '../constants';
 
@@ -19,7 +19,7 @@ var Catalog = function () {
     this.propertyTypes = {};
     this.unit = unit;
 
-    this.registerMultiplePropertyType([['color', PropertyColor, PropertyColor], ['enum', PropertyEnum, PropertyEnum], ['string', PropertyString, PropertyString],['chips', PropertyChips, PropertyChips], ['number', PropertyNumber, PropertyNumber], ['length-measure', PropertyLengthMeasure, PropertyLengthMeasure], ['toggle', PropertyToggle, PropertyToggle], ['checkbox', PropertyCheckbox, PropertyCheckbox], ['hidden', PropertyHidden, PropertyHidden], ['read-only', PropertyReadOnly, PropertyReadOnly]]);
+    this.registerMultiplePropertyType([['color', PropertyColor, PropertyColor], ['enum', PropertyEnum, PropertyEnum], ['string', PropertyString, PropertyString], ['chips', PropertyChips, PropertyChips], ['number', PropertyNumber, PropertyNumber], ['length-measure', PropertyLengthMeasure, PropertyLengthMeasure], ['toggle', PropertyToggle, PropertyToggle], ['checkbox', PropertyCheckbox, PropertyCheckbox], ['hidden', PropertyHidden, PropertyHidden], ['read-only', PropertyReadOnly, PropertyReadOnly]]);
   }
 
   /** @description Get catalog's element

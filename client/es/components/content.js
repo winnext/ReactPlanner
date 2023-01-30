@@ -1,14 +1,15 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import Viewer2D from './viewer2d/viewer2d';
-import Viewer3D from './viewer3d/viewer3d';
-import Viewer3DFirstPerson from './viewer3d/viewer3d-first-person';
-import CatalogList from './catalog-view/catalog-list';
-import ProjectConfigurator from './configurator/project-configurator';
-import BackgroundConfigurator from './configurator/background-configurator';
+import React from "react";
+import PropTypes from "prop-types";
+import Viewer2D from "./viewer2d/viewer2d";
+import Viewer3D from "./viewer3d/viewer3d";
+import Viewer3DFirstPerson from "./viewer3d/viewer3d-first-person";
+import CatalogList from "./catalog-view/catalog-list";
+import ProjectConfigurator from "./configurator/project-configurator";
+import BackgroundConfigurator from "./configurator/background-configurator";
+import Todo from "./todo";
 
-import * as constants from '../constants';
-import Assets from './assets';
+import * as constants from "../constants";
+import Assets from "./assets";
 
 export default function Content(_ref) {
   var width = _ref.width,
@@ -16,7 +17,7 @@ export default function Content(_ref) {
       state = _ref.state,
       customContents = _ref.customContents;
 
-  var mode = state.get('mode');
+  var mode = state.get("mode");
 
   switch (mode) {
     case constants.MODE_3D_VIEW:
@@ -52,12 +53,15 @@ export default function Content(_ref) {
     case constants.MODE_CONFIGURING_BACKGROUND:
       return React.createElement(BackgroundConfigurator, { width: width, height: height, state: state });
 
+    case constants.MODE_TODO:
+      return React.createElement(Todo, { width: width, height: height, state: state });
+
     default:
       if (customContents.hasOwnProperty(mode)) {
         var CustomContent = customContents[mode];
         return React.createElement(CustomContent, { width: width, height: height, state: state });
       } else {
-        throw new Error('Mode ' + mode + ' doesn\'t have a mapped content');
+        throw new Error("Mode " + mode + " doesn't have a mapped content");
       }
   }
 }

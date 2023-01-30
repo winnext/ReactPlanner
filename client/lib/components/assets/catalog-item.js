@@ -140,7 +140,7 @@ var CatalogItem = function (_Component) {
     key: 'select',
     value: function select() {
       var element = this.props.element;
-      console.log(element.prototype);
+      console.log("Name: " + element.name);
 
       switch (element.prototype) {
         case 'lines':

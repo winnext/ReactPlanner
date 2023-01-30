@@ -208,7 +208,9 @@ var Item = exports.Item = function (_Record7) {
   x: 0,
   y: 0,
   rotation: 0,
-  itemData: []
+  visible: true,
+  itemData: [],
+  info: {}
 }), 'Item'));
 
 var Layer = exports.Layer = function (_Record8) {
@@ -236,7 +238,7 @@ var Layer = exports.Layer = function (_Record8) {
   order: 0,
   opacity: 1,
   name: '',
-  // test:'',
+  color: '',
   visible: true,
   vertices: new _immutable.Map(),
   lines: new _immutable.Map(),
@@ -296,6 +298,7 @@ var Scene = exports.Scene = function (_Record10) {
   return Scene;
 }((0, _immutable.Record)({
   unit: 'cm',
+  key: '',
   layers: new _immutable.Map(),
   grids: new _immutable.Map(),
   selectedLayer: null,

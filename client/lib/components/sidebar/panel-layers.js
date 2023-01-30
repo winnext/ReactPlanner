@@ -1,4 +1,4 @@
-'use strict';
+"use strict";
 
 Object.defineProperty(exports, "__esModule", {
   value: true
@@ -10,31 +10,33 @@ var _createClass = function () { function defineProperties(target, props) { for 
 
 var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 
-var _react = require('react');
+var _react = require("react");
 
 var _react2 = _interopRequireDefault(_react);
 
-var _propTypes = require('prop-types');
+var _propTypes = require("prop-types");
 
 var _propTypes2 = _interopRequireDefault(_propTypes);
 
-var _immutable = require('immutable');
+var _immutable = require("immutable");
 
-var _panel = require('./panel');
+var _panel = require("./panel");
 
 var _panel2 = _interopRequireDefault(_panel);
 
-var _ti = require('react-icons/ti');
+var _ti = require("react-icons/ti");
 
-var _fa = require('react-icons/fa');
+var _fa = require("react-icons/fa");
 
-var _export = require('../style/export');
+var _export = require("../style/export");
 
-var _constants = require('../../constants');
+var _constants = require("../../constants");
 
-var _sharedStyle = require('../../shared-style');
+var _sharedStyle = require("../../shared-style");
 
 var SharedStyle = _interopRequireWildcard(_sharedStyle);
+
+var _reactHookForm = require("react-hook-form");
 
 function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
 
@@ -47,44 +49,69 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
 var VISIBILITY_MODE = {
-  MODE_IDLE: _constants.MODE_IDLE, MODE_2D_ZOOM_IN: _constants.MODE_2D_ZOOM_IN, MODE_2D_ZOOM_OUT: _constants.MODE_2D_ZOOM_OUT, MODE_2D_PAN: _constants.MODE_2D_PAN,
-  MODE_3D_VIEW: _constants.MODE_3D_VIEW, MODE_3D_FIRST_PERSON: _constants.MODE_3D_FIRST_PERSON,
-  MODE_WAITING_DRAWING_LINE: _constants.MODE_WAITING_DRAWING_LINE, MODE_DRAWING_LINE: _constants.MODE_DRAWING_LINE, MODE_DRAWING_HOLE: _constants.MODE_DRAWING_HOLE, MODE_DRAWING_ITEM: _constants.MODE_DRAWING_ITEM,
-  MODE_DRAGGING_LINE: _constants.MODE_DRAGGING_LINE, MODE_DRAGGING_VERTEX: _constants.MODE_DRAGGING_VERTEX, MODE_DRAGGING_ITEM: _constants.MODE_DRAGGING_ITEM, MODE_DRAGGING_HOLE: _constants.MODE_DRAGGING_HOLE,
-  MODE_ROTATING_ITEM: _constants.MODE_ROTATING_ITEM, MODE_UPLOADING_IMAGE: _constants.MODE_UPLOADING_IMAGE, MODE_FITTING_IMAGE: _constants.MODE_FITTING_IMAGE
+  MODE_IDLE: _constants.MODE_IDLE,
+  MODE_2D_ZOOM_IN: _constants.MODE_2D_ZOOM_IN,
+  MODE_2D_ZOOM_OUT: _constants.MODE_2D_ZOOM_OUT,
+  MODE_2D_PAN: _constants.MODE_2D_PAN,
+  MODE_3D_VIEW: _constants.MODE_3D_VIEW,
+  MODE_3D_FIRST_PERSON: _constants.MODE_3D_FIRST_PERSON,
+  MODE_WAITING_DRAWING_LINE: _constants.MODE_WAITING_DRAWING_LINE,
+  MODE_DRAWING_LINE: _constants.MODE_DRAWING_LINE,
+  MODE_DRAWING_HOLE: _constants.MODE_DRAWING_HOLE,
+  MODE_DRAWING_ITEM: _constants.MODE_DRAWING_ITEM,
+  MODE_DRAGGING_LINE: _constants.MODE_DRAGGING_LINE,
+  MODE_DRAGGING_VERTEX: _constants.MODE_DRAGGING_VERTEX,
+  MODE_DRAGGING_ITEM: _constants.MODE_DRAGGING_ITEM,
+  MODE_DRAGGING_HOLE: _constants.MODE_DRAGGING_HOLE,
+  MODE_ROTATING_ITEM: _constants.MODE_ROTATING_ITEM,
+  MODE_UPLOADING_IMAGE: _constants.MODE_UPLOADING_IMAGE,
+  MODE_FITTING_IMAGE: _constants.MODE_FITTING_IMAGE
 };
 
 var styleEditButton = {
-  cursor: 'pointer',
-  marginLeft: '5px',
-  border: '0px',
-  background: 'none',
+  cursor: "pointer",
+  marginLeft: "5px",
+  border: "0px",
+  background: "none",
   color: SharedStyle.COLORS.white,
-  fontSize: '14px',
-  outline: '0px'
+  fontSize: "14px",
+  outline: "0px"
 };
 
 var tableLayerStyle = {
-  width: '100%',
-  cursor: 'pointer',
-  overflowY: 'auto',
-  maxHeight: '20em',
-  display: 'block',
-  padding: '0 1em',
-  marginLeft: '1px'
+  width: "100%",
+  cursor: "pointer",
+  overflowY: "auto",
+  maxHeight: "20em",
+  display: "block",
+  padding: "0 1em",
+  marginLeft: "1px"
 };
 
-var iconColStyle = { width: '2em' };
+var iconColStyle = { width: "2em" };
 var styleHoverColor = { color: SharedStyle.SECONDARY_COLOR.main };
 var styleEditButtonHover = _extends({}, styleEditButton, styleHoverColor);
-var styleAddLabel = { fontSize: '10px', marginLeft: '5px' };
-var styleEyeVisible = { fontSize: '1.25em' };
-var styleEyeHidden = _extends({}, styleEyeVisible, { color: '#a5a1a1' });
-var firstTdStyle = { width: '6em' };
-var newLayerLableStyle = { margin: '0.5em 0', fontSize: '1.3em', cursor: 'pointer', textAlign: 'center' };
+var styleAddLabel = { fontSize: "10px", marginLeft: "5px" };
+var styleEyeVisible = { fontSize: "1.25em" };
+var styleEyeHidden = _extends({}, styleEyeVisible, { color: "#a5a1a1" });
+var firstTdStyle = { width: "6em" };
+var newLayerLableStyle = {
+  margin: "0.5em 0",
+  fontSize: "1.3em",
+  cursor: "pointer",
+  textAlign: "center"
+};
 var newLayerLableHoverStyle = _extends({}, newLayerLableStyle, styleHoverColor);
-var layerInputTableStyle = { width: '100%', borderSpacing: '2px 0', padding: '5px 15px' };
-var inputTableButtonStyle = { float: 'right', marginTop: '0.5em', borderSpacing: '0' };
+var layerInputTableStyle = {
+  width: "100%",
+  borderSpacing: "2px 0",
+  padding: "5px 15px"
+};
+var inputTableButtonStyle = {
+  float: "right",
+  marginTop: "0.5em",
+  borderSpacing: "0"
+};
 
 var PanelLayers = function (_Component) {
   _inherits(PanelLayers, _Component);
@@ -102,56 +129,69 @@ var PanelLayers = function (_Component) {
     return _this;
   }
 
-  _createClass(PanelLayers, [{
-    key: 'shouldComponentUpdate',
-    value: function shouldComponentUpdate(nextProps, nextState) {
-      if (this.props.state.scene.layers.size !== nextProps.state.scene.layers.size || nextState.layerAddUIVisible != this.state.layerAddUIVisible || this.state.editingLayer.hashCode() !== nextState.editingLayer.hashCode() || this.props.state.sceneHistory.hashCode() !== nextProps.state.sceneHistory.hashCode()) return true;
+  // shouldComponentUpdate(nextProps, nextState) {
+  //   if (
+  //     this.props.state.scene.layers.size !==
+  //       nextProps.state.scene.layers.size ||
+  //     nextState.layerAddUIVisible != this.state.layerAddUIVisible ||
+  //     this.state.editingLayer.hashCode() !==
+  //       nextState.editingLayer.hashCode() ||
+  //     this.props.state.sceneHistory.hashCode() !==
+  //       nextProps.state.sceneHistory.hashCode()
+  //   )
+  //     return true;
 
-      return false;
-    }
-  }, {
-    key: 'addLayer',
+  //   return false;
+  // }
+
+  _createClass(PanelLayers, [{
+    key: "addLayer",
     value: function addLayer(e) {
       e.stopPropagation();
       if (!this.state.layerAddUIVisible) {
-        this.context.sceneActions.addLayer('', 0);
+        this.context.sceneActions.addLayer("", 0);
         this.setState({ layerAddUIVisible: false });
       } else this.setState({ layerAddUIVisible: !this.state.layerAddUIVisible });
     }
   }, {
-    key: 'resetLayerMod',
+    key: "resetLayerMod",
     value: function resetLayerMod(e) {
       e.stopPropagation();
       this.setState({ layerAddUIVisible: false, editingLayer: new _immutable.Map() });
     }
   }, {
-    key: 'updateLayer',
+    key: "updateLayer",
     value: function updateLayer(e, layerData) {
       e.stopPropagation();
-      // let {id, name,test, opacity, altitude, order} = layerData.toJS();
 
       var _layerData$toJS = layerData.toJS(),
           id = _layerData$toJS.id,
           name = _layerData$toJS.name,
+          color = _layerData$toJS.color,
           opacity = _layerData$toJS.opacity,
           altitude = _layerData$toJS.altitude,
           order = _layerData$toJS.order;
 
       altitude = parseInt(altitude);
 
-      // this.context.sceneActions.setLayerProperties(id, {name,test, opacity, altitude, order});
-      this.context.sceneActions.setLayerProperties(id, { name: name, opacity: opacity, altitude: altitude, order: order });
+      this.context.sceneActions.setLayerProperties(id, {
+        name: name,
+        color: color,
+        opacity: opacity,
+        altitude: altitude,
+        order: order
+      });
       this.setState({ layerAddUIVisible: false, editingLayer: new _immutable.Map() });
     }
   }, {
-    key: 'delLayer',
+    key: "delLayer",
     value: function delLayer(e, layerID) {
       e.stopPropagation();
       this.context.sceneActions.removeLayer(layerID);
       this.setState({ layerAddUIVisible: false, editingLayer: new _immutable.Map() });
     }
   }, {
-    key: 'render',
+    key: "render",
     value: function render() {
       var _this2 = this;
 
@@ -162,31 +202,31 @@ var PanelLayers = function (_Component) {
 
       return _react2.default.createElement(
         _panel2.default,
-        { name: this.context.translator.t('Layers') },
+        { name: this.context.translator.t("Layers") },
         _react2.default.createElement(
-          'table',
+          "table",
           { style: tableLayerStyle },
           _react2.default.createElement(
-            'thead',
+            "thead",
             null,
             _react2.default.createElement(
-              'tr',
+              "tr",
               null,
-              _react2.default.createElement('th', { colSpan: '3' }),
+              _react2.default.createElement("th", { colSpan: "3" }),
               _react2.default.createElement(
-                'th',
+                "th",
                 null,
-                this.context.translator.t('Altitude')
+                this.context.translator.t("Altitude")
               ),
               _react2.default.createElement(
-                'th',
+                "th",
                 null,
-                this.context.translator.t('Name')
+                this.context.translator.t("Name")
               )
             )
           ),
           _react2.default.createElement(
-            'tbody',
+            "tbody",
             null,
             scene.layers.entrySeq().map(function (_ref) {
               var _ref2 = _slicedToArray(_ref, 2),
@@ -202,13 +242,15 @@ var PanelLayers = function (_Component) {
 
               var swapVisibility = function swapVisibility(e) {
                 e.stopPropagation();
-                _this2.context.sceneActions.setLayerProperties(layerID, { visible: !layer.visible });
+                _this2.context.sceneActions.setLayerProperties(layerID, {
+                  visible: !layer.visible
+                });
               };
 
               var isCurrentLayer = layerID === scene.selectedLayer;
 
               return _react2.default.createElement(
-                'tr',
+                "tr",
                 {
                   key: layerID,
                   onClick: selectClick,
@@ -216,7 +258,7 @@ var PanelLayers = function (_Component) {
                   style: !isCurrentLayer ? null : styleHoverColor
                 },
                 _react2.default.createElement(
-                  'td',
+                  "td",
                   { style: iconColStyle },
                   !isCurrentLayer ? _react2.default.createElement(_fa.FaEye, {
                     onClick: swapVisibility,
@@ -224,34 +266,34 @@ var PanelLayers = function (_Component) {
                   }) : null
                 ),
                 _react2.default.createElement(
-                  'td',
+                  "td",
                   { style: iconColStyle },
                   _react2.default.createElement(_fa.FaPencilAlt, {
                     onClick: configureClick,
                     style: !isCurrentLayer ? styleEditButton : styleEditButtonHover,
-                    title: _this2.context.translator.t('Configure layer')
+                    title: _this2.context.translator.t("Configure layer")
                   })
                 ),
                 _react2.default.createElement(
-                  'td',
+                  "td",
                   { style: iconColStyle },
                   !isLastLayer ? _react2.default.createElement(_fa.FaTrash, {
                     onClick: function onClick(e) {
                       return _this2.delLayer(e, layerID);
                     },
                     style: !isCurrentLayer ? styleEditButton : styleEditButtonHover,
-                    title: _this2.context.translator.t('Delete layer')
+                    title: _this2.context.translator.t("Delete layer")
                   }) : null
                 ),
                 _react2.default.createElement(
-                  'td',
-                  { style: { width: '6em', textAlign: 'center' } },
-                  '[ h : ',
+                  "td",
+                  { style: { width: "6em", textAlign: "center" } },
+                  "[ h : ",
                   layer.altitude,
-                  ' ]'
+                  " ]"
                 ),
                 _react2.default.createElement(
-                  'td',
+                  "td",
                   null,
                   layer.name
                 )
@@ -260,7 +302,7 @@ var PanelLayers = function (_Component) {
           )
         ),
         _react2.default.createElement(
-          'p',
+          "p",
           {
             style: !this.state.headHovered ? newLayerLableStyle : newLayerLableHoverStyle,
             onMouseOver: function onMouseOver() {
@@ -275,134 +317,209 @@ var PanelLayers = function (_Component) {
           },
           !this.state.layerAddUIVisible ? _react2.default.createElement(_ti.TiPlus, null) : _react2.default.createElement(_ti.TiDelete, null),
           _react2.default.createElement(
-            'b',
+            "b",
             { style: styleAddLabel },
-            this.context.translator.t('New layer')
+            this.context.translator.t("New layer")
+          )
+        ),
+        _react2.default.createElement(
+          "p",
+          { style: newLayerLableStyle, onClick: function onClick(e) {
+              _this2.props.showLayersColors.setShowLayersColors(function (prevValue) {
+                localStorage.setItem("layerColors", !prevValue);
+                return !prevValue;
+              });
+            } },
+          _react2.default.createElement(_fa.FaEye, {
+            style: this.props.showLayersColors.showLayersColors ? styleEyeVisible : styleEyeHidden
+          }),
+          _react2.default.createElement(
+            "b",
+            { style: styleAddLabel },
+            "Colors"
           )
         ),
         this.state.layerAddUIVisible && this.state.editingLayer ? _react2.default.createElement(
-          'table',
+          "table",
           { style: layerInputTableStyle },
           _react2.default.createElement(
-            'tbody',
+            "tbody",
             null,
             _react2.default.createElement(
-              'tr',
-              { style: { marginTop: '1em' } },
+              "tr",
+              { style: { marginTop: "1em" } },
               _react2.default.createElement(
-                'td',
+                "td",
                 { style: firstTdStyle },
-                this.context.translator.t('Name'),
-                ':'
+                this.context.translator.t("Name"),
+                ":"
               ),
               _react2.default.createElement(
-                'td',
+                "td",
                 null,
                 _react2.default.createElement(_export.FormTextInput, {
-                  value: this.state.editingLayer.get('name'),
+                  value: this.state.editingLayer.get("name"),
                   onChange: function onChange(e) {
-                    return _this2.setState({ editingLayer: _this2.state.editingLayer.merge({ name: e.target.value }) });
+                    return _this2.setState({
+                      editingLayer: _this2.state.editingLayer.merge({
+                        name: e.target.value
+                      })
+                    });
                   }
                 })
               )
             ),
             _react2.default.createElement(
-              'tr',
-              null,
+              "tr",
+              { style: { marginTop: "1em" } },
               _react2.default.createElement(
-                'td',
+                "td",
                 { style: firstTdStyle },
-                this.context.translator.t('opacity'),
-                ':'
+                "Color:"
               ),
               _react2.default.createElement(
-                'td',
+                "td",
+                null,
+                _react2.default.createElement(_export.FormColorInput, {
+                  value: this.state.editingLayer.get("color"),
+                  onChange: function onChange(e) {
+                    return _this2.setState({
+                      editingLayer: _this2.state.editingLayer.merge({
+                        color: e.target.value
+                      })
+                    });
+                  }
+                }),
+                _react2.default.createElement(
+                  "button",
+                  {
+                    onClick: function onClick(e) {
+                      return _this2.setState({
+                        editingLayer: _this2.state.editingLayer.merge({
+                          color: ""
+                        })
+                      });
+                    }
+                  },
+                  "reset"
+                )
+              )
+            ),
+            _react2.default.createElement(
+              "tr",
+              null,
+              _react2.default.createElement(
+                "td",
+                { style: firstTdStyle },
+                this.context.translator.t("opacity"),
+                ":"
+              ),
+              _react2.default.createElement(
+                "td",
                 null,
                 _react2.default.createElement(_export.FormSlider, {
                   min: 0,
                   max: 100,
-                  value: Math.round(this.state.editingLayer.get('opacity') * 100),
+                  value: Math.round(this.state.editingLayer.get("opacity") * 100),
                   onChange: function onChange(e) {
-                    return _this2.setState({ editingLayer: _this2.state.editingLayer.merge({ opacity: e.target.value / 100 }) });
+                    return _this2.setState({
+                      editingLayer: _this2.state.editingLayer.merge({
+                        opacity: e.target.value / 100
+                      })
+                    });
                   }
                 })
               )
             ),
             _react2.default.createElement(
-              'tr',
+              "tr",
               null,
               _react2.default.createElement(
-                'td',
+                "td",
                 { style: firstTdStyle },
-                this.context.translator.t('altitude'),
-                ':'
+                this.context.translator.t("altitude"),
+                ":"
               ),
               _react2.default.createElement(
-                'td',
+                "td",
                 null,
                 _react2.default.createElement(_export.FormNumberInput, {
-                  value: this.state.editingLayer.get('altitude'),
+                  value: this.state.editingLayer.get("altitude"),
                   onChange: function onChange(e) {
-                    return _this2.setState({ editingLayer: _this2.state.editingLayer.merge({ altitude: e.target.value }) });
+                    return _this2.setState({
+                      editingLayer: _this2.state.editingLayer.merge({
+                        altitude: e.target.value
+                      })
+                    });
                   }
                 })
               )
             ),
             _react2.default.createElement(
-              'tr',
+              "tr",
               null,
               _react2.default.createElement(
-                'td',
+                "td",
                 { style: firstTdStyle },
-                this.context.translator.t('order'),
-                ':'
+                this.context.translator.t("order"),
+                ":"
               ),
               _react2.default.createElement(
-                'td',
+                "td",
                 null,
                 _react2.default.createElement(_export.FormNumberInput, {
-                  value: this.state.editingLayer.get('order'),
+                  value: this.state.editingLayer.get("order"),
                   onChange: function onChange(e) {
-                    return _this2.setState({ editingLayer: _this2.state.editingLayer.merge({ order: e.target.value }) });
+                    return _this2.setState({
+                      editingLayer: _this2.state.editingLayer.merge({
+                        order: e.target.value
+                      })
+                    });
                   }
                 })
               )
             ),
             _react2.default.createElement(
-              'tr',
+              "tr",
               null,
               _react2.default.createElement(
-                'td',
-                { colSpan: '2' },
+                "td",
+                { colSpan: "2" },
                 _react2.default.createElement(
-                  'table',
+                  "table",
                   { style: inputTableButtonStyle },
                   _react2.default.createElement(
-                    'tbody',
+                    "tbody",
                     null,
                     _react2.default.createElement(
-                      'tr',
+                      "tr",
                       null,
                       _react2.default.createElement(
-                        'td',
+                        "td",
                         null,
                         _react2.default.createElement(
                           _export.CancelButton,
-                          { size: 'small', onClick: function onClick(e) {
+                          {
+                            size: "small",
+                            onClick: function onClick(e) {
                               _this2.resetLayerMod(e);
-                            } },
-                          this.context.translator.t('Reset')
+                            }
+                          },
+                          this.context.translator.t("Reset")
                         )
                       ),
                       _react2.default.createElement(
-                        'td',
+                        "td",
                         null,
                         _react2.default.createElement(
                           _export.FormSubmitButton,
-                          { size: 'small', onClick: function onClick(e) {
+                          {
+                            size: "small",
+                            onClick: function onClick(e) {
                               _this2.updateLayer(e, _this2.state.editingLayer);
-                            } },
-                          this.context.translator.t('Save')
+                            }
+                          },
+                          this.context.translator.t("Save")
                         )
                       )
                     )
@@ -423,7 +540,8 @@ exports.default = PanelLayers;
 
 
 PanelLayers.propTypes = {
-  state: _propTypes2.default.object.isRequired
+  state: _propTypes2.default.object.isRequired,
+  showLayersColors: _propTypes2.default.object.isRequired
 };
 
 PanelLayers.contextTypes = {

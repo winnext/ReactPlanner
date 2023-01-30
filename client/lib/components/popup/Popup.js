@@ -14,9 +14,19 @@ var _react = require("react");
 
 var React = _interopRequireWildcard(_react);
 
-var _Context = require("../../Context/Context");
+var _axios = require("axios");
+
+var _axios2 = _interopRequireDefault(_axios);
+
+var _propTypes = require("prop-types");
+
+var _propTypes2 = _interopRequireDefault(_propTypes);
+
+var _Context = require("../../Context");
 
 var _material = require("@mui/material");
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
 
@@ -25,58 +35,145 @@ function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr
 var Transition = React.forwardRef(function Transition(props, ref) {
   return React.createElement(_material.Slide, _extends({ direction: "up", ref: ref }, props));
 });
+function Popup(props, context2) {
+  var context = React.useContext(_Context.AreaContext);
 
-function Popup() {
-
-  var context = React.useContext(_Context.Context);
-
-  var _React$useState = React.useState([]),
+  var _React$useState = React.useState(""),
       _React$useState2 = _slicedToArray(_React$useState, 2),
-      data = _React$useState2[0],
-      setData = _React$useState2[1];
+      space = _React$useState2[0],
+      setSpace = _React$useState2[1];
+
+  var _React$useState3 = React.useState([]),
+      _React$useState4 = _slicedToArray(_React$useState3, 2),
+      spaces = _React$useState4[0],
+      setSpaces = _React$useState4[1];
+
+  var handleChange = function handleChange(event) {
+    setSpace(event.target.value);
+  };
 
   React.useEffect(function () {
-    if (context.select.select) {
-      if (context.data.data[context.select.select.id]) {
-        setData(context.data.data[context.select.select.id]);
-      } else {
-        setData([]);
+    setSpace("");
+    setSpaces([]);
+    console.log(context.spaces);
+    context.spaces.spaces.forEach(function (item) {
+      var temp = context.links.links.find(function (link) {
+        return link.spaceKey === item.key;
+      });
+      if (!temp) {
+        setSpaces(function (prev) {
+          return [].concat(_toConsumableArray(prev), [item]);
+        });
       }
+    });
+
+    var areaLink = context.links.links.find(function (i) {
+      return i.areaKey === context.select.select.id;
+    });
+    var areaSpace = areaLink && context.spaces.spaces.find(function (i) {
+      return i.key === areaLink.spaceKey;
+    });
+    if (areaLink && areaSpace) {
+      setSpaces(function (prev) {
+        return [].concat(_toConsumableArray(prev), [areaSpace]);
+      });
+      setSpace(areaLink.spaceKey);
     }
   }, [context.popup.open]);
 
-  var handleChange = function handleChange(e, name, index) {
-    var value = e.target.value;
-
-    if (e.target.value !== null) {
-      setData(function (prevValue) {
-        var temp = JSON.parse(JSON.stringify(prevValue));
-        if (name === "name") {
-          temp[index].name = value;
-        } else if (name === "value") {
-          temp[index].value = value;
-        }
-        return temp;
-      });
-    }
-  };
-
-  var addProperties = function addProperties() {
-    setData(function (prevValue) {
-      return [].concat(_toConsumableArray(prevValue), [{ name: "", value: "" }]);
-    });
-  };
-
   var Save = function Save() {
+    var url = new URL(window.location.href);
+    var key = url.searchParams.get("key");
     if (context.select.select) {
-      context.data.setData(function (prevValue) {
-        var temp = prevValue;
-        temp[context.select.select.id] = data;
-        localStorage.setItem("data", JSON.stringify(temp));
-        return temp;
+      _axios2.default.post("http://localhost:9001/space", {
+        planKey: key,
+        spaceKey: space,
+        areaKey: context.select.select.id
+      }).then(function (res) {
+        console.log(res.data);
+        setSpace("");
+        context.getLinksAndSpaces();
+        context.popup.setOpen(false);
       });
     }
-    context.popup.setOpen(false);
+  };
+
+  var GetComponents = function GetComponents() {
+    var areaLink = context.links.links.find(function (i) {
+      return i.areaKey === context.select.select.id;
+    });
+    var areaSpace = areaLink && context.spaces.spaces.find(function (i) {
+      return i.key === areaLink.spaceKey;
+    });
+    if (areaLink && areaSpace) {
+      _axios2.default.post("http://localhost:3014/component" + "/advancedSearch/" + ("?page=" + 1 + "&limit=" + 10 + "&orderBy=" + "DESC" + "&orderByColumn="), [{
+        relationName: "LOCATED_IN",
+        labels: ["Virtual", "FacilityStructure"],
+        filters: { isDeleted: false, id: areaSpace.id.toString() }
+      }]).then(function (res) {
+        console.log(res.data);
+        console.log(context2);
+        var layerID = "layer-1";
+        var areaID = areaLink.areaKey;
+        var area = props.state.getIn(["scene", "layers", layerID, "areas", areaID]);
+        var x = Infinity;
+        var y = -Infinity;
+        area.vertices.forEach(function (vertexID) {
+          var vertice = props.state.getIn(["scene", "layers", layerID, "vertices", vertexID]);
+          if (vertice.x <= x) {
+            x = vertice.x;
+          }
+        });
+        area.vertices.forEach(function (vertexID) {
+          var vertice = props.state.getIn(["scene", "layers", layerID, "vertices", vertexID]);
+          if (vertice.x === x) {
+            if (vertice.y >= y) {
+              y = vertice.y;
+            }
+          }
+        });
+        x += 10;
+        y -= 10;
+
+        var _loop = function _loop(item) {
+          _axios2.default.get("http://localhost:3014/component" + "/identifier/" + item.id).then(function (itemInfo) {
+            _axios2.default.get("http://localhost:3014/types/identifier/" + itemInfo.data.properties.type.toString()).then(function (typeInfo) {
+              var asset = context2.assets.elements.find(function (i) {
+                return i.info.key === typeInfo.data.properties.key;
+              });
+              context2.itemsActions.createItem("layer-1", asset.name, x, y, 200, 100, 0, item);
+            });
+          });
+        };
+
+        var _iteratorNormalCompletion = true;
+        var _didIteratorError = false;
+        var _iteratorError = undefined;
+
+        try {
+          for (var _iterator = res.data.children[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
+            var item = _step.value;
+
+            _loop(item);
+          }
+        } catch (err) {
+          _didIteratorError = true;
+          _iteratorError = err;
+        } finally {
+          try {
+            if (!_iteratorNormalCompletion && _iterator.return) {
+              _iterator.return();
+            }
+          } finally {
+            if (_didIteratorError) {
+              throw _iteratorError;
+            }
+          }
+        }
+      }).catch(function (err) {
+        console.log(err);
+      });
+    }
   };
 
   return React.createElement(
@@ -92,36 +189,49 @@ function Popup() {
     React.createElement(
       _material.DialogTitle,
       null,
-      context.select.select && "id: " + context.select.select.id
+      context.select.select && "Area Id: " + context.select.select.id
     ),
     React.createElement(
       _material.DialogContent,
       null,
-      context.select.select && React.createElement(
-        "div",
-        null,
-        data.map(function (item, index) {
-          return React.createElement(
-            "div",
-            { key: index, style: { marginTop: "15px", display: "flex", alignItems: "center" } },
-            React.createElement(
-              "span",
-              { style: { fontSize: "1.8em", marginRight: "10px" } },
-              index + 1,
-              "."
-            ),
-            React.createElement(_material.TextField, { style: { marginRight: "10px" }, value: item.name, onChange: function onChange(e) {
-                return handleChange(e, "name", index);
-              }, label: "Name", variant: "outlined" }),
-            React.createElement(_material.TextField, { value: item.value, onChange: function onChange(e) {
-                return handleChange(e, "value", index);
-              }, label: "Value", variant: "outlined" })
-          );
-        }),
+      React.createElement(
+        _material.Button,
+        { onClick: GetComponents },
+        "Get Components"
+      ),
+      React.createElement(
+        _material.Box,
+        { sx: { p: 2 } },
         React.createElement(
-          _material.Button,
-          { style: { marginTop: "10px" }, onClick: addProperties },
-          "Add Properties"
+          _material.FormControl,
+          { fullWidth: true },
+          React.createElement(
+            _material.InputLabel,
+            { id: "demo-simple-select-label" },
+            "Space"
+          ),
+          React.createElement(
+            _material.Select,
+            {
+              labelId: "demo-simple-select-label",
+              id: "demo-simple-select",
+              value: space,
+              label: "Select Space",
+              onChange: handleChange
+            },
+            React.createElement(
+              _material.MenuItem,
+              { value: "" },
+              "Empty"
+            ),
+            spaces.map(function (item) {
+              return React.createElement(
+                _material.MenuItem,
+                { key: item.key, value: item.key },
+                item.name
+              );
+            })
+          )
         )
       )
     ),
@@ -143,3 +253,10 @@ function Popup() {
     )
   );
 }
+
+Popup.contextTypes = {
+  assets: _propTypes2.default.object.isRequired,
+  catalog: _propTypes2.default.object.isRequired,
+  projectActions: _propTypes2.default.object.isRequired,
+  itemsActions: _propTypes2.default.object.isRequired
+};

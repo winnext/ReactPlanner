@@ -52,8 +52,9 @@ var ProjectConfigurator = function (_Component) {
   }, {
     key: "onSubmit",
     value: function onSubmit(event) {
-      // event.preventDefault();
+      event.preventDefault();
       localStorage.setItem("imgPath", this.state.imgPath);
+      window.location.href = new URL(window.location.href);
 
       var projectActions = this.context.projectActions;
       // projectActions.rollback()
@@ -70,9 +71,6 @@ var ProjectConfigurator = function (_Component) {
           projectActions = _context.projectActions,
           translator = _context.translator;
 
-
-      console.log(this.context);
-      console.log(this.props);
 
       return React.createElement(
         ContentContainer,

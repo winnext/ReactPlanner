@@ -14,8 +14,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import ContextProvider from "./Context/Context";
-import Popup from "./components/popup/Popup";
+import ContextProvider from "./Context";
 
 import Translator from './translator/translator';
 import Catalog from './catalog/catalog';
@@ -23,7 +22,8 @@ import actions from './actions/export';
 import { objectsMap } from './utils/objects-utils';
 import { ToolbarComponents, Content, SidebarComponents, FooterBarComponents } from './components/export';
 import { VERSION } from './version';
-import './styles/export';
+import './styles/export'; //icons
+
 
 var Toolbar = ToolbarComponents.Toolbar;
 var Sidebar = SidebarComponents.Sidebar;
@@ -110,8 +110,7 @@ var ReactPlanner = function (_Component) {
 
       return React.createElement(
         ContextProvider,
-        null,
-        React.createElement(Popup, null),
+        { state: extractedState },
         React.createElement(
           'div',
           { style: _extends({}, wrapperStyle, { height: height }) },

@@ -3,7 +3,7 @@
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.PropertyReadOnly = exports.PropertyHidden = exports.PropertyCheckbox = exports.PropertyToggle = exports.PropertyLengthMeasure = exports.PropertyNumber = exports.PropertyString = exports.PropertyEnum = exports.PropertyColor = undefined;
+exports.PropertyReadOnly = exports.PropertyHidden = exports.PropertyCheckbox = exports.PropertyToggle = exports.PropertyLengthMeasure = exports.PropertyNumber = exports.PropertyChips = exports.PropertyString = exports.PropertyEnum = exports.PropertyColor = undefined;
 
 var _propertyColor = require('./property-color');
 
@@ -16,6 +16,10 @@ var _propertyEnum2 = _interopRequireDefault(_propertyEnum);
 var _propertyString = require('./property-string');
 
 var _propertyString2 = _interopRequireDefault(_propertyString);
+
+var _propertyChips = require('./property-chips');
+
+var _propertyChips2 = _interopRequireDefault(_propertyChips);
 
 var _propertyNumber = require('./property-number');
 
@@ -46,6 +50,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 exports.PropertyColor = _propertyColor2.default;
 exports.PropertyEnum = _propertyEnum2.default;
 exports.PropertyString = _propertyString2.default;
+exports.PropertyChips = _propertyChips2.default;
 exports.PropertyNumber = _propertyNumber2.default;
 exports.PropertyLengthMeasure = _propertyLenghtMeasure2.default;
 exports.PropertyToggle = _propertyToggle2.default;
@@ -56,6 +61,7 @@ exports.default = {
   PropertyColor: _propertyColor2.default,
   PropertyEnum: _propertyEnum2.default,
   PropertyString: _propertyString2.default,
+  PropertyChips: _propertyChips2.default,
   PropertyNumber: _propertyNumber2.default,
   PropertyLengthMeasure: _propertyLenghtMeasure2.default,
   PropertyToggle: _propertyToggle2.default,

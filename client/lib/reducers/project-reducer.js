@@ -1,11 +1,10 @@
-'use strict';
+"use strict";
 
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
 exports.default = function (state, action) {
-
   switch (action.type) {
     case _constants.NEW_PROJECT:
       return _export2.Project.newProject(state).updatedState;
@@ -32,23 +31,33 @@ exports.default = function (state, action) {
       return _export2.Project.unselectAll(state).updatedState;
 
     case _constants.SET_PROPERTIES:
-      state = state.merge({ sceneHistory: _export.history.historyPush(state.sceneHistory, state.scene) });
-      return _export2.Project.setProperties(state, state.getIn(['scene', 'selectedLayer']), action.properties).updatedState;
+      state = state.merge({
+        sceneHistory: _export.history.historyPush(state.sceneHistory, state.scene)
+      });
+      return _export2.Project.setProperties(state, state.getIn(["scene", "selectedLayer"]), action.properties).updatedState;
 
     case _constants.SET_ITEMS_ATTRIBUTES:
-      state = state.merge({ sceneHistory: _export.history.historyPush(state.sceneHistory, state.scene) });
+      state = state.merge({
+        sceneHistory: _export.history.historyPush(state.sceneHistory, state.scene)
+      });
       return _export2.Project.setItemsAttributes(state, action.itemsAttributes).updatedState;
 
     case _constants.SET_LINES_ATTRIBUTES:
-      state = state.merge({ sceneHistory: _export.history.historyPush(state.sceneHistory, state.scene) });
+      state = state.merge({
+        sceneHistory: _export.history.historyPush(state.sceneHistory, state.scene)
+      });
       return _export2.Project.setLinesAttributes(state, action.linesAttributes).updatedState;
 
     case _constants.SET_HOLES_ATTRIBUTES:
-      state = state.merge({ sceneHistory: _export.history.historyPush(state.sceneHistory, state.scene) });
+      state = state.merge({
+        sceneHistory: _export.history.historyPush(state.sceneHistory, state.scene)
+      });
       return _export2.Project.setHolesAttributes(state, action.holesAttributes).updatedState;
 
     case _constants.REMOVE:
-      state = state.merge({ sceneHistory: _export.history.historyPush(state.sceneHistory, state.scene) });
+      state = state.merge({
+        sceneHistory: _export.history.historyPush(state.sceneHistory, state.scene)
+      });
       return _export2.Project.remove(state).updatedState;
 
     case _constants.UNDO:
@@ -58,16 +67,28 @@ exports.default = function (state, action) {
       return _export2.Project.rollback(state).updatedState;
 
     case _constants.SET_PROJECT_PROPERTIES:
-      state = state.merge({ sceneHistory: _export.history.historyPush(state.sceneHistory, state.scene) });
+      state = state.merge({
+        sceneHistory: _export.history.historyPush(state.sceneHistory, state.scene)
+      });
       return _export2.Project.setProjectProperties(state, action.properties).updatedState;
 
     case _constants.OPEN_PROJECT_CONFIGURATOR:
-      state = state.merge({ sceneHistory: _export.history.historyPush(state.sceneHistory, state.scene) });
+      state = state.merge({
+        sceneHistory: _export.history.historyPush(state.sceneHistory, state.scene)
+      });
       return _export2.Project.openProjectConfigurator(state).updatedState;
 
     case _constants.OPEN_PROJECT_BACKGROUND:
-      state = state.merge({ sceneHistory: _export.history.historyPush(state.sceneHistory, state.scene) });
+      state = state.merge({
+        sceneHistory: _export.history.historyPush(state.sceneHistory, state.scene)
+      });
       return _export2.Project.openBackgroundConfigurator(state).updatedState;
+
+    case _constants.OPEN_TODO:
+      state = state.merge({
+        sceneHistory: _export.history.historyPush(state.sceneHistory, state.scene)
+      });
+      return _export2.Project.openToDo(state).updatedState;
 
     case _constants.INIT_CATALOG:
       return _export2.Project.initCatalog(state, action.catalog).updatedState;
@@ -91,7 +112,9 @@ exports.default = function (state, action) {
       return _export2.Project.copyProperties(state, action.properties).updatedState;
 
     case _constants.PASTE_PROPERTIES:
-      state = state.merge({ sceneHistory: _export.history.historyPush(state.sceneHistory, state.scene) });
+      state = state.merge({
+        sceneHistory: _export.history.historyPush(state.sceneHistory, state.scene)
+      });
       return _export2.Project.pasteProperties(state).updatedState;
 
     case _constants.PUSH_LAST_SELECTED_CATALOG_ELEMENT_TO_HISTORY:
@@ -104,7 +127,9 @@ exports.default = function (state, action) {
       return _export2.Project.setMode(state, action.mode).updatedState;
 
     case _constants.ADD_HORIZONTAL_GUIDE:
-      state = state.merge({ sceneHistory: _export.history.historyPush(state.sceneHistory, state.scene) });
+      state = state.merge({
+        sceneHistory: _export.history.historyPush(state.sceneHistory, state.scene)
+      });
       return _export2.Project.addHorizontalGuide(state, action.coordinate).updatedState;
 
     case _constants.ADD_VERTICAL_GUIDE:
@@ -124,12 +149,11 @@ exports.default = function (state, action) {
 
     default:
       return state;
-
   }
 };
 
-var _export = require('../utils/export');
+var _export = require("../utils/export");
 
-var _constants = require('../constants');
+var _constants = require("../constants");
 
-var _export2 = require('../class/export');
+var _export2 = require("../class/export");

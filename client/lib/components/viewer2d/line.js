@@ -19,9 +19,9 @@ var _ruler = require('./ruler');
 
 var _ruler2 = _interopRequireDefault(_ruler);
 
-var _Context = require('../../Context/Context');
-
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+// import {Context} from "../../Context/Context"
 
 function Line(_ref) {
   var line = _ref.line,
@@ -30,7 +30,7 @@ function Line(_ref) {
       catalog = _ref.catalog;
 
 
-  var context = (0, _react.useContext)(_Context.Context);
+  // const context = useContext(Context)
 
   var vertex0 = layer.vertices.get(line.vertices.get(0));
   var vertex1 = layer.vertices.get(line.vertices.get(1));
@@ -81,15 +81,15 @@ function Line(_ref) {
 
   var lineRef = _react2.default.useRef();
 
-  var onContextMenu = function onContextMenu(e) {
-    context.select.setSelect({ id: line.id });
-    context.popup.setOpen(true);
-  };
+  // const onContextMenu = (e)=>{
+  //   context.select.setSelect({id:line.id})
+  //   context.popup.setOpen(true)
+  // } 
 
   return _react2.default.createElement(
     'g',
     {
-      onContextMenu: onContextMenu,
+      // onContextMenu={onContextMenu}
       ref: lineRef,
       transform: 'translate(' + x1 + ', ' + y1 + ') rotate(' + angle + ', 0, 0)',
       'data-element-root': true,

@@ -24,8 +24,6 @@ var _formTextInput = require("../../../style/form-text-input");
 
 var _formTextInput2 = _interopRequireDefault(_formTextInput);
 
-var _material = require("@mui/material");
-
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } else { return Array.from(arr); } }
@@ -145,7 +143,23 @@ function ItemAttributesEditor(_ref, _ref2) {
               precision: 2
             }, rest))
           )
-        )
+        ),
+        element.info && Object.keys(element.info).map(function (key, index) {
+          return _react2.default.createElement(
+            "tr",
+            { key: index },
+            _react2.default.createElement(
+              "td",
+              { style: firstTdStyle },
+              key
+            ),
+            _react2.default.createElement(
+              "td",
+              null,
+              element.info[key]
+            )
+          );
+        })
       )
     ),
     itemData ? itemData.map(function (item, index) {

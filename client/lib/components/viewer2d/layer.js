@@ -15,6 +15,8 @@ var _propTypes2 = _interopRequireDefault(_propTypes);
 
 var _export = require('./export');
 
+var _Context = require('../../Context');
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function Layer(_ref) {
@@ -22,19 +24,24 @@ function Layer(_ref) {
       scene = _ref.scene,
       catalog = _ref.catalog;
   var unit = scene.unit,
-      groups = scene.groups;
+      groups = scene.groups,
+      width = scene.width,
+      height = scene.height;
   var lines = layer.lines,
       areas = layer.areas,
       vertices = layer.vertices,
       holes = layer.holes,
       layerID = layer.id,
       items = layer.items,
-      opacity = layer.opacity;
+      opacity = layer.opacity,
+      color = layer.color;
 
+
+  var context = _react2.default.useContext(_Context.AreaContext);
 
   return _react2.default.createElement(
     'g',
-    { opacity: opacity },
+    { opacity: opacity, className: context.showLayersColors.showLayersColors && color ? "colorize" : "", style: context.showLayersColors.showLayersColors ? { '--color': color } : {} },
     areas.valueSeq().map(function (area) {
       return _react2.default.createElement(_export.Area, { key: area.id, layer: layer, area: area, unit: unit, catalog: catalog });
     }),

@@ -45,13 +45,13 @@ export class PlanController {
     return this.planService.findOne(key);
   }
 
-  // @Patch(':key')
-  // update(@Param('key') key: string, @Body() updatePlanDto: UpdatePlanDto) {
-  //   return this.planService.update(key, updatePlanDto);
-  // }
+  @Patch(':key')
+  update(@Param('key') key: string, @Body() updatePlanDto: UpdatePlanDto):any {
+    return this.planService.update(key, updatePlanDto);
+  }
 
-  // @Delete(':key')
-  // remove(@Param('key') key: string) {
-  //   return this.planService.remove(key);
-  // }
+  @Delete(':key')
+  remove(@Param('key') key: string):any {
+    return this.planService.remove(key);
+  }
 }

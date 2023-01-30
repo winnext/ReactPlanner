@@ -8,7 +8,6 @@ import React, { Component } from "react";
 import PropTypes from "prop-types";
 import FormNumberInput from "../../../style/form-number-input";
 import FormTextInput from "../../../style/form-text-input";
-import { Button } from "@mui/material";
 
 var tableStyle = { width: "100%" };
 var firstTdStyle = { width: "6em" };
@@ -123,7 +122,23 @@ export default function ItemAttributesEditor(_ref, _ref2) {
               precision: 2
             }, rest))
           )
-        )
+        ),
+        element.info && Object.keys(element.info).map(function (key, index) {
+          return React.createElement(
+            "tr",
+            { key: index },
+            React.createElement(
+              "td",
+              { style: firstTdStyle },
+              key
+            ),
+            React.createElement(
+              "td",
+              null,
+              element.info[key]
+            )
+          );
+        })
       )
     ),
     itemData ? itemData.map(function (item, index) {

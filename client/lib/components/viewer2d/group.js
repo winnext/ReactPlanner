@@ -51,7 +51,8 @@ function Group(_ref, _ref2) {
       'data-selected': group.selected,
       'data-layer': layer.id,
       style: group.selected ? { cursor: 'move' } : {},
-      transform: 'translate(' + group.x + ',' + group.y + ') rotate(' + group.rotation + ')'
+      transform: 'translate(' + group.x + ',' + group.y + ') rotate(' + group.rotation + ')',
+      visibility: group.visible ? 'visible' : 'hidden'
     },
     _react2.default.createElement(
       _reactIf2.default,

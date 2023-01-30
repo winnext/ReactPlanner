@@ -1,10 +1,35 @@
-import { SELECT_ITEM, SELECT_TOOL_DRAWING_ITEM, UPDATE_DRAWING_ITEM, END_DRAWING_ITEM, BEGIN_DRAGGING_ITEM, UPDATE_DRAGGING_ITEM, END_DRAGGING_ITEM, BEGIN_ROTATING_ITEM, UPDATE_ROTATING_ITEM, END_ROTATING_ITEM } from '../constants';
+import { SELECT_ITEM, SELECT_TOOL_DRAWING_ITEM, UPDATE_DRAWING_ITEM, END_DRAWING_ITEM, SET_ITEMS_ITEM_ATTRIBUTES, BEGIN_DRAGGING_ITEM, UPDATE_DRAGGING_ITEM, END_DRAGGING_ITEM, BEGIN_ROTATING_ITEM, UPDATE_ROTATING_ITEM, END_ROTATING_ITEM, CREATE_ITEM } from '../constants';
+
+export function createItem(layerID, componentType, x, y, width, height, rotation) {
+  var info = arguments.length > 7 && arguments[7] !== undefined ? arguments[7] : {};
+
+  return {
+    type: CREATE_ITEM,
+    layerID: layerID,
+    componentType: componentType,
+    x: x,
+    y: y,
+    width: width,
+    height: height,
+    rotation: rotation,
+    info: info
+  };
+}
 
 export function selectItem(layerID, itemID) {
   return {
     type: SELECT_ITEM,
     layerID: layerID,
     itemID: itemID
+  };
+}
+
+export function setItemAttributes(itemID, layerID, attributes) {
+  return {
+    type: SET_ITEMS_ITEM_ATTRIBUTES,
+    itemID: itemID,
+    layerID: layerID,
+    attributes: attributes
   };
 }
 

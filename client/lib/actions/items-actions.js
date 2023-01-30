@@ -3,7 +3,9 @@
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
+exports.createItem = createItem;
 exports.selectItem = selectItem;
+exports.setItemAttributes = setItemAttributes;
 exports.selectToolDrawingItem = selectToolDrawingItem;
 exports.updateDrawingItem = updateDrawingItem;
 exports.endDrawingItem = endDrawingItem;
@@ -16,11 +18,36 @@ exports.endRotatingItem = endRotatingItem;
 
 var _constants = require('../constants');
 
+function createItem(layerID, componentType, x, y, width, height, rotation) {
+  var info = arguments.length > 7 && arguments[7] !== undefined ? arguments[7] : {};
+
+  return {
+    type: _constants.CREATE_ITEM,
+    layerID: layerID,
+    componentType: componentType,
+    x: x,
+    y: y,
+    width: width,
+    height: height,
+    rotation: rotation,
+    info: info
+  };
+}
+
 function selectItem(layerID, itemID) {
   return {
     type: _constants.SELECT_ITEM,
     layerID: layerID,
     itemID: itemID
+  };
+}
+
+function setItemAttributes(itemID, layerID, attributes) {
+  return {
+    type: _constants.SET_ITEMS_ITEM_ATTRIBUTES,
+    itemID: itemID,
+    layerID: layerID,
+    attributes: attributes
   };
 }
 

@@ -149,7 +149,20 @@ var PanelGroups = function (_Component) {
 
               var swapVisibility = function swapVisibility(e) {
                 e.stopPropagation();
-                _this2.context.groupsActions.setGroupProperties(groupID, new _immutable.Map({ visible: !group.get('visible') }));
+                var visibleValue = group.get('visible');
+                _this2.context.groupsActions.setGroupAttributes(groupID, new _immutable.Map({ visible: !visibleValue }));
+
+                group.get('elements').map(function (layer) {
+                  layer.get('items').map(function (item) {
+                    layers.map(function (layerTemp) {
+                      layerTemp.get('items').map(function (itemTemp) {
+                        if (itemTemp.get('id') === item) {
+                          _this2.context.itemsActions.setItemAttributes(item, layerTemp.get('id'), new _immutable.Map({ visible: !visibleValue }));
+                        }
+                      });
+                    });
+                  });
+                });
               };
 
               var chainToGroup = function chainToGroup(e) {

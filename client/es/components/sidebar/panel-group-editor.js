@@ -116,26 +116,6 @@ var PanelGroupEditor = function (_Component) {
                 React.createElement(
                   'td',
                   { style: firstTdStyle },
-                  this.context.translator.t('test')
-                ),
-                React.createElement(
-                  'td',
-                  null,
-                  React.createElement(FormTextInput, {
-                    value: group.get('test'),
-                    onChange: function onChange(e) {
-                      return _this2.context.groupsActions.setGroupAttributes(_this2.props.groupID, new Map({ 'test': e.target.value }));
-                    },
-                    style: inputStyle
-                  })
-                )
-              ),
-              React.createElement(
-                'tr',
-                null,
-                React.createElement(
-                  'td',
-                  { style: firstTdStyle },
                   'X'
                 ),
                 React.createElement(

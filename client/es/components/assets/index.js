@@ -8,6 +8,7 @@ import CatalogItem from "./catalog-item";
 import newItem from "./newItem";
 import sandalye from "./sandalye";
 import masa from "./masa";
+import axios from "axios";
 
 var itemsStyle = {
   display: "grid",

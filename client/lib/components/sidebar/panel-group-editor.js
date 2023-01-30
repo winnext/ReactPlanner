@@ -139,26 +139,6 @@ var PanelGroupEditor = function (_Component) {
                 _react2.default.createElement(
                   'td',
                   { style: firstTdStyle },
-                  this.context.translator.t('test')
-                ),
-                _react2.default.createElement(
-                  'td',
-                  null,
-                  _react2.default.createElement(_export.FormTextInput, {
-                    value: group.get('test'),
-                    onChange: function onChange(e) {
-                      return _this2.context.groupsActions.setGroupAttributes(_this2.props.groupID, new _immutable.Map({ 'test': e.target.value }));
-                    },
-                    style: inputStyle
-                  })
-                )
-              ),
-              _react2.default.createElement(
-                'tr',
-                null,
-                _react2.default.createElement(
-                  'td',
-                  { style: firstTdStyle },
                   'X'
                 ),
                 _react2.default.createElement(

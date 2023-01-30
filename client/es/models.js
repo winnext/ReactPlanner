@@ -199,7 +199,9 @@ export var Item = function (_Record7) {
   x: 0,
   y: 0,
   rotation: 0,
-  itemData: []
+  visible: true,
+  itemData: [],
+  info: {}
 }), 'Item'));
 
 export var Layer = function (_Record8) {
@@ -227,7 +229,7 @@ export var Layer = function (_Record8) {
   order: 0,
   opacity: 1,
   name: '',
-  // test:'',
+  color: '',
   visible: true,
   vertices: new Map(),
   lines: new Map(),
@@ -287,6 +289,7 @@ export var Scene = function (_Record10) {
   return Scene;
 }(Record({
   unit: 'cm',
+  key: '',
   layers: new Map(),
   grids: new Map(),
   selectedLayer: null,

@@ -1,47 +1,51 @@
-'use strict';
+"use strict";
 
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
 exports.default = Content;
 
-var _react = require('react');
+var _react = require("react");
 
 var _react2 = _interopRequireDefault(_react);
 
-var _propTypes = require('prop-types');
+var _propTypes = require("prop-types");
 
 var _propTypes2 = _interopRequireDefault(_propTypes);
 
-var _viewer2d = require('./viewer2d/viewer2d');
+var _viewer2d = require("./viewer2d/viewer2d");
 
 var _viewer2d2 = _interopRequireDefault(_viewer2d);
 
-var _viewer3d = require('./viewer3d/viewer3d');
+var _viewer3d = require("./viewer3d/viewer3d");
 
 var _viewer3d2 = _interopRequireDefault(_viewer3d);
 
-var _viewer3dFirstPerson = require('./viewer3d/viewer3d-first-person');
+var _viewer3dFirstPerson = require("./viewer3d/viewer3d-first-person");
 
 var _viewer3dFirstPerson2 = _interopRequireDefault(_viewer3dFirstPerson);
 
-var _catalogList = require('./catalog-view/catalog-list');
+var _catalogList = require("./catalog-view/catalog-list");
 
 var _catalogList2 = _interopRequireDefault(_catalogList);
 
-var _projectConfigurator = require('./configurator/project-configurator');
+var _projectConfigurator = require("./configurator/project-configurator");
 
 var _projectConfigurator2 = _interopRequireDefault(_projectConfigurator);
 
-var _backgroundConfigurator = require('./configurator/background-configurator');
+var _backgroundConfigurator = require("./configurator/background-configurator");
 
 var _backgroundConfigurator2 = _interopRequireDefault(_backgroundConfigurator);
 
-var _constants = require('../constants');
+var _todo = require("./todo");
+
+var _todo2 = _interopRequireDefault(_todo);
+
+var _constants = require("../constants");
 
 var constants = _interopRequireWildcard(_constants);
 
-var _assets = require('./assets');
+var _assets = require("./assets");
 
 var _assets2 = _interopRequireDefault(_assets);
 
@@ -55,7 +59,7 @@ function Content(_ref) {
       state = _ref.state,
       customContents = _ref.customContents;
 
-  var mode = state.get('mode');
+  var mode = state.get("mode");
 
   switch (mode) {
     case constants.MODE_3D_VIEW:
@@ -91,12 +95,15 @@ function Content(_ref) {
     case constants.MODE_CONFIGURING_BACKGROUND:
       return _react2.default.createElement(_backgroundConfigurator2.default, { width: width, height: height, state: state });
 
+    case constants.MODE_TODO:
+      return _react2.default.createElement(_todo2.default, { width: width, height: height, state: state });
+
     default:
       if (customContents.hasOwnProperty(mode)) {
         var CustomContent = customContents[mode];
         return _react2.default.createElement(CustomContent, { width: width, height: height, state: state });
       } else {
-        throw new Error('Mode ' + mode + ' doesn\'t have a mapped content');
+        throw new Error("Mode " + mode + " doesn't have a mapped content");
       }
   }
 }

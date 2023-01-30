@@ -44,6 +44,8 @@ var _panelLayerElements = require('./panel-layer-elements');
 
 var _panelLayerElements2 = _interopRequireDefault(_panelLayerElements);
 
+var _Context = require('../../Context');
+
 var _sharedStyle = require('../../shared-style');
 
 var SharedStyle = _interopRequireWildcard(_sharedStyle);
@@ -92,6 +94,7 @@ function Sidebar(_ref) {
 
 
   var selectedLayer = state.getIn(['scene', 'selectedLayer']);
+  var contextData = _react2.default.useContext(_Context.AreaContext);
 
   //TODO change in multi-layer check
   var selected = state.getIn(['scene', 'layers', selectedLayer, 'selected']);
@@ -102,7 +105,7 @@ function Sidebar(_ref) {
     return g.get('selected');
   });
 
-  var sorter = [{ index: 0, condition: true, dom: _react2.default.createElement(_panelGuides2.default, { state: state }) }, { index: 1, condition: true, dom: _react2.default.createElement(_panelLayers2.default, { state: state }) }, { index: 2, condition: true, dom: _react2.default.createElement(_panelLayerElements2.default, { mode: state.mode, layers: state.scene.layers, selectedLayer: state.scene.selectedLayer }) }, { index: 3, condition: true, dom: _react2.default.createElement(_panelGroups2.default, { mode: state.mode, groups: state.scene.groups, layers: state.scene.layers }) }, { index: 4, condition: !multiselected, dom: _react2.default.createElement(_panelElementEditor2.default, { state: state }) },
+  var sorter = [{ index: 0, condition: true, dom: _react2.default.createElement(_panelGuides2.default, { state: state }) }, { index: 1, condition: true, dom: _react2.default.createElement(_panelLayers2.default, { state: state, showLayersColors: contextData.showLayersColors }) }, { index: 2, condition: true, dom: _react2.default.createElement(_panelLayerElements2.default, { mode: state.mode, layers: state.scene.layers, selectedLayer: state.scene.selectedLayer }) }, { index: 3, condition: true, dom: _react2.default.createElement(_panelGroups2.default, { mode: state.mode, groups: state.scene.groups, layers: state.scene.layers }) }, { index: 4, condition: !multiselected, dom: _react2.default.createElement(_panelElementEditor2.default, { state: state }) },
   //{ index: 5, condition: multiselected, dom: <PanelMultiElementsEditor state={state} /> },
   { index: 6, condition: !!selectedGroup, dom: _react2.default.createElement(_panelGroupEditor2.default, { state: state, groupID: selectedGroup ? selectedGroup[0] : null }) }];
 

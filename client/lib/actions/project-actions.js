@@ -8,6 +8,7 @@ exports.newProject = newProject;
 exports.saveProject = saveProject;
 exports.openCatalog = openCatalog;
 exports.openAssets = openAssets;
+exports.openToDo = openToDo;
 exports.changeCatalogPage = changeCatalogPage;
 exports.goBackToCatalogPage = goBackToCatalogPage;
 exports.selectToolEdit = selectToolEdit;
@@ -70,6 +71,12 @@ function openCatalog() {
 function openAssets() {
   return {
     type: _constants.OPEN_ASSETS
+  };
+}
+
+function openToDo() {
+  return {
+    type: _constants.OPEN_TODO
   };
 }
 

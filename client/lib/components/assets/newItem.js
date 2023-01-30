@@ -23,7 +23,8 @@ exports.default = function (props) {
       title: props.name,
       tag: [props.name],
       description: props.name,
-      image: props.image
+      image: props.image,
+      key: props.key
     },
 
     properties: {
@@ -75,12 +76,19 @@ exports.default = function (props) {
       if (Math.sin(angle * Math.PI / 180) < 0) {
         textRotation = 180;
       }
-
+      var image = undefined;
+      if (element.info.images) {
+        var images = element.info.images === "" ? [] : JSON.parse(element.info.images);
+        image = images.find(function (i) {
+          return i.main === true;
+        }) || images[0];
+      }
+      image = image || props.image;
       return _react2.default.createElement(
         'g',
         { transform: 'translate(-' + w2 + ', -' + d2 + ')' },
         _react2.default.createElement('rect', { x: '0', y: '0', width: w, height: d, style: style }),
-        props.image ? _react2.default.createElement('image', { key: '2', x: '0', y: '0', width: w, height: d, preserveAspectRatio: 'none', transform: 'translate(0, ' + d + ') scale(1,-1) rotate(' + textRotation + ')', href: props.image }) : null,
+        image ? _react2.default.createElement('image', { key: '2', x: '0', y: '0', width: w, height: d, preserveAspectRatio: 'none', transform: 'translate(0, ' + d + ') scale(1,-1) rotate(' + textRotation + ')', href: props.image }) : null,
         _react2.default.createElement(
           'text',
           { key: '3', x: '0', y: '0',

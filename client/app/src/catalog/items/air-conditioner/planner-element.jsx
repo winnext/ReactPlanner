@@ -136,11 +136,11 @@ export default {
       return Promise.resolve(onLoadItem(cached3D));
     }
 
-    // let mtl = require("./door.mtl");
-    // let obj = require("./door.obj");
-    // let img = require("./texture.jpg");
+    // let mtl = require("./butterfly.mtl");
+    // let obj = require("./butterfly.obj");
+    // let img = require("./butterflywings.png");
 
-    return loadObjWithMaterial("http://localhost:9001/model/file/27279b6a-3f57-44f2-8e4c-cec5bea8f876.mtl", "http://localhost:9001/model/file/9699ac37-f6c5-4137-a82d-f162a64d7a76.obj", "http://localhost:9001/model/file/391a02fe-ab6c-4be3-82d3-642ca25eb16e.png").then(
+    return loadObjWithMaterial("http://localhost:9001/model/file/27279b6a-3f57-44f2-8e4c-cec5bea8f876.mtl", "http://localhost:9001/model/file/9699ac37-f6c5-4137-a82d-f162a64d7a76.obj").then(
       (object) => {
         cached3D = object;
         return onLoadItem(cached3D);

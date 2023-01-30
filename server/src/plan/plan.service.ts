@@ -168,11 +168,11 @@ export class PlanService {
     return this.planModel.findOne({ key: key }).exec();
   }
 
-  // update(key: string, updatePlanDto: UpdatePlanDto) {
-  //   return this.planModel.updateOne({ key: key }, updatePlanDto).exec();
-  // }
+  update(key: string, updatePlanDto: UpdatePlanDto):any {
+    return this.planModel.updateOne({ key: key }, updatePlanDto).exec();
+  }
 
-  // remove(key: string) {
-  //   return this.planModel.deleteOne({ key: key }).exec();
-  // }
+  remove(key: string):any {
+    return this.planModel.deleteOne({ key: key }).exec();
+  }
 }

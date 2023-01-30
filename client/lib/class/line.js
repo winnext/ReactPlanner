@@ -533,6 +533,13 @@ var Line = function () {
   }, {
     key: 'endDraggingLine',
     value: function endDraggingLine(state, x, y) {
+      state = state.merge({
+        mode: _constants.MODE_IDLE,
+        draggingSupport: null,
+        activeSnapElement: null,
+        snapElements: new _immutable.List()
+      });
+      return { updatedState: state };
       var _state = state,
           draggingSupport = _state.draggingSupport;
 

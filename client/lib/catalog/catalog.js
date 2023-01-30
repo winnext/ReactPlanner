@@ -25,7 +25,7 @@ var Catalog = function () {
     this.propertyTypes = {};
     this.unit = unit;
 
-    this.registerMultiplePropertyType([['color', _export.PropertyColor, _export.PropertyColor], ['enum', _export.PropertyEnum, _export.PropertyEnum], ['string', _export.PropertyString, _export.PropertyString], ['number', _export.PropertyNumber, _export.PropertyNumber], ['length-measure', _export.PropertyLengthMeasure, _export.PropertyLengthMeasure], ['toggle', _export.PropertyToggle, _export.PropertyToggle], ['checkbox', _export.PropertyCheckbox, _export.PropertyCheckbox], ['hidden', _export.PropertyHidden, _export.PropertyHidden], ['read-only', _export.PropertyReadOnly, _export.PropertyReadOnly]]);
+    this.registerMultiplePropertyType([['color', _export.PropertyColor, _export.PropertyColor], ['enum', _export.PropertyEnum, _export.PropertyEnum], ['string', _export.PropertyString, _export.PropertyString], ['chips', _export.PropertyChips, _export.PropertyChips], ['number', _export.PropertyNumber, _export.PropertyNumber], ['length-measure', _export.PropertyLengthMeasure, _export.PropertyLengthMeasure], ['toggle', _export.PropertyToggle, _export.PropertyToggle], ['checkbox', _export.PropertyCheckbox, _export.PropertyCheckbox], ['hidden', _export.PropertyHidden, _export.PropertyHidden], ['read-only', _export.PropertyReadOnly, _export.PropertyReadOnly]]);
   }
 
   /** @description Get catalog's element

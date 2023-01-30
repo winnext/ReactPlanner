@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { GeometryUtils } from '../../utils/export';
 import Ruler from './ruler';
 
-import { Context } from "../../Context/Context";
+// import {Context} from "../../Context/Context"
 
 export default function Line(_ref) {
   var line = _ref.line,
@@ -12,7 +12,7 @@ export default function Line(_ref) {
       catalog = _ref.catalog;
 
 
-  var context = useContext(Context);
+  // const context = useContext(Context)
 
   var vertex0 = layer.vertices.get(line.vertices.get(0));
   var vertex1 = layer.vertices.get(line.vertices.get(1));
@@ -63,15 +63,15 @@ export default function Line(_ref) {
 
   var lineRef = React.useRef();
 
-  var onContextMenu = function onContextMenu(e) {
-    context.select.setSelect({ id: line.id });
-    context.popup.setOpen(true);
-  };
+  // const onContextMenu = (e)=>{
+  //   context.select.setSelect({id:line.id})
+  //   context.popup.setOpen(true)
+  // } 
 
   return React.createElement(
     'g',
     {
-      onContextMenu: onContextMenu,
+      // onContextMenu={onContextMenu}
       ref: lineRef,
       transform: 'translate(' + x1 + ', ' + y1 + ') rotate(' + angle + ', 0, 0)',
       'data-element-root': true,

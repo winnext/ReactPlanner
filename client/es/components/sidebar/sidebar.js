@@ -9,6 +9,7 @@ import PanelLayers from './panel-layers';
 import PanelGuides from './panel-guides';
 import PanelGroups from './panel-groups';
 import PanelLayerElements from './panel-layer-elements';
+import { AreaContext } from "../../Context";
 import * as SharedStyle from '../../shared-style';
 import If from '../../utils/react-if';
 
@@ -48,6 +49,7 @@ export default function Sidebar(_ref) {
 
 
   var selectedLayer = state.getIn(['scene', 'selectedLayer']);
+  var contextData = React.useContext(AreaContext);
 
   //TODO change in multi-layer check
   var selected = state.getIn(['scene', 'layers', selectedLayer, 'selected']);
@@ -58,7 +60,7 @@ export default function Sidebar(_ref) {
     return g.get('selected');
   });
 
-  var sorter = [{ index: 0, condition: true, dom: React.createElement(PanelGuides, { state: state }) }, { index: 1, condition: true, dom: React.createElement(PanelLayers, { state: state }) }, { index: 2, condition: true, dom: React.createElement(PanelLayerElements, { mode: state.mode, layers: state.scene.layers, selectedLayer: state.scene.selectedLayer }) }, { index: 3, condition: true, dom: React.createElement(PanelGroups, { mode: state.mode, groups: state.scene.groups, layers: state.scene.layers }) }, { index: 4, condition: !multiselected, dom: React.createElement(PanelElementEditor, { state: state }) },
+  var sorter = [{ index: 0, condition: true, dom: React.createElement(PanelGuides, { state: state }) }, { index: 1, condition: true, dom: React.createElement(PanelLayers, { state: state, showLayersColors: contextData.showLayersColors }) }, { index: 2, condition: true, dom: React.createElement(PanelLayerElements, { mode: state.mode, layers: state.scene.layers, selectedLayer: state.scene.selectedLayer }) }, { index: 3, condition: true, dom: React.createElement(PanelGroups, { mode: state.mode, groups: state.scene.groups, layers: state.scene.layers }) }, { index: 4, condition: !multiselected, dom: React.createElement(PanelElementEditor, { state: state }) },
   //{ index: 5, condition: multiselected, dom: <PanelMultiElementsEditor state={state} /> },
   { index: 6, condition: !!selectedGroup, dom: React.createElement(PanelGroupEditor, { state: state, groupID: selectedGroup ? selectedGroup[0] : null }) }];
 

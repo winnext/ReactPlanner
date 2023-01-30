@@ -44,6 +44,13 @@ var Project = function () {
       return { updatedState: state };
     }
   }, {
+    key: 'openToDo',
+    value: function openToDo(state) {
+      state = this.setMode(state, _constants.MODE_TODO).updatedState;
+
+      return { updatedState: state };
+    }
+  }, {
     key: 'newProject',
     value: function newProject(state) {
       state = new _models.State({ 'viewer2D': state.get('viewer2D') });

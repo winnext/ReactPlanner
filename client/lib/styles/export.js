@@ -1,11 +1,11 @@
-'use strict';
+"use strict";
 
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
 exports.TabsStyle = undefined;
 
-var _tabs = require('./tabs.css');
+var _tabs = require("./tabs.css");
 
 var TabsStyle = _interopRequireWildcard(_tabs);
 

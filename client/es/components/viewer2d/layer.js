@@ -1,25 +1,30 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Line, Area, Vertex, Item, Group } from './export';
-
+import { AreaContext } from "../../Context";
 export default function Layer(_ref) {
   var layer = _ref.layer,
       scene = _ref.scene,
       catalog = _ref.catalog;
   var unit = scene.unit,
-      groups = scene.groups;
+      groups = scene.groups,
+      width = scene.width,
+      height = scene.height;
   var lines = layer.lines,
       areas = layer.areas,
       vertices = layer.vertices,
       holes = layer.holes,
       layerID = layer.id,
       items = layer.items,
-      opacity = layer.opacity;
+      opacity = layer.opacity,
+      color = layer.color;
 
+
+  var context = React.useContext(AreaContext);
 
   return React.createElement(
     'g',
-    { opacity: opacity },
+    { opacity: opacity, className: context.showLayersColors.showLayersColors && color ? "colorize" : "", style: context.showLayersColors.showLayersColors ? { '--color': color } : {} },
     areas.valueSeq().map(function (area) {
       return React.createElement(Area, { key: area.id, layer: layer, area: area, unit: unit, catalog: catalog });
     }),

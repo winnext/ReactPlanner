@@ -20,13 +20,9 @@ var _redux = require('redux');
 
 var _reactRedux = require('react-redux');
 
-var _Context = require('./Context/Context');
+var _Context = require('./Context');
 
 var _Context2 = _interopRequireDefault(_Context);
-
-var _Popup = require('./components/popup/Popup');
-
-var _Popup2 = _interopRequireDefault(_Popup);
 
 var _translator = require('./translator/translator');
 
@@ -57,6 +53,9 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+//icons
+
 
 var Toolbar = _export3.ToolbarComponents.Toolbar;
 var Sidebar = _export3.SidebarComponents.Sidebar;
@@ -143,8 +142,7 @@ var ReactPlanner = function (_Component) {
 
       return _react2.default.createElement(
         _Context2.default,
-        null,
-        _react2.default.createElement(_Popup2.default, null),
+        { state: extractedState },
         _react2.default.createElement(
           'div',
           { style: _extends({}, wrapperStyle, { height: height }) },
