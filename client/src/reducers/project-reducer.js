@@ -37,6 +37,7 @@ import {
   REMOVE_VERTICAL_GUIDE,
   REMOVE_CIRCULAR_GUIDE,
   OPEN_TODO,
+  OPEN_MODEL_UPLOAD,
 } from "../constants";
 
 import { Project } from "../class/export";
@@ -135,6 +136,12 @@ export default function (state, action) {
         sceneHistory: history.historyPush(state.sceneHistory, state.scene),
       });
       return Project.openToDo(state).updatedState;
+    
+    case OPEN_MODEL_UPLOAD:
+      state = state.merge({
+        sceneHistory: history.historyPush(state.sceneHistory, state.scene),
+      });
+      return Project.openModelUpload(state).updatedState;
 
     case INIT_CATALOG:
       return Project.initCatalog(state, action.catalog).updatedState;

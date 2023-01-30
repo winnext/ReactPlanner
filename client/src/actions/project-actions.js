@@ -16,6 +16,7 @@ import {
   OPEN_PROJECT_CONFIGURATOR,
   OPEN_PROJECT_BACKGROUND,
   OPEN_TODO,
+  OPEN_MODEL_UPLOAD,
   SET_PROJECT_PROPERTIES,
   INIT_CATALOG,
   UPDATE_MOUSE_COORDS,
@@ -72,6 +73,12 @@ export function openAssets() {
 export function openToDo() {
   return {
     type: OPEN_TODO,
+  };
+}
+
+export function openModelUpload() {
+  return {
+    type: OPEN_MODEL_UPLOAD,
   };
 }
 

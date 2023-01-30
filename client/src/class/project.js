@@ -5,6 +5,7 @@ import {
   MODE_VIEWING_ASSETS,
   MODE_CONFIGURING_BACKGROUND,
   MODE_TODO,
+  MODE_MODEL_UPLOAD,
   MODE_IDLE
 } from '../constants';
 import { State, Catalog } from '../models';
@@ -39,6 +40,12 @@ class Project{
 
   static openToDo( state ) {
     state = this.setMode( state, MODE_TODO ).updatedState;
+
+    return { updatedState: state };
+  }
+
+  static openModelUpload( state ) {
+    state = this.setMode( state, MODE_MODEL_UPLOAD ).updatedState;
 
     return { updatedState: state };
   }

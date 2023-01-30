@@ -21,7 +21,7 @@ export class AssetController {
     return this.assetService.create(createAssetDto);
   }
 
-  @Get(':key')
+  @Get('/plan/:key')
   findAssetsByPlanKey(@Param('key') key: string) {
     return this.assetService.findAssetsByPlanKey(key);
   }

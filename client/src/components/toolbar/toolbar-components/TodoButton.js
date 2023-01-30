@@ -6,7 +6,11 @@ import { TodoContext } from "../../../Context";
 export default function TodoButton() {
   const todoContext = React.useContext(TodoContext);
   return (
-    <Badge badgeContent={todoContext.todo.tasks.length} color="primary">
+    <Badge
+      style={{ marginBottom: "8px" }}
+      badgeContent={todoContext.todo.tasks.length}
+      color="primary"
+    >
       <FaList />
     </Badge>
   );

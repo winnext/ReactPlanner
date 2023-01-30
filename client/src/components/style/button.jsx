@@ -46,14 +46,14 @@ export default class Button extends Component {
 
   render() {
     let {hover} = this.state;
-    let {type, style: customStyle, styleHover: customStyleHover, children, size, ...rest} = this.props;
+    let {type, style: customStyle, styleHover: customStyleHover, children, size,disabled, ...rest} = this.props;
     let styleMerged = Object.assign({}, BASE_STYLE, BASE_STYLE_SIZE[size], hover ? customStyleHover : customStyle);
 
     return <button
       type={type}
-      onMouseEnter={e => this.setState({hover: true})}
+      onMouseEnter={e => this.setState({hover: disabled ? false : true})}
       onMouseLeave={e => this.setState({hover: false})}
-      style={styleMerged}
+      style={{...styleMerged,cursor: disabled ? 'not-allowed' : 'pointer'}}
       {...rest}>{children}</button>
   }
 }

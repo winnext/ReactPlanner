@@ -7,7 +7,7 @@ import {
   MdFeaturedVideo,
   MdViewComfy,
 } from "react-icons/md";
-import { FaFile, FaMousePointer, FaPlus, FaList } from "react-icons/fa";
+import { FaFileUpload,FaMousePointer, FaPlus } from "react-icons/fa";
 import ToolbarButton from "./toolbar-button";
 import ToolbarSaveButton from "./toolbar-save-button";
 import Badge from "@mui/material/Badge";
@@ -22,6 +22,7 @@ import {
   MODE_CONFIGURING_PROJECT,
   MODE_CONFIGURING_BACKGROUND,
   MODE_TODO,
+  MODE_MODEL_UPLOAD,
 } from "../../constants";
 import * as SharedStyle from "../../shared-style";
 import TodoButton from "./toolbar-components/TodoButton";
@@ -223,6 +224,19 @@ export default class Toolbar extends Component {
             onClick={(event) => projectActions.openToDo()}
           >
             <TodoButton/>
+          </ToolbarButton>
+        ),
+      },
+      {
+        index: 12,
+        condition: true,
+        dom: (
+          <ToolbarButton
+            active={[MODE_MODEL_UPLOAD].includes(mode)}
+            tooltip={translator.t("Model Upload")}
+            onClick={(event) => projectActions.openModelUpload()}
+          >
+            <FaFileUpload/>
           </ToolbarButton>
         ),
       },

@@ -7,6 +7,7 @@ import CatalogList from "./catalog-view/catalog-list";
 import ProjectConfigurator from "./configurator/project-configurator";
 import BackgroundConfigurator from "./configurator/background-configurator";
 import Todo from "./todo";
+import ModelUpload from "./model-upload";
 
 import * as constants from "../constants";
 import Assets from "./assets";
@@ -55,9 +56,10 @@ export default function Content({ width, height, state, customContents }) {
       );
 
     case constants.MODE_TODO:
-      return (
-        <Todo width={width} height={height} state={state} />
-      );
+      return <Todo width={width} height={height} state={state} />;
+    
+    case constants.MODE_MODEL_UPLOAD:
+      return <ModelUpload width={width} height={height} state={state} />;
 
     default:
       if (customContents.hasOwnProperty(mode)) {

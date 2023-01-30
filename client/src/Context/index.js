@@ -1,12 +1,26 @@
 import React, { useState } from "react";
 import PropTypes from "prop-types";
+import IconButton from "@mui/material/IconButton";
+import CloseIcon from '@mui/icons-material/Close';
+import { SnackbarProvider, useSnackbar } from "notistack";
 import AreaContextProvider, { AreaContext } from "./AreaContext";
 import TodoContextProvider, { TodoContext } from "./TodoContext";
 import axios from "axios";
 import newItem from "../components/assets/newItem";
 import keycloak from "./keycloak";
+
+function SnackbarCloseButton({ snackbarKey }) {
+  const { closeSnackbar } = useSnackbar();
+
+  return (
+    <IconButton aria-label="close" onClick={() => closeSnackbar(snackbarKey)}>
+      <CloseIcon />
+    </IconButton>
+  );
+}
+
 export default function ContextProvider(props, context) {
-  const [user, setUser] = useState({auth: false, token: null});
+  const [user, setUser] = useState({ auth: false, token: null });
   React.useEffect(() => {
     keycloak
       .init({ onLoad: "login-required" })
@@ -120,18 +134,30 @@ export default function ContextProvider(props, context) {
     }
   }, [user]);
 
-  if(!user.auth) return null;
+  if (!user.auth) return null;
 
   return (
     <TodoContextProvider state={props.state} user={user}>
       <AreaContextProvider state={props.state} user={user}>
-        {props.children}
+        <SnackbarProvider
+          maxSnack={3}
+          autoHideDuration={5000}
+          anchorOrigin={{
+            vertical: "top",
+            horizontal: "left",
+          }}
+          action={(snackbarKey) => (
+            <SnackbarCloseButton snackbarKey={snackbarKey} />
+          )}
+        >
+          {props.children}
+        </SnackbarProvider>
       </AreaContextProvider>
     </TodoContextProvider>
   );
 }
 
-export { AreaContext,TodoContext };
+export { AreaContext, TodoContext };
 
 ContextProvider.contextTypes = {
   assets: PropTypes.object.isRequired,

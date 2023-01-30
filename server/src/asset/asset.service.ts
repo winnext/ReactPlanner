@@ -6,16 +6,25 @@ import { Asset, AssetDocument } from './entities/asset.entity';
 
 @Injectable()
 export class AssetService {
-  constructor(@InjectModel(Asset.name) private assetModel: Model<AssetDocument>) {}
+  constructor(
+    @InjectModel(Asset.name) private assetModel: Model<AssetDocument>,
+  ) {}
 
   async create(createAssetDto: CreateAssetDto) {
     try {
       const isExist = await this.assetModel.findOne({
         assetKey: createAssetDto.assetKey,
+        planKey: createAssetDto.planKey,
       });
       if (isExist) {
         return this.assetModel
-          .findOneAndUpdate({ assetKey: createAssetDto.assetKey }, createAssetDto)
+          .findOneAndUpdate(
+            {
+              assetKey: createAssetDto.assetKey,
+              planKey: createAssetDto.planKey,
+            },
+            createAssetDto,
+          )
           .exec();
       }
       const asset = new this.assetModel(createAssetDto);
