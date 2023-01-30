@@ -1,13 +1,15 @@
 import React, { useState } from "react";
 import PropTypes from "prop-types";
 import IconButton from "@mui/material/IconButton";
-import CloseIcon from '@mui/icons-material/Close';
+import CloseIcon from "@mui/icons-material/Close";
 import { SnackbarProvider, useSnackbar } from "notistack";
 import AreaContextProvider, { AreaContext } from "./AreaContext";
 import TodoContextProvider, { TodoContext } from "./TodoContext";
 import axios from "axios";
-import newItem from "../components/assets/newItem";
+import newItem from "./models/newItem";
+import defaultItem from "./models/defaultItem";
 import keycloak from "./keycloak";
+import AssetService from "../services/asset";
 
 function SnackbarCloseButton({ snackbarKey }) {
   const { closeSnackbar } = useSnackbar();
@@ -91,45 +93,81 @@ export default function ContextProvider(props, context) {
           },
         })
         .then((res) => {
-          console.log(res.data);
-          for (let item of res.data.children) {
-            let img = "";
-            if (item.images !== "") {
-              let images = JSON.parse(item.images);
-              img = images.find((se) => se.main).image_url;
-              if (!img) {
-                img = images[0].image_url;
+          console.log("types", res.data);
+          var url = new URL(window.location.href);
+          var planKey = url.searchParams.get("key");
+          AssetService.findAssetsByPlanKey(planKey).then((resAssets) => {
+            console.log("resAssets", resAssets);
+            for (let item of res.data.children) {
+              let img = "";
+              if (item.images !== "") {
+                let images = JSON.parse(item.images);
+                img = images.find((se) => se.main).image_url;
+                if (!img) {
+                  img = images[0].image_url;
+                }
               }
+              let asset = resAssets.data.find((se) => se.assetKey === item.key);
+              let temp;
+              if (asset) {
+                temp = newItem({
+                  image: img === "" ? undefined : img,
+                  height:
+                    typeof item.nominalHeight === "number"
+                      ? item.nominalHeight === 0
+                        ? 100
+                        : item.nominalHeight
+                      : 100,
+                  width:
+                    typeof item.nominalHeight === "number"
+                      ? item.nominalWidth === 0
+                        ? 100
+                        : item.nominalWidth
+                      : 100,
+                  name: item.name,
+                  key: item.key,
+                  modelObj:
+                    process.env.REACT_APP_API_PLANNER +
+                    "model/file/" +
+                    asset.modelObj,
+                  modelMtl:
+                    process.env.REACT_APP_API_PLANNER +
+                    "model/file/" +
+                    asset.modelMtl,
+                });
+              } else {
+                temp = defaultItem({
+                  image: img === "" ? undefined : img,
+                  height:
+                    typeof item.nominalHeight === "number"
+                      ? item.nominalHeight === 0
+                        ? 100
+                        : item.nominalHeight
+                      : 100,
+                  width:
+                    typeof item.nominalHeight === "number"
+                      ? item.nominalWidth === 0
+                        ? 100
+                        : item.nominalWidth
+                      : 100,
+                  name: item.name,
+                  key: item.key,
+                });
+              }
+
+              context.catalog.registerElement(temp);
+              context.catalog.addToCategory("assets", temp);
+              let assets = context.assets;
+              let elementsToDisplay = assets
+                ? assets.elements.filter((element) =>
+                    element.info.visibility
+                      ? element.info.visibility.catalog
+                      : true
+                  )
+                : [];
+              context.projectActions.initCatalog(context.catalog);
             }
-            let temp = newItem({
-              image: img === "" ? undefined : img,
-              height:
-                typeof item.nominalHeight === "number"
-                  ? item.nominalHeight === 0
-                    ? 100
-                    : item.nominalHeight
-                  : 100,
-              width:
-                typeof item.nominalHeight === "number"
-                  ? item.nominalWidth === 0
-                    ? 100
-                    : item.nominalWidth
-                  : 100,
-              name: item.name,
-              key: item.key,
-            });
-            context.catalog.registerElement(temp);
-            context.catalog.addToCategory("assets", temp);
-            let assets = context.assets;
-            let elementsToDisplay = assets
-              ? assets.elements.filter((element) =>
-                  element.info.visibility
-                    ? element.info.visibility.catalog
-                    : true
-                )
-              : [];
-            context.projectActions.initCatalog(context.catalog);
-          }
+          });
         });
     }
   }, [user]);
