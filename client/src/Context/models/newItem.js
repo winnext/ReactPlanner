@@ -121,9 +121,15 @@ export default (props) => ({
       let deltaZ = Math.abs(value.max.z - value.min.z);
 
       MaxLOD.position.x += WIDTH;
-      MaxLOD.position.y += (HEIGHT*deltaY) / 2;
+      // MaxLOD.position.y += (HEIGHT*deltaY) / 2;
+      // MaxLOD.position.y += HEIGHT / 2;
       MaxLOD.position.z += DEPTH;
 
+      // MaxLOD.scale.set(
+      //   WIDTH * deltaX, 
+      //   HEIGHT * deltaY, 
+      //   DEPTH * deltaZ
+      //   );
       MaxLOD.scale.set(
         WIDTH / deltaX, 
         HEIGHT / deltaY, 
