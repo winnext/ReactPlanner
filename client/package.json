@@ -7,7 +7,7 @@
   "jsnext:main": "es/index.js",
   "scripts": {
     "start": "webpack-dev-server --inline --config app/webpack.config.js --port 9000 --mode development",
-    "start-build": "open http://localhost:3000 && serve -s app/dist",
+    "start-build": "serve -s app/dist",
     "build-app": "webpack --config app/webpack.config.js --mode production",
     "build-commonjs": "cross-env BABEL_ENV=commonjs babel src --out-dir lib",
     "build-es": "cross-env BABEL_ENV=es babel src --copy-files --out-dir es",
