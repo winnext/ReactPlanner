@@ -100,11 +100,13 @@ export default function ContextProvider(props, context) {
             console.log("resAssets", resAssets);
             for (let item of res.data.children) {
               let img = "";
-              if (item.images !== "") {
-                let images = JSON.parse(item.images);
-                img = images.find((se) => se.main).image_url;
-                if (!img) {
-                  img = images[0].image_url;
+              if (item.images) {
+                if (item.images !== "") {
+                  let images = typeof item.images === "string" ? JSON.parse(item.images) : item.images;
+                  img = images.find((se) => se.main).url;
+                  if (!img) {
+                    img = images[0].url;
+                  }
                 }
               }
               let asset = resAssets.data.find((se) => se.assetKey === item.key);
@@ -154,6 +156,7 @@ export default function ContextProvider(props, context) {
                   key: item.key,
                 });
               }
+              console.log("temp", temp);
 
               context.catalog.registerElement(temp);
               context.catalog.addToCategory("assets", temp);

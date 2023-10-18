@@ -22,15 +22,15 @@ export default function autosave(autosaveKey, delay) {
             store.dispatch(loadProject(res.data.plan));
           }
           else{
-            window.location.href = "http://localhost:3000/facilitystructure";
+            window.location.href = "http://localhost:3000/architecture";
           }
         })
         .catch((err) => {
           console.log(err);
         });
     } else {
-      window.location.href = "http://localhost:3000/facilitystructure";
-      // window.location.href = "http://localhost:3000/facilitystructure?search="+key;
+      window.location.href = "http://localhost:3000/architecture";
+      // window.location.href = "http://localhost:3000/architecture?search="+key;
     }
 
     // auto save in database

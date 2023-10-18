@@ -7,7 +7,11 @@ export default function TodoButton() {
   var todoContext = React.useContext(TodoContext);
   return React.createElement(
     Badge,
-    { badgeContent: todoContext.todo.tasks.length, color: "primary" },
+    {
+      style: { marginBottom: "8px" },
+      badgeContent: todoContext.todo.tasks.length,
+      color: "primary"
+    },
     React.createElement(FaList, null)
   );
 }

@@ -90,6 +90,12 @@ exports.default = function (state, action) {
       });
       return _export2.Project.openToDo(state).updatedState;
 
+    case _constants.OPEN_MODEL_UPLOAD:
+      state = state.merge({
+        sceneHistory: _export.history.historyPush(state.sceneHistory, state.scene)
+      });
+      return _export2.Project.openModelUpload(state).updatedState;
+
     case _constants.INIT_CATALOG:
       return _export2.Project.initCatalog(state, action.catalog).updatedState;
 

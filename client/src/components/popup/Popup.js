@@ -141,6 +141,7 @@ export default function Popup(props, context2) {
                 const asset = context2.assets.elements.find(
                   (i) => i.info.key === typeInfo.data.properties.key
                 );
+                console.log("asset",asset);
                 context2.itemsActions.createItem(
                   "layer-1",
                   asset.name,

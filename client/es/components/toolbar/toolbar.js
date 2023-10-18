@@ -11,13 +11,13 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 import React, { Component } from "react";
 import PropTypes from "prop-types";
 import { MdSettings, MdUndo, MdDirectionsRun, MdFeaturedVideo, MdViewComfy } from "react-icons/md";
-import { FaFile, FaMousePointer, FaPlus, FaList } from "react-icons/fa";
+import { FaFileUpload, FaMousePointer, FaPlus } from "react-icons/fa";
 import ToolbarButton from "./toolbar-button";
 import ToolbarSaveButton from "./toolbar-save-button";
 import Badge from "@mui/material/Badge";
 import ToolbarLoadButton from "./toolbar-load-button";
 import If from "../../utils/react-if";
-import { MODE_IDLE, MODE_3D_VIEW, MODE_3D_FIRST_PERSON, MODE_VIEWING_CATALOG, MODE_VIEWING_ASSETS, MODE_CONFIGURING_PROJECT, MODE_CONFIGURING_BACKGROUND, MODE_TODO } from "../../constants";
+import { MODE_IDLE, MODE_3D_VIEW, MODE_3D_FIRST_PERSON, MODE_VIEWING_CATALOG, MODE_VIEWING_ASSETS, MODE_CONFIGURING_PROJECT, MODE_CONFIGURING_BACKGROUND, MODE_TODO, MODE_MODEL_UPLOAD } from "../../constants";
 import * as SharedStyle from "../../shared-style";
 import TodoButton from "./toolbar-components/TodoButton";
 
@@ -250,6 +250,20 @@ var Toolbar = function (_Component) {
             }
           },
           React.createElement(TodoButton, null)
+        )
+      }, {
+        index: 12,
+        condition: true,
+        dom: React.createElement(
+          ToolbarButton,
+          {
+            active: [MODE_MODEL_UPLOAD].includes(mode),
+            tooltip: translator.t("Model Upload"),
+            onClick: function onClick(event) {
+              return projectActions.openModelUpload();
+            }
+          },
+          React.createElement(FaFileUpload, null)
         )
       }];
 

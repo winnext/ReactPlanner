@@ -47,6 +47,9 @@ export default function ModelUpload(props, context) {
     var url = new URL(window.location.href);
     var planKey = url.searchParams.get("key");
 
+    console.log("formDataObj",formDataObj);
+    console.log(formDataObj.get("file"));
+
     ModelService.upload(formDataObj)
       .then((resObj) => {
         console.log("resObj", resObj);

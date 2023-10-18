@@ -41,6 +41,10 @@ var _todo = require("./todo");
 
 var _todo2 = _interopRequireDefault(_todo);
 
+var _modelUpload = require("./model-upload");
+
+var _modelUpload2 = _interopRequireDefault(_modelUpload);
+
 var _constants = require("../constants");
 
 var constants = _interopRequireWildcard(_constants);
@@ -97,6 +101,9 @@ function Content(_ref) {
 
     case constants.MODE_TODO:
       return _react2.default.createElement(_todo2.default, { width: width, height: height, state: state });
+
+    case constants.MODE_MODEL_UPLOAD:
+      return _react2.default.createElement(_modelUpload2.default, { width: width, height: height, state: state });
 
     default:
       if (customContents.hasOwnProperty(mode)) {

@@ -7,6 +7,7 @@ import CatalogList from "./catalog-view/catalog-list";
 import ProjectConfigurator from "./configurator/project-configurator";
 import BackgroundConfigurator from "./configurator/background-configurator";
 import Todo from "./todo";
+import ModelUpload from "./model-upload";
 
 import * as constants from "../constants";
 import Assets from "./assets";
@@ -55,6 +56,9 @@ export default function Content(_ref) {
 
     case constants.MODE_TODO:
       return React.createElement(Todo, { width: width, height: height, state: state });
+
+    case constants.MODE_MODEL_UPLOAD:
+      return React.createElement(ModelUpload, { width: width, height: height, state: state });
 
     default:
       if (customContents.hasOwnProperty(mode)) {

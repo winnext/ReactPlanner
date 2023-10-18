@@ -290,6 +290,20 @@ var Toolbar = function (_Component) {
           },
           _react2.default.createElement(_TodoButton2.default, null)
         )
+      }, {
+        index: 12,
+        condition: true,
+        dom: _react2.default.createElement(
+          _toolbarButton2.default,
+          {
+            active: [_constants.MODE_MODEL_UPLOAD].includes(mode),
+            tooltip: translator.t("Model Upload"),
+            onClick: function onClick(event) {
+              return projectActions.openModelUpload();
+            }
+          },
+          _react2.default.createElement(_fa.FaFileUpload, null)
+        )
       }];
 
       sorter = sorter.concat(toolbarButtons.map(function (Component, key) {

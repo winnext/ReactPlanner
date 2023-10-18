@@ -18,6 +18,7 @@ export class ModelService {
       this.connection.db as any,
       this.configService.get('MONGO_GRIDFS_BUCKET_NAME'),
     );
+    
   }
 
   async readStream(id: string): Promise<GridFSBucketReadStream> {

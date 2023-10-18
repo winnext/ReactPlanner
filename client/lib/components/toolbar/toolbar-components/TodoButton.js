@@ -21,7 +21,11 @@ function TodoButton() {
   var todoContext = _react2.default.useContext(_Context.TodoContext);
   return _react2.default.createElement(
     _material.Badge,
-    { badgeContent: todoContext.todo.tasks.length, color: "primary" },
+    {
+      style: { marginBottom: "8px" },
+      badgeContent: todoContext.todo.tasks.length,
+      color: "primary"
+    },
     _react2.default.createElement(_fa.FaList, null)
   );
 }

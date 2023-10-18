@@ -9,7 +9,9 @@ async function bootstrap() {
   try {
     const app = await NestFactory.create(AppModule, { abortOnError: false });
 
+    
     const configService = app.get(ConfigService);
+    console.log(configService.get('PORT'));
 
     const config = new DocumentBuilder()
       .setTitle('WinPlanner Microservice')

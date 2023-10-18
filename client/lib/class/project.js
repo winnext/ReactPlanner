@@ -51,6 +51,13 @@ var Project = function () {
       return { updatedState: state };
     }
   }, {
+    key: 'openModelUpload',
+    value: function openModelUpload(state) {
+      state = this.setMode(state, _constants.MODE_MODEL_UPLOAD).updatedState;
+
+      return { updatedState: state };
+    }
+  }, {
     key: 'newProject',
     value: function newProject(state) {
       state = new _models.State({ 'viewer2D': state.get('viewer2D') });

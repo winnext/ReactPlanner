@@ -4,11 +4,32 @@ var _slicedToArray = function () { function sliceIterator(arr, i) { var _arr = [
 
 import React, { useState } from "react";
 import PropTypes from "prop-types";
+import IconButton from "@mui/material/IconButton";
+import CloseIcon from "@mui/icons-material/Close";
+import { SnackbarProvider, useSnackbar } from "notistack";
 import AreaContextProvider, { AreaContext } from "./AreaContext";
 import TodoContextProvider, { TodoContext } from "./TodoContext";
 import axios from "axios";
-import newItem from "../components/assets/newItem";
+import newItem from "./models/newItem";
+import defaultItem from "./models/defaultItem";
 import keycloak from "./keycloak";
+import AssetService from "../services/asset";
+
+function SnackbarCloseButton(_ref) {
+  var snackbarKey = _ref.snackbarKey;
+
+  var _useSnackbar = useSnackbar(),
+      closeSnackbar = _useSnackbar.closeSnackbar;
+
+  return React.createElement(
+    IconButton,
+    { "aria-label": "close", onClick: function onClick() {
+        return closeSnackbar(snackbarKey);
+      } },
+    React.createElement(CloseIcon, null)
+  );
+}
+
 export default function ContextProvider(props, context) {
   var _useState = useState({ auth: false, token: null }),
       _useState2 = _slicedToArray(_useState, 2),
@@ -74,32 +95,50 @@ export default function ContextProvider(props, context) {
           realm: "IFM"
         }
       }).then(function (res) {
-        console.log(res.data);
-        var _iteratorNormalCompletion = true;
-        var _didIteratorError = false;
-        var _iteratorError = undefined;
+        console.log("types", res.data);
+        var url = new URL(window.location.href);
+        var planKey = url.searchParams.get("key");
+        AssetService.findAssetsByPlanKey(planKey).then(function (resAssets) {
+          console.log("resAssets", resAssets);
 
-        try {
-          for (var _iterator = res.data.children[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
-            var item = _step.value;
-
+          var _loop = function _loop(item) {
             var img = "";
-            if (item.images !== "") {
-              var images = JSON.parse(item.images);
-              img = images.find(function (se) {
-                return se.main;
-              }).image_url;
-              if (!img) {
-                img = images[0].image_url;
+            if (item.images) {
+              if (item.images !== "") {
+                var images = JSON.parse(item.images);
+                img = images.find(function (se) {
+                  return se.main;
+                }).image_url;
+                if (!img) {
+                  img = images[0].image_url;
+                }
               }
             }
-            var temp = newItem({
-              image: img === "" ? undefined : img,
-              height: typeof item.nominalHeight === "number" ? item.nominalHeight === 0 ? 100 : item.nominalHeight : 100,
-              width: typeof item.nominalHeight === "number" ? item.nominalWidth === 0 ? 100 : item.nominalWidth : 100,
-              name: item.name,
-              key: item.key
+            var asset = resAssets.data.find(function (se) {
+              return se.assetKey === item.key;
             });
+            var temp = void 0;
+            if (asset) {
+              temp = newItem({
+                image: img === "" ? undefined : img,
+                height: typeof item.nominalHeight === "number" ? item.nominalHeight === 0 ? 100 : item.nominalHeight : 100,
+                width: typeof item.nominalHeight === "number" ? item.nominalWidth === 0 ? 100 : item.nominalWidth : 100,
+                name: item.name,
+                key: item.key,
+                modelObj: process.env.REACT_APP_API_PLANNER + "model/file/" + asset.modelObj,
+                modelMtl: process.env.REACT_APP_API_PLANNER + "model/file/" + asset.modelMtl
+              });
+            } else {
+              temp = defaultItem({
+                image: img === "" ? undefined : img,
+                height: typeof item.nominalHeight === "number" ? item.nominalHeight === 0 ? 100 : item.nominalHeight : 100,
+                width: typeof item.nominalHeight === "number" ? item.nominalWidth === 0 ? 100 : item.nominalWidth : 100,
+                name: item.name,
+                key: item.key
+              });
+            }
+            console.log("temp", temp);
+
             context.catalog.registerElement(temp);
             context.catalog.addToCategory("assets", temp);
             var assets = context.assets;
@@ -107,21 +146,33 @@ export default function ContextProvider(props, context) {
               return element.info.visibility ? element.info.visibility.catalog : true;
             }) : [];
             context.projectActions.initCatalog(context.catalog);
-          }
-        } catch (err) {
-          _didIteratorError = true;
-          _iteratorError = err;
-        } finally {
+          };
+
+          var _iteratorNormalCompletion = true;
+          var _didIteratorError = false;
+          var _iteratorError = undefined;
+
           try {
-            if (!_iteratorNormalCompletion && _iterator.return) {
-              _iterator.return();
+            for (var _iterator = res.data.children[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
+              var item = _step.value;
+
+              _loop(item);
             }
+          } catch (err) {
+            _didIteratorError = true;
+            _iteratorError = err;
           } finally {
-            if (_didIteratorError) {
-              throw _iteratorError;
+            try {
+              if (!_iteratorNormalCompletion && _iterator.return) {
+                _iterator.return();
+              }
+            } finally {
+              if (_didIteratorError) {
+                throw _iteratorError;
+              }
             }
           }
-        }
+        });
       });
     }
   }, [user]);
@@ -134,7 +185,21 @@ export default function ContextProvider(props, context) {
     React.createElement(
       AreaContextProvider,
       { state: props.state, user: user },
-      props.children
+      React.createElement(
+        SnackbarProvider,
+        {
+          maxSnack: 3,
+          autoHideDuration: 5000,
+          anchorOrigin: {
+            vertical: "top",
+            horizontal: "left"
+          },
+          action: function action(snackbarKey) {
+            return React.createElement(SnackbarCloseButton, { snackbarKey: snackbarKey });
+          }
+        },
+        props.children
+      )
     )
   );
 }

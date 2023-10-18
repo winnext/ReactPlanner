@@ -31,14 +31,14 @@ function autosave(autosaveKey, delay) {
           console.log(res.data);
           store.dispatch((0, _projectActions.loadProject)(res.data.plan));
         } else {
-          window.location.href = "http://localhost:3000/facilitystructure";
+          window.location.href = "http://localhost:3000/architecture";
         }
       }).catch(function (err) {
         console.log(err);
       });
     } else {
-      window.location.href = "http://localhost:3000/facilitystructure";
-      // window.location.href = "http://localhost:3000/facilitystructure?search="+key;
+      window.location.href = "http://localhost:3000/architecture";
+      // window.location.href = "http://localhost:3000/architecture?search="+key;
     }
 
     // auto save in database

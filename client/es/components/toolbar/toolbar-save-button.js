@@ -21,12 +21,12 @@ export default function ToolbarSaveButton(_ref, _ref2) {
     if (plan.key === key) {
       axios.patch("http://localhost:9001/plan/" + key, { key: key, plan: plan }).then(function (res) {
         console.log(res.data);
-        // window.location.href = "http://localhost:3000/facilitystructure";
-        // window.location.href = "http://localhost:3000/facilitystructure?search="+key;
+        // window.location.href = "http://localhost:3000/architecture";
+        // window.location.href = "http://localhost:3000/architecture?search="+key;
       });
     } else {}
-    // window.location.href = "http://localhost:3000/facilitystructure";
-    // window.location.href = "http://localhost:3000/facilitystructure?search="+key;
+    // window.location.href = "http://localhost:3000/architecture";
+    // window.location.href = "http://localhost:3000/architecture?search="+key;
 
     // browserDownload(state.get('scene').toJS());
   };

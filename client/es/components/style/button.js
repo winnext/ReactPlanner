@@ -74,7 +74,8 @@ var Button = function (_Component) {
           customStyleHover = _props.styleHover,
           children = _props.children,
           size = _props.size,
-          rest = _objectWithoutProperties(_props, ['type', 'style', 'styleHover', 'children', 'size']);
+          disabled = _props.disabled,
+          rest = _objectWithoutProperties(_props, ['type', 'style', 'styleHover', 'children', 'size', 'disabled']);
 
       var styleMerged = Object.assign({}, BASE_STYLE, BASE_STYLE_SIZE[size], hover ? customStyleHover : customStyle);
 
@@ -83,12 +84,12 @@ var Button = function (_Component) {
         _extends({
           type: type,
           onMouseEnter: function onMouseEnter(e) {
-            return _this2.setState({ hover: true });
+            return _this2.setState({ hover: disabled ? false : true });
           },
           onMouseLeave: function onMouseLeave(e) {
             return _this2.setState({ hover: false });
           },
-          style: styleMerged
+          style: _extends({}, styleMerged, { cursor: disabled ? 'not-allowed' : 'pointer' })
         }, rest),
         children
       );

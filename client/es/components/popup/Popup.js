@@ -119,6 +119,7 @@ export default function Popup(props, context2) {
               var asset = context2.assets.elements.find(function (i) {
                 return i.info.key === typeInfo.data.properties.key;
               });
+              console.log("asset", asset);
               context2.itemsActions.createItem("layer-1", asset.name, x, y, 200, 100, 0, item);
             });
           });

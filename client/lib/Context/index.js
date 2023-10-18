@@ -19,6 +19,16 @@ var _propTypes = require("prop-types");
 
 var _propTypes2 = _interopRequireDefault(_propTypes);
 
+var _IconButton = require("@mui/material/IconButton");
+
+var _IconButton2 = _interopRequireDefault(_IconButton);
+
+var _Close = require("@mui/icons-material/Close");
+
+var _Close2 = _interopRequireDefault(_Close);
+
+var _notistack = require("notistack");
+
 var _AreaContext = require("./AreaContext");
 
 var _AreaContext2 = _interopRequireDefault(_AreaContext);
@@ -31,15 +41,38 @@ var _axios = require("axios");
 
 var _axios2 = _interopRequireDefault(_axios);
 
-var _newItem = require("../components/assets/newItem");
+var _newItem = require("./models/newItem");
 
 var _newItem2 = _interopRequireDefault(_newItem);
+
+var _defaultItem = require("./models/defaultItem");
+
+var _defaultItem2 = _interopRequireDefault(_defaultItem);
 
 var _keycloak = require("./keycloak");
 
 var _keycloak2 = _interopRequireDefault(_keycloak);
 
+var _asset = require("../services/asset");
+
+var _asset2 = _interopRequireDefault(_asset);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function SnackbarCloseButton(_ref) {
+  var snackbarKey = _ref.snackbarKey;
+
+  var _useSnackbar = (0, _notistack.useSnackbar)(),
+      closeSnackbar = _useSnackbar.closeSnackbar;
+
+  return _react2.default.createElement(
+    _IconButton2.default,
+    { "aria-label": "close", onClick: function onClick() {
+        return closeSnackbar(snackbarKey);
+      } },
+    _react2.default.createElement(_Close2.default, null)
+  );
+}
 
 function ContextProvider(props, context) {
   var _useState = (0, _react.useState)({ auth: false, token: null }),
@@ -106,32 +139,50 @@ function ContextProvider(props, context) {
           realm: "IFM"
         }
       }).then(function (res) {
-        console.log(res.data);
-        var _iteratorNormalCompletion = true;
-        var _didIteratorError = false;
-        var _iteratorError = undefined;
+        console.log("types", res.data);
+        var url = new URL(window.location.href);
+        var planKey = url.searchParams.get("key");
+        _asset2.default.findAssetsByPlanKey(planKey).then(function (resAssets) {
+          console.log("resAssets", resAssets);
 
-        try {
-          for (var _iterator = res.data.children[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
-            var item = _step.value;
-
+          var _loop = function _loop(item) {
             var img = "";
-            if (item.images !== "") {
-              var images = JSON.parse(item.images);
-              img = images.find(function (se) {
-                return se.main;
-              }).image_url;
-              if (!img) {
-                img = images[0].image_url;
+            if (item.images) {
+              if (item.images !== "") {
+                var images = JSON.parse(item.images);
+                img = images.find(function (se) {
+                  return se.main;
+                }).image_url;
+                if (!img) {
+                  img = images[0].image_url;
+                }
               }
             }
-            var temp = (0, _newItem2.default)({
-              image: img === "" ? undefined : img,
-              height: typeof item.nominalHeight === "number" ? item.nominalHeight === 0 ? 100 : item.nominalHeight : 100,
-              width: typeof item.nominalHeight === "number" ? item.nominalWidth === 0 ? 100 : item.nominalWidth : 100,
-              name: item.name,
-              key: item.key
+            var asset = resAssets.data.find(function (se) {
+              return se.assetKey === item.key;
             });
+            var temp = void 0;
+            if (asset) {
+              temp = (0, _newItem2.default)({
+                image: img === "" ? undefined : img,
+                height: typeof item.nominalHeight === "number" ? item.nominalHeight === 0 ? 100 : item.nominalHeight : 100,
+                width: typeof item.nominalHeight === "number" ? item.nominalWidth === 0 ? 100 : item.nominalWidth : 100,
+                name: item.name,
+                key: item.key,
+                modelObj: process.env.REACT_APP_API_PLANNER + "model/file/" + asset.modelObj,
+                modelMtl: process.env.REACT_APP_API_PLANNER + "model/file/" + asset.modelMtl
+              });
+            } else {
+              temp = (0, _defaultItem2.default)({
+                image: img === "" ? undefined : img,
+                height: typeof item.nominalHeight === "number" ? item.nominalHeight === 0 ? 100 : item.nominalHeight : 100,
+                width: typeof item.nominalHeight === "number" ? item.nominalWidth === 0 ? 100 : item.nominalWidth : 100,
+                name: item.name,
+                key: item.key
+              });
+            }
+            console.log("temp", temp);
+
             context.catalog.registerElement(temp);
             context.catalog.addToCategory("assets", temp);
             var assets = context.assets;
@@ -139,21 +190,33 @@ function ContextProvider(props, context) {
               return element.info.visibility ? element.info.visibility.catalog : true;
             }) : [];
             context.projectActions.initCatalog(context.catalog);
-          }
-        } catch (err) {
-          _didIteratorError = true;
-          _iteratorError = err;
-        } finally {
+          };
+
+          var _iteratorNormalCompletion = true;
+          var _didIteratorError = false;
+          var _iteratorError = undefined;
+
           try {
-            if (!_iteratorNormalCompletion && _iterator.return) {
-              _iterator.return();
+            for (var _iterator = res.data.children[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
+              var item = _step.value;
+
+              _loop(item);
             }
+          } catch (err) {
+            _didIteratorError = true;
+            _iteratorError = err;
           } finally {
-            if (_didIteratorError) {
-              throw _iteratorError;
+            try {
+              if (!_iteratorNormalCompletion && _iterator.return) {
+                _iterator.return();
+              }
+            } finally {
+              if (_didIteratorError) {
+                throw _iteratorError;
+              }
             }
           }
-        }
+        });
       });
     }
   }, [user]);
@@ -166,7 +229,21 @@ function ContextProvider(props, context) {
     _react2.default.createElement(
       _AreaContext2.default,
       { state: props.state, user: user },
-      props.children
+      _react2.default.createElement(
+        _notistack.SnackbarProvider,
+        {
+          maxSnack: 3,
+          autoHideDuration: 5000,
+          anchorOrigin: {
+            vertical: "top",
+            horizontal: "left"
+          },
+          action: function action(snackbarKey) {
+            return _react2.default.createElement(SnackbarCloseButton, { snackbarKey: snackbarKey });
+          }
+        },
+        props.children
+      )
     )
   );
 }
