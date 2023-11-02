@@ -115,7 +115,7 @@
     "three": "0.94.0",
     "webpack": "4.29.6",
     "webpack-cli": "3.3.0",
-    "webpack-dev-server": "3.7.1"
+    "webpack-dev-server": "4.11.1"
   },
   "peerDependencies": {
     "react-dom": "16.x",
